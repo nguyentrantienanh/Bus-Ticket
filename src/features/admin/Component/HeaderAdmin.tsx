@@ -40,7 +40,7 @@ const adminNav = [
 
 function HeaderAdmin() {
   // hàm Language
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const { i18n } = useTranslation()
   const [language, setLanguage] = useState<'vi' | 'en'>('vi')
   const changeLanguage = (lang: 'vi' | 'en') => {

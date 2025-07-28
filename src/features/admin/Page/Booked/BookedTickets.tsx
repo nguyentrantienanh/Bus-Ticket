@@ -66,8 +66,8 @@ function Tickets() {
                     <td className='py-2 px-2 text-gray-500'>{item.id}</td>
                     <td className='py-2 px-2 text-[#4447ff]'>{item.ticketId}</td>
                     <td className='py-2 px-2 text-[#a7a7a7]'>{item.type}</td>
-                    <td className='py-2 px-2 text-[#04b925]  '> {t(`${item.diemDen}`)}</td>
-                    <td className='py-2 px-2 text-[#04b925]'> {t(`${item.diemDi}`)} </td>
+                    <td className='py-2 px-2 text-[#04b925]  '> {t(`${item.diemDen}`,{ defaultValue: item.diemden })}</td>
+                    <td className='py-2 px-2 text-[#04b925]'> {t(`${item.diemDi}`,{ defaultValue: item.diemdi })} </td>
                     <td className='py-2 px-2 text-[#4c4c4c] font-medium'>{item.dateStart}</td>
                     <td className='py-2 px-2 text-[#7337ff] font-mono'>{item.starttime}</td>
                     <td className='py-2 px-2 '>{seats[index].join(', ')}</td>
@@ -155,7 +155,7 @@ function Tickets() {
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Tuyến đường</h1>
                   <p className='font-mono text-gray-600 text-[17px] '>
                     {' '}
-                    {t(`${item.diemDi}`)} - {t(`${item.diemDen}`)}
+                    {t(`${item.diemDi}`,{ defaultValue: item.diemdi })} - {t(`${item.diemDen}`,{ defaultValue: item.diemden })}
                   </p>
                 </div>
                 <div className='flex justify-between px-4'>

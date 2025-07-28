@@ -1,5 +1,5 @@
 import Icon from '../../../../icons/Icon'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
 
 function Account() {

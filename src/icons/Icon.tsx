@@ -1,7 +1,7 @@
 import google from '../assets/auth/google.svg'
 import facebook from '../assets/auth/facebook.svg'
 import linkedin from '../assets/auth/linkdin.svg'
-import { el, es } from 'date-fns/locale'
+ 
 
 function Icon(props: { name: string }) {
   if (props.name == 'phone') {

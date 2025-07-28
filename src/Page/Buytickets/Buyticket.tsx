@@ -8,7 +8,7 @@ import { Calendar } from 'react-date-range'
 import { format } from 'date-fns'
 
 import Alert from '@mui/material/Alert'
-import { se } from 'date-fns/locale'
+
 
 export default function Buyticket() {
   const { id } = useParams<{ id: string }>()
