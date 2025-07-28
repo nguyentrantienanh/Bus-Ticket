@@ -1,4 +1,4 @@
-import { useState  } from 'react'
+import { useState } from 'react'
 import { ticket } from '../../../Data/Ticket'
 import Icon from '../../../icons/Icon'
 import { useTranslation } from 'react-i18next'
@@ -100,10 +100,10 @@ export default function TicketManagement() {
           </button>
         </div>
       </div>
-      {tickets.map((item: any,  ) => {
-const diemdi = t(`Home:${item.diemdi}`, { defaultValue: item.diemdi });
+      {tickets.map((item: any) => {
+        const diemdi = t(`Home:${item.diemdi}`, { defaultValue: item.diemdi })
 
-const diemden = t(`Home:${item.diemden}` ,{ defaultValue: item.diemden });
+        const diemden = t(`Home:${item.diemden}`, { defaultValue: item.diemden })
 
         const name = `${item.type} - ${diemdi} - ${diemden}`
 
@@ -122,7 +122,7 @@ const diemden = t(`Home:${item.diemden}` ,{ defaultValue: item.diemden });
               <div className='flex items-center justify-between w-full lg:w-auto lg:gap-8 text-sm'>
                 <div className='text-center'>
                   <p className='text-nowrap'>{item.starttime}</p>
-                  <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemdi}`,{ defaultValue: item.diemdi })}</p>
+                  <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemdi}`, { defaultValue: item.diemdi })}</p>
                 </div>
                 <div className='text-center'>
                   <i className='text-green-600'>
@@ -132,13 +132,15 @@ const diemden = t(`Home:${item.diemden}` ,{ defaultValue: item.diemden });
                 </div>
                 <div className='text-center'>
                   <p className='text-nowrap'>{item.endtime}</p>
-                  <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemden}`,{ defaultValue: item.diemden })}</p>
+                  <p className='text-[11px] text-gray-500'>
+                    {t(`Home:${item.diemden}`, { defaultValue: item.diemden })}
+                  </p>
                 </div>
               </div>
 
               <div className='flex flex-col items-end gap-2 lg:pl-4 w-full lg:w-auto'>
                 <p className='text-[11px] text-nowrap'>
-                  {t('Buyticket:off_day')}: 
+                  {t('Buyticket:off_day')}:
                   <span className='ml-1 bg-blue-200 text-blue-800 border border-blue-400 px-2 py-1 rounded-full'>
                     {item.offday}
                   </span>
@@ -162,7 +164,7 @@ const diemden = t(`Home:${item.diemden}` ,{ defaultValue: item.diemden });
 
             <div className='border-t border-gray-200 px-4 py-2 text-sm flex flex-wrap gap-2 items-center'>
               <p className='text-gray-500'>{t('Buyticket:facilities')}:</p>
-              {item.facilities.map((facility: any, index : number) => (
+              {item.facilities.map((facility: any, index: number) => (
                 <span key={index} className='bg-gray-100 px-2 py-1 rounded-full text-gray-700 text-xs'>
                   {facility}
                 </span>

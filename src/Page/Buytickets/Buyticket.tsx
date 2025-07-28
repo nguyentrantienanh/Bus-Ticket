@@ -9,7 +9,6 @@ import { format } from 'date-fns'
 
 import Alert from '@mui/material/Alert'
 
-
 export default function Buyticket() {
   const { id } = useParams<{ id: string }>()
   const { t } = useTranslation(['Home', 'Buyticket'])

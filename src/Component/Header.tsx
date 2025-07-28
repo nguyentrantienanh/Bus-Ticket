@@ -3,10 +3,9 @@ import '../App.css'
 import logo from '../assets/logo/Bus_Ticket_Header.png'
 import vietnam from '../assets/languageimg/vietnam.png'
 import my from '../assets/languageimg/my.png'
-import {  useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 function Header() {
   const { t } = useTranslation()

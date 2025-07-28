@@ -1,6 +1,6 @@
 import Icon from '../../../icons/Icon'
 import backgruond from '../../../assets/background.jpg'
-import { useState  } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 export function Booking() {
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -57,8 +57,8 @@ export function Booking() {
                   <tr key={index} className='bg-[#fff] text-gray-800 border-b text-nowrap'>
                     <td className='py-2 px-2 text-gray-500   '>{item.id}</td>
                     <td className='py-2 px-2 text-[#a7a7a7] hidden md:table-cell'>{item.type}</td>
-                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDen}`,{ defaultValue: item.diemdi })}</td>
-                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDi}`,{ defaultValue: item.diemden })}</td>
+                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDen}`, { defaultValue: item.diemdi })}</td>
+                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDi}`, { defaultValue: item.diemden })}</td>
                     <td className='py-2 px-2 text-[#4c4c4c] font-medium'>{item.dateStart}</td>
                     <td className='py-2 px-2 text-[#7337ff] font-mono'>{item.starttime}</td>
                     <td className='py-2 px-2 text-[#04b925] '>{seats[index].join(', ')} </td>
@@ -118,7 +118,7 @@ export function Booking() {
               animation: informationticket ? 'slideDown 0.3s ease' : 'slideUp 0.3s ease'
             }}
           >
-            {thongtinve.map((item: any ) => (
+            {thongtinve.map((item: any) => (
               <div className='  w-150 rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
                 <div
                   key={item.id}

@@ -2,7 +2,7 @@ import background from '../../../assets/background.jpg'
 import Avatar from '../../../assets/avatar.jpg'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
- 
+
 import { googleLogout } from '@react-oauth/google'
 import Icon from '../../../icons/Icon'
 export default function ProfileSetting() {
@@ -116,7 +116,7 @@ export default function ProfileSetting() {
     localStorage.setItem('userList', JSON.stringify(updatedUserList))
 
     window.alert('Thông tin đã được cập nhật!')
-     window.location.reload();
+    window.location.reload()
   }
   // hàm upload ảnh
 
@@ -148,8 +148,9 @@ export default function ProfileSetting() {
                     upload <Icon name='download' />
                   </label>
                 </button>
-                <p className='text-nowrap font-medium'>{userlist?.name || `${UserInfo.firstname} ${UserInfo.lastname}`}</p>
-               
+                <p className='text-nowrap font-medium'>
+                  {userlist?.name || `${UserInfo.firstname} ${UserInfo.lastname}`}
+                </p>
               </div>
 
               <form className=' grid grid-cols-1 sm:grid-cols-2 w-full gap-4 sm:my-4'>

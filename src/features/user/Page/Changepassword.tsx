@@ -15,7 +15,7 @@ export default function Changepassword() {
     setUserList(list)
   }, [])
 
-  const handleSubmit = ( ) => {
+  const handleSubmit = () => {
     if (!userInfo) return alert('Không tìm thấy người dùng')
 
     // Nếu người dùng đã có mật khẩu → kiểm tra mật khẩu cũ

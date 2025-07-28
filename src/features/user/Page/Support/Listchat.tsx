@@ -1,4 +1,3 @@
- 
 import Icon from '../../../../icons/Icon'
 import { Link, useParams } from 'react-router-dom'
 
