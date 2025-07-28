@@ -219,7 +219,8 @@ function TicketPending() {
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Tuyến đường</h1>
                   <p className='font-mono text-gray-600 text-[17px] '>
                     {' '}
-                    {t(`${item.diemDi}`,{ defaultValue: item.diemdi })} - {t(`${item.diemDen}`,{ defaultValue: item.diemden })} 
+                    {t(`${item.diemDi}`, { defaultValue: item.diemdi })} -{' '}
+                    {t(`${item.diemDen}`, { defaultValue: item.diemden })}
                   </p>
                 </div>
                 <div className='flex justify-between px-4'>

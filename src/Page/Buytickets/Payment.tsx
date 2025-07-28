@@ -87,7 +87,8 @@ export default function Payment() {
                         </div>
                         <div>
                           <i className='text-green-600 border-b pl-4 pr-1'>
-                            ...<Icon name='bus-go' />
+                            ...
+                            <Icon name='bus-go' />
                           </i>
                           <div className='text-xs text-gray-500'>
                             {item.timetogo.slice(0, 2)} giờ {item.timetogo.slice(3, 5)} phút
@@ -187,22 +188,16 @@ export default function Payment() {
           </div>
 
           <div className='w-full md:w-1/2 p-4 flex flex-col   h-full border '>
-            
-          <div className='flex flex-col    '>
-            <div className='flex justify-between items-center mb-4'>
-               Lựa chọn thanh toán
-
+            <div className='flex flex-col    '>
+              <div className='flex justify-between items-center mb-4'>Lựa chọn thanh toán</div>
+              <div className='flex flex-col items-center '>
+                <img src={QR} alt='QR Code' className='w-64 h-64 object-contain mb-4 rounded-lg shadow-lg' />
+                <p className='mt-2 text-gray-600 text-center text-sm'>
+                  Quét mã QR để thanh toán vé xe buýt của bạn. Vui lòng đảm bảo thông tin vé là chính xác trước khi
+                  thanh toán.
+                </p>
+              </div>
             </div>
-            <div className='flex flex-col items-center '>
-               <img src={QR} alt='QR Code' className='w-64 h-64 object-contain mb-4 rounded-lg shadow-lg' />
-            <p className='mt-2 text-gray-600 text-center text-sm'>
-              Quét mã QR để thanh toán vé xe buýt của bạn. Vui lòng đảm bảo thông tin vé là chính xác trước khi thanh
-              toán.
-            </p>
-            </div>
-           
-          </div>
-            
           </div>
         </div>
       </div>
