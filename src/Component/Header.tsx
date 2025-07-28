@@ -296,7 +296,7 @@ function Header() {
         <Header />
       </div>
 
-      <div className=' max-[1800px]:px-[5%]   max-[450px]:pr-10  px-[20%] sticky top-0 z-80 h-20 w-full   flex justify-between items-center bg-[#ffffff] shadow-md'>
+      <div className=' max-[1800px]:px-[5%]   max-[450px]:pr-10  px-[20%] sticky -top-1 z-80 h-20 w-full   flex justify-between items-center bg-[#ffffff] shadow-md'>
         <Link to='/' className='flex  gap-2'>
           <img className=' max-[450px]:pl-0 max-[450px]:w-30 w-40 h-22 pl-10 pt-2 object-cover' src={logo} alt='' />
         </Link>
