@@ -1,0 +1,30 @@
+{
+  "Footer_Info":{
+    "text": "Book bus tickets effortlessly with ViserBus! Enjoy seamless travel planning, real-time updates, and secure payments. Whether it’s a daily commute or a long-distance trip, we’re here to make your journey smooth and stress-free."
+     
+  },
+  "Footer_Useful":{
+    "title": "Useful Links",
+    "link" : {
+       "About": "About",
+       "Faqs": "FAQs",
+        "Blog": "Blog",
+        "Contact": "Contact"
+
+    }
+
+  },
+  "Footer_Policies":{
+    "title": "Policies",
+    "link" : {
+      "PrivacyPolicy": "Privacy Policy",
+      "TermsOfService": "Terms of Service",
+      "TicketPolicy": "Ticket Policy",
+      "RefundPolicy": "Refund Policy"
+    }
+  },
+  "Footer_Contact":{
+    "title": "Contact Us",
+    "address": " Nha Trang, Khanh Hoa, Vietnam"
+  }
+}

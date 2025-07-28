@@ -1,0 +1,103 @@
+{
+  "ticketPolicy": {
+    "title": "Chính Sách Vé",
+    "items": 
+      {
+        "title1": "1. Đặt Vé",
+        "content1": "Tất cả các đơn đặt vé phụ thuộc vào tình trạng chỗ trống và xác nhận từ nhà xe. Vui lòng cung cấp thông tin chính xác khi đặt vé. Thông tin sai có thể dẫn đến thất bại khi đặt vé hoặc gặp sự cố khi lên xe.",
+        "title2": "2. Thanh Toán",
+        "content2": "Thanh toán đầy đủ là bắt buộc khi đặt vé. Các phương thức thanh toán được chấp nhận được liệt kê trên website. Đơn đặt vé chỉ được xác nhận sau khi thanh toán thành công.",
+        "title3": "3. Nhận Vé",
+        "content3": "Sau khi thanh toán, vé sẽ được gửi đến email của bạn hoặc có thể tải về. Hãy giữ mã vé cẩn thận và xuất trình khi lên xe.",
+        "title4": "4. Hủy Vé & Hoàn Tiền",
+        "content4": "Chính sách hủy vé và hoàn tiền phụ thuộc vào từng nhà xe. Vui lòng kiểm tra kỹ điều khoản cụ thể khi đặt vé. Chúng tôi không chịu trách nhiệm với các thay đổi hoặc hủy vé do nhà xe thực hiện.",
+        "title5": "5. Thay Đổi Đặt Vé",
+        "content5": "Việc thay đổi thông tin đặt vé (ngày, giờ, thông tin hành khách) phụ thuộc vào chính sách của nhà xe. Hãy liên hệ bộ phận hỗ trợ khách hàng hoặc nhà xe để được hỗ trợ.",
+        "title6": "6. Yêu Cầu Khi Lên Xe",
+        "content6": "Hãy có mặt tại điểm xuất phát ít nhất 30 phút trước giờ khởi hành. Xuất trình vé hợp lệ (bản in hoặc điện tử) và giấy tờ tùy thân nếu được yêu cầu.",
+        "title7": "7. Mất hoặc Bị Lấy Cắp Vé",
+        "content7": "Nếu bạn bị mất hoặc bị lấy cắp vé, hãy liên hệ bộ phận hỗ trợ khách hàng ngay. Việc cấp lại vé sẽ được xem xét và phụ thuộc vào chính sách của nhà xe.",
+        "title8": "8. Trách Nhiệm Nhà Xe",
+        "content8": "Nhà xe chịu trách nhiệm cung cấp dịch vụ vận chuyển như đã mô tả trong đơn đặt vé. Chúng tôi không chịu trách nhiệm với các trường hợp chậm trễ, hủy chuyến hoặc thay đổi dịch vụ từ phía nhà xe.",
+        "title9": "9. Hành Vi Của Hành Khách",
+        "content9": "Hành khách cần cư xử lịch sự và tuân thủ hướng dẫn của nhân viên xe buýt. Hành vi gây rối hoặc vi phạm pháp luật có thể bị từ chối phục vụ mà không hoàn tiền.",
+        "title10": "10. Cập Nhật Chính Sách",
+        "content10": "Chúng tôi có thể cập nhật chính sách vé bất cứ lúc nào. Các thay đổi sẽ có hiệu lực ngay khi được đăng tải trên website."
+      }
+ 
+  },
+  "termsOfService": {
+    "title": "Điều Khoản Dịch Vụ",
+    "items": 
+      {
+        "title1": "1. Chấp Nhận Điều Khoản",
+        "content1": "Khi truy cập hoặc sử dụng website Đặt Vé Xe, bạn đồng ý tuân thủ các Điều Khoản Dịch Vụ này. Nếu không đồng ý, vui lòng không sử dụng dịch vụ của chúng tôi.",
+        "title2": "2. Mô Tả Dịch Vụ",
+        "content2": "Website cung cấp nền tảng trực tuyến để người dùng tìm kiếm, đặt và mua vé xe buýt. Chúng tôi là trung gian giữa người dùng và nhà xe.",
+        "title3": "3. Trách Nhiệm Người Dùng",
+        "content3": "Bạn chịu trách nhiệm cung cấp thông tin chính xác khi đặt vé. Không sử dụng website cho các hoạt động gian lận hoặc vi phạm pháp luật.",
+        "title4": "4. Đặt Vé và Thanh Toán",
+        "content4": "Tất cả các đơn đặt vé phụ thuộc vào tình trạng chỗ trống và xác nhận từ nhà xe. Thanh toán phải được thực hiện đầy đủ khi đặt vé. Vui lòng kiểm tra kỹ thông tin trước khi xác nhận mua vé.",
+        "title5": "5. Hủy Vé và Hoàn Tiền",
+        "content5": "Chính sách hủy vé và hoàn tiền do từng nhà xe quy định. Vui lòng tham khảo chính sách cụ thể khi đặt vé. Chúng tôi không chịu trách nhiệm với các thay đổi hoặc hủy vé từ phía nhà xe.",
+        "title6": "6. Quyền Sở Hữu Trí Tuệ",
+        "content6": "Mọi nội dung và tài liệu trên website, bao gồm logo, văn bản, hình ảnh, phần mềm, thuộc quyền sở hữu của Đặt Vé Xe hoặc đối tác. Không được sử dụng hoặc sao chép nội dung khi chưa có sự cho phép.",
+        "title7": "7. Giới Hạn Trách Nhiệm",
+        "content7": "Chúng tôi không chịu trách nhiệm với bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng website, bao gồm nhưng không giới hạn ở việc hết vé, thay đổi lịch trình hoặc gián đoạn dịch vụ từ phía nhà xe.",
+        "title8": "8. Thay Đổi Điều Khoản",
+        "content8": "Chúng tôi có quyền cập nhật hoặc thay đổi Điều Khoản Dịch Vụ bất cứ lúc nào. Các thay đổi có hiệu lực ngay khi được đăng tải trên website. Việc tiếp tục sử dụng website đồng nghĩa với việc bạn chấp nhận các điều khoản mới.",
+        "title9": "9. Thông Tin Liên Hệ",
+        "content9": "Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào về Điều Khoản Dịch Vụ, vui lòng liên hệ với chúng tôi qua thông tin trên website.",
+        "title10": "10. Hành Vi Người Dùng",
+        "content10": "Bạn cam kết không sử dụng website theo cách gây hại, làm gián đoạn hoặc ảnh hưởng đến người dùng khác. Không được truy cập trái phép vào bất kỳ phần nào của website hoặc hệ thống liên quan.",
+        "title11": "11. Quyền Riêng Tư",
+        "content11": "Việc sử dụng website cũng tuân theo Chính Sách Bảo Mật của chúng tôi. Vui lòng tham khảo Chính Sách Bảo Mật để hiểu rõ về cách chúng tôi xử lý thông tin cá nhân.",
+        "title12": "12. Liên Kết Bên Thứ Ba",
+        "content12": "Website có thể chứa liên kết đến các website hoặc dịch vụ của bên thứ ba mà chúng tôi không kiểm soát. Chúng tôi không chịu trách nhiệm về nội dung, chính sách bảo mật hoặc hoạt động của các website bên ngoài.",
+        "title13": "13. Chấm Dứt",
+        "content13": "Chúng tôi có quyền chấm dứt hoặc tạm ngưng quyền truy cập website của bạn mà không cần báo trước nếu bạn vi phạm Điều Khoản Dịch Vụ hoặc gây hại cho người dùng khác hoặc cho chúng tôi.",
+        "title14": "14. Hiệu Lực Điều Khoản",
+        "content14": "Nếu bất kỳ điều khoản nào bị vô hiệu, các điều khoản còn lại vẫn giữ nguyên hiệu lực."
+      }
+  
+  },
+  "refundPolicy": {
+    "title": "Chính Sách Hoàn Tiền",
+    "items": 
+      {
+        "title1": "Tổng Quan",
+        "content1": "Chính sách hoàn tiền áp dụng cho các trường hợp khách hàng hủy vé theo đúng quy định của từng nhà xe. Vui lòng kiểm tra kỹ điều khoản hoàn tiền khi đặt vé.",
+        "title2": "Thu Thập & Sử Dụng Dữ Liệu",
+        "content2": "Chúng tôi thu thập và sử dụng dữ liệu cá nhân của bạn để xử lý hoàn tiền và hỗ trợ khách hàng. Dữ liệu được bảo mật và chỉ sử dụng cho mục đích liên quan đến giao dịch hoàn tiền.",
+        "title3": "Dữ Liệu Cookies",
+        "content3": "Chúng tôi sử dụng cookies để cải thiện trải nghiệm người dùng và hỗ trợ quá trình hoàn tiền. Cookies giúp ghi nhớ thông tin giao dịch và hỗ trợ xác minh khi cần thiết.",
+        "title4": "Lưu Trữ Dữ Liệu",
+        "content4": "Dữ liệu cá nhân liên quan đến hoàn tiền sẽ được lưu trữ trong thời gian cần thiết để xử lý giao dịch và tuân thủ quy định pháp luật."
+      }
+  
+  },
+  "privacyPolicy": {
+    "title": "Chính Sách Bảo Mật",
+    "items": 
+      {
+        "title1": "Giới Thiệu",
+        "content1": "Chính sách bảo mật này mô tả cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn khi sử dụng website.",
+        "title2": "Thông Tin Chúng Tôi Thu Thập",
+        "content2": "Chúng tôi thu thập hai loại thông tin chính trên website: Thông tin cá nhân (họ tên, email, số điện thoại, địa chỉ...) và thông tin phi cá nhân (loại trình duyệt, thiết bị, hệ điều hành, địa chỉ IP, hoạt động truy cập...).",
+        "title3": "Cách Chúng Tôi Sử Dụng Thông Tin",
+        "content3": "Thông tin thu thập giúp chúng tôi vận hành website hiệu quả, gửi thông báo, trả lời yêu cầu của bạn, phân tích và cải thiện dịch vụ, cá nhân hóa trải nghiệm và tuân thủ quy định pháp luật.",
+        "title4": "Chia Sẻ Thông Tin",
+        "content4": "Chúng tôi có thể chia sẻ thông tin với các đối tác cung cấp dịch vụ hỗ trợ vận hành website. Đối tác này có trách nhiệm bảo mật và chỉ sử dụng thông tin cho mục đích được chỉ định. Chúng tôi không chia sẻ thông tin cá nhân cho mục đích tiếp thị khi chưa có sự đồng ý của bạn.",
+        "title5": "Lưu Trữ Dữ Liệu",
+        "content5": "Chúng tôi chỉ lưu trữ thông tin cá nhân trong thời gian cần thiết để phục vụ mục đích thu thập hoặc theo quy định pháp luật.",
+        "title6": "Bảo Mật Thông Tin",
+        "content6": "Chúng tôi áp dụng các biện pháp bảo mật hợp lý để bảo vệ thông tin khỏi truy cập, tiết lộ, thay đổi hoặc phá hủy trái phép. Tuy nhiên, không có hệ thống nào đảm bảo an toàn tuyệt đối trên Internet.",
+        "title7": "Thay Đổi Chính Sách Bảo Mật",
+        "content7": "Chúng tôi có thể cập nhật chính sách bảo mật này bất cứ lúc nào. Mọi thay đổi sẽ được thông báo trên website. Vui lòng kiểm tra thường xuyên để cập nhật thông tin mới nhất.",
+        "title8": "Lưu Ý",
+        "content8": "Đây là chính sách mẫu và có thể cần điều chỉnh để phù hợp với quy định pháp luật và thực tế hoạt động của website. Hãy tham khảo ý kiến chuyên gia pháp lý nếu cần."
+      }
+   
+  }
+}
+   

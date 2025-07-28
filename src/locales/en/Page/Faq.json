@@ -1,0 +1,19 @@
+{
+  "FAQs": "FAQs",
+  "title": "Frequently Asked Questions",
+  "description": "Below are frequently asked questions about Autobus. If you need more information, please contact us.",
+  "faqs": {
+    "question1": "What is Autobus?",
+    "answer1": "Autobus is an online bus ticket booking platform that allows users to book bus tickets for various routes and destinations.",
+    "question2": "How do I book a bus ticket?",
+    "answer2": "To book a ticket, simply visit our website, select your desired route, choose a bus operator, and complete the payment.",
+    "question3": "What payment methods are accepted?",
+    "answer3": "We accept various payment methods such as credit/debit cards, e-wallets, and bank transfers.",
+    "question4": "Can I cancel or change my booking?",
+    "answer4": "You can cancel or change your booking within the allowed time frame. Please refer to our cancellation policy for details.",
+    "question5": "How do I contact customer support?",
+    "answer5": "You can contact our customer support via email, phone, or the contact form on our website.",
+    "question6": "Is there a mobile app available?",
+    "answer6": "We have a mobile app available for both Android and iOS devices so you can easily book and manage your tickets."
+  }
+}

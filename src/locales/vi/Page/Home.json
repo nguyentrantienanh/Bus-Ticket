@@ -1,0 +1,79 @@
+{
+  "Home_SEARCH":{
+    "GetTicket": "Đặt vé trực tuyến, dễ dàng và an toàn",
+    "ChooseYourTicket": "Chọn vé của bạn"
+  },
+  "Home_button":{
+    "BuyTicket": "Mua vé",
+    "GetTicket": "ĐẶT VÉ NGAY",
+    "FindTicket": "Tìm vé"
+  },
+ 
+    "Home_location":{
+    "All": "Tất cả",
+    "Ha Noi": "Hà Nội",
+    "Ho Chi Minh": "Hồ Chí Minh",
+    "Da Nang": "Đà Nẵng",
+    "Nha Trang": "Nha Trang",
+    "Hue": "Huế",
+    "Can Tho": "Cần Thơ",
+    "Vung Tau": "Vũng Tàu",
+    "Phu Quoc": "Phú Quốc",
+    "Da Lat": "Đà Lạt",
+    "Quy Nhon": "Quy Nhơn",
+    "Hai Phong": "Hải Phòng"
+  },
+   "Home_Steps": {
+  "Header": {
+    "Title": "Đặt vé chỉ với 3 bước đơn giản",
+    "Description": "Hãy xem lý do tại sao bạn nên chọn xe buýt của chúng tôi. Chỉ cần chọn xe buýt và đặt vé cho hành trình tuyệt vời của bạn!"
+  },
+  "Step1": {
+    "Title": "Tìm kiếm chuyến xe",
+    "Description": "Chọn điểm đi, điểm đến, ngày khởi hành và tìm kiếm các chuyến xe phù hợp."
+  },
+  "Step2": {
+    "Title": "Chọn vé",
+    "Description": "Chọn điểm đi, điểm đến, chọn xe buýt cho hành trình của bạn và tìm kiếm chuyến xe."
+  },
+  "Step3": {
+    "Title": "Thanh toán",
+    "Description": "Chọn điểm đi, điểm đến, chọn xe buýt cho hành trình của bạn và tiến hành thanh toán."
+  }
+},
+"Home_Amenities": {
+  "Header": {
+    "Title": "Tiện ích của chúng tôi",
+    "Description": "Hãy xem những lý do phổ biến tại sao bạn nên chọn xe buýt của chúng tôi. Chỉ cần chọn xe buýt và đặt vé cho hành trình tuyệt vời của bạn!"
+  },
+  "AmenitiesList": {
+    "Wifi": "Wifi",
+    "Pillow": "Giường",
+    "Water": "Nước uống",
+    "SoftDrink": "Nước ngọt"
+  }
+},
+"Home_Testimonials": {
+  "Header": {
+    "Title": "Đánh giá của khách hàng",
+    "Description": "Hãy xem những lý do phổ biến tại sao bạn nên chọn xe buýt của chúng tôi. Chỉ cần chọn xe buýt và đặt vé cho hành trình tuyệt vời của bạn!"
+  },
+  "Testimonials": {
+    "Testimonial1": {
+      "Name": "Nguyễn Văn A",
+      "Comment": "Dịch vụ tuyệt vời, xe sạch sẽ và thoải mái!"
+    },
+    "Testimonial2": {
+      "Name": "Trần Thị B",
+      "Comment": "Tôi rất hài lòng với chuyến đi, nhân viên thân thiện và chuyên nghiệp."
+    },
+    "Testimonial3": {
+      "Name": "Lê Văn C",
+      "Comment": "Giá vé hợp lý, tôi sẽ tiếp tục sử dụng dịch vụ này."
+    }
+  }
+},
+"Home_Post":{
+  "Title": "Tin tức mới nhất"
+}
+}
