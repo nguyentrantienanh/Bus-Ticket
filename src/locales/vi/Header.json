@@ -1,0 +1,38 @@
+{
+    "Header_LOGIN":{
+    "SingIn": "Đăng nhập",
+    "SignUp": "Đăng ký",
+    "Hello": "Xin chào"
+  },
+    "Header_NAV":{
+    "Home": "Trang chủ",
+    "About": "Giới thiệu",
+    "Faqs": "Câu hỏi thường gặp",
+    "Blog": "Blog",
+    "Contact": "Liên hệ",
+    "Dashboard": "Bảng điều khiển",
+    "Booking": "Đặt vé",
+    "SupportTicket": "Hỗ trợ",
+    "Profile": "Hồ sơ"
+  },
+  "Header_BUTTON":{
+    "BuyTicket": "Mua vé"
+  },
+  "Header_DROPDOWN": {
+    "BuyTicket": "Mua vé",
+    "BookingHistory": "Lịch sử đặt vé",
+    "CreateNew": "Tạo mới",
+    "Tickets": "Vé",
+    "Profile": "Hồ sơ",
+    "ChangePassword": "Đổi mật khẩu",
+    "Chat": "Trò chuyện"
+  },
+  "Header_LANG": {
+    "Vietnamese": "Tiếng Việt",
+    "English": "Tiếng Anh"
+  },
+  "Header_CONTACT": {
+    "Phone": "+84 972364028",
+    "Email": "nttanh0412@gmail.com"
+  }
+}

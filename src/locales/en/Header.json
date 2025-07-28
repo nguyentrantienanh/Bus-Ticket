@@ -1,0 +1,38 @@
+{
+    "Header_LOGIN":{
+    "SingIn": "Sign In",
+    "SignUp": "Sign Up",
+    "Hello": "Hello"
+  },
+   "Header_NAV":{
+    "Home": "Home",
+     "About": "About",
+     "Faqs": "FAQs",
+     "Blog": "Blog",
+    "Contact": "Contact",
+    "Dashboard": "Dashboard",
+    "Booking": "Booking",
+    "SupportTicket": "Support Ticket",
+    "Profile": "Profile"
+    },
+  "Header_BUTTON":{
+    "BuyTicket": "Buy Ticket"
+  },
+  "Header_DROPDOWN": {
+    "BuyTicket": "Buy Ticket",
+    "BookingHistory": "Booking History",
+    "CreateNew": "Create New",
+    "Tickets": "Tickets",
+    "Profile": "Profile",
+    "ChangePassword": "Change Password",
+    "Chat": "Chat"
+  },
+  "Header_LANG": {
+    "Vietnamese": "Vietnamese",
+    "English": "English"
+  },
+  "Header_CONTACT": {
+    "Phone": "+84 972364028",
+    "Email": "nttanh0412@gmail.com"
+  }
+}

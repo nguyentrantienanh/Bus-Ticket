@@ -1,0 +1,17 @@
+import { Outlet, useLocation } from 'react-router-dom'
+import Listchat from './Listchat'
+export default function Chatlayout() {
+  return (
+    <>
+      <div className='flex w-full  '>
+        <div className='   w-1/5  max-xl:w-2/5   '>
+          <Listchat />
+        </div>
+
+        <div className=' w-full '>
+          <Outlet />
+        </div>
+      </div>
+    </>
+  )
+}

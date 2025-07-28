@@ -1,0 +1,28 @@
+{
+
+  "FAQs": "Câu Hỏi Thường Gặp",
+  "title": "Câu Hỏi Thường Gặp",
+  "description": "Dưới đây là những câu hỏi thường gặp về Autobus. Nếu bạn cần thêm thông tin, vui lòng liên hệ với chúng tôi.",
+  "faqs": 
+    {
+      "question1": "Autobus là gì?",
+      "answer1": "Autobus là nền tảng đặt vé xe buýt trực tuyến, cho phép người dùng đặt vé xe buýt cho nhiều tuyến đường và điểm đến khác nhau.",
+   
+      "question2": "Làm thế nào để tôi đặt vé xe buýt?",
+      "answer2": "Để đặt vé, bạn chỉ cần truy cập website của chúng tôi, chọn tuyến đường mong muốn, chọn nhà xe và hoàn tất thanh toán.",
+    
+      "question3": "Những phương thức thanh toán nào được chấp nhận?",
+      "answer3": "Chúng tôi chấp nhận nhiều phương thức thanh toán như thẻ tín dụng/thẻ ghi nợ, ví điện tử và chuyển khoản ngân hàng.",
+  
+      "question4": "Tôi có thể hủy hoặc thay đổi vé đã đặt không?",
+      "answer4": "Bạn có thể hủy hoặc thay đổi vé trong thời gian cho phép. Vui lòng tham khảo chính sách hủy vé của chúng tôi để biết chi tiết.",
+   
+      "question5": "Làm sao để liên hệ bộ phận hỗ trợ khách hàng?",
+      "answer5": "Bạn có thể liên hệ bộ phận hỗ trợ khách hàng qua email, điện thoại hoặc biểu mẫu liên hệ trên website.",
+   
+      "question6": "Có ứng dụng di động không?",
+      "answer6": "Chúng tôi có ứng dụng di động cho cả thiết bị Android và iOS để bạn dễ dàng đặt và quản lý vé."
+    }
+ 
+}
+    

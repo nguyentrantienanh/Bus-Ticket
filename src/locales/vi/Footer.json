@@ -1,0 +1,30 @@
+{
+  "Footer_Info":{
+    "text": "Đặt vé xe buýt dễ dàng với ViserBus! Tận hưởng kế hoạch du lịch liền mạch, cập nhật theo thời gian thực và thanh toán an toàn. Cho dù đó là chuyến đi hàng ngày hay chuyến đi đường dài, chúng tôi luôn ở đây để giúp hành trình của bạn trở nên suôn sẻ và không căng thẳng."
+     
+  },
+  "Footer_Useful":{
+    "title": "Liên kết hữu ích",
+    "link" : {
+       "About": "Về chúng tôi",
+       "Faqs":  "Câu hỏi thường gặp",
+        "Blog":  "Blog",
+        "Contact": "Liên hệ"
+
+    }
+
+  },
+  "Footer_Policies":{
+    "title":  "Các chính sách",
+    "link" : {
+      "PrivacyPolicy":  "Chính sách bảo mật",
+      "TermsOfService":  "Điều khoản dịch vụ",
+      "TicketPolicy":  "Chính sách vé",
+      "RefundPolicy":  "Chính sách hoàn tiền"
+    }
+  },
+  "Footer_Contact":{
+    "title":  "Liên hệ với chúng tôi",
+    "address":   " Nha Trang, Khánh Hòa, Việt Nam"
+  }
+}
