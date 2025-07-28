@@ -3,7 +3,7 @@ import backgruond from '../../assets/background.jpg'
 import { useState, useEffect } from 'react'
 import { Booking } from './Page/Bookinghistory'
 export default function Dashboard() {
-  const user = JSON.parse(localStorage.getItem('userthongtin') || '{}')
+   
 
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')

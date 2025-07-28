@@ -1,18 +1,18 @@
 import logo from '../../assets/logo/Bus_Ticket_Header.png'
 import background from '../../assets/auth/background-login.jpg'
-import Icon from '../../icons/Icon'
+// import Icon from '../../icons/Icon'
 
 import { useState } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
+// import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function Signin() {
-  // Hàm xử lý captcha
-  const [captchaValue, setCaptchaValue] = useState(false)
+  // // Hàm xử lý captcha
+  // const [captchaValue, setCaptchaValue] = useState(false)
   // hàm xử lý đã check click chưa
   const [checkclick, setcheckclick] = useState(false)
-  const handleCaptchaChange = (value: string | null) => {
-    setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
-  }
+  // const handleCaptchaChange = (value: string | null) => {
+  //   setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
+  // }
   const handleCheckclick = () => {
     setcheckclick(!checkclick)
   }

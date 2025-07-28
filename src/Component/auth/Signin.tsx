@@ -3,8 +3,8 @@ import background from '../../assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useState, useEffect } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
-import FacebookLoginButton from '../../services/FacebookLoginButton'
+// import ReCAPTCHA from 'react-google-recaptcha'
+// import FacebookLoginButton from '../../services/FacebookLoginButton'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -86,14 +86,14 @@ export default function Signin() {
   })
 
   // Hàm xử lý captcha
-  const [captchaValue, setCaptchaValue] = useState(false)
-  const handleCaptchaChange = (value: string | null) => {
-    setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
-  }
+  // const [captchaValue, setCaptchaValue] = useState(false)
+  // const handleCaptchaChange = (value: string | null) => {
+  //   setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
+  // }
 
-  const handleFacebookLogin = (user: any) => {
-    // Xử lý đăng nhập với Facebook
-  }
+  // const handleFacebookLogin = (user: any) => {
+  //   // Xử lý đăng nhập với Facebook
+  // }
 
   // luu thông tin người dùng vào localStorage
   useEffect(() => {
@@ -165,7 +165,7 @@ export default function Signin() {
               </i>
               <span className='text-[12px]'>Login With Google</span>
             </div>
-            <FacebookLoginButton onLogin={handleFacebookLogin} />
+            {/* <FacebookLoginButton onLogin={handleFacebookLogin} /> */}
             <div className='flex items-center justify-center p-1 rounded-[10px] gap-2 border-1 border-[#8b8b8b] w-full  '>
               <i>
                 <Icon name='linkedin' />

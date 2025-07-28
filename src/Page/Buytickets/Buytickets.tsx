@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ticket } from '../../Data/Ticket'
 import { Link } from 'react-router-dom'
 import { useLocation } from '../../Data/Location'
-import vi from 'date-fns/locale/vi'
+ 
 import { format } from 'date-fns'
 import { parse, isAfter } from 'date-fns'
 import { Calendar } from 'react-date-range'
@@ -122,8 +122,8 @@ function BuyticketLayout() {
   const filteredTickets = ticket().filter((item: any) => {
     const idDiemDi = diemDi.find((d) => d.name === selectedDiemDi)?.id || 0
     const idDiemDen = diemDen.find((d) => d.name === selectedDiemDen)?.id || 0
-    const diemDiMatch = idDiemDi === 0 || t(`Home:${item.diemdi}`) === selectedDiemDi
-    const diemDenMatch = idDiemDen === 0 || t(`Home:${item.diemden}`) === selectedDiemDen
+    const diemDiMatch = idDiemDi === 0 || t(`Home:${item.diemdi}`,{ defaultValue: item.diemdi }) === selectedDiemDi
+    const diemDenMatch = idDiemDen === 0 || t(`Home:${item.diemden}`,{ defaultValue: item.diemden }) === selectedDiemDen
 
     // lọc theo filter Vehicle xét name của item.type với localStorage
     const filterData: { [key: string]: boolean } = JSON.parse(localStorage.getItem('filterData') || '{}')
@@ -139,8 +139,8 @@ function BuyticketLayout() {
       routeKeys.some((key) => {
         const route = key.replace('route_', '')
         const [filterDiemdi, filterDiemDen] = route.split(' - ').map((s) => s.trim().toLowerCase())
-        const itemDiemdi = t(`Home:${item.diemdi}`)?.trim().toLowerCase()
-        const itemDiemDen = t(`Home:${item.diemden}`)?.trim().toLowerCase()
+        const itemDiemdi = t(`Home:${item.diemdi}`,{ defaultValue: item.diemdi })?.trim().toLowerCase()
+        const itemDiemDen = t(`Home:${item.diemden}`,{ defaultValue: item.diemden })?.trim().toLowerCase()
 
         return itemDiemdi === filterDiemdi && itemDiemDen === filterDiemDen
       })
@@ -441,8 +441,8 @@ function BuyticketLayout() {
                 {filteredTickets.length > 0 ? (
                   <div className='  h-full space-y-4 w-full'>
                     {filteredTickets.map((item: any) => {
-                      const diemdi = t(`Home:${item.diemdi}`)
-                      const diemden = t(`Home:${item.diemden}`)
+                      const diemdi = t(`Home:${item.diemdi}`,{ defaultValue: item.diemdi })
+                      const diemden = t(`Home:${item.diemden}`,{ defaultValue: item.diemden })
                       const name = `${item.type} -  ${diemdi} - ${diemden}`
                       return (
                         <div
@@ -464,7 +464,7 @@ function BuyticketLayout() {
                             <div className='flex items-center justify-between w-full md:w-auto md:gap-8 text-sm'>
                               <div className='text-center'>
                                 <p className='text-nowrap'>{item.starttime}</p>
-                                <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemdi}`)}</p>
+                                <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemdi}`,{ defaultValue: item.diemdi })}</p>
                               </div>
                               <div className='text-center'>
                                 <i className='text-green-600'>
@@ -475,7 +475,7 @@ function BuyticketLayout() {
                               </div>
                               <div className='text-center'>
                                 <p className='text-nowrap'>{item.endtime}</p>
-                                <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemden}`)}</p>
+                                <p className='text-[11px] text-gray-500'>{t(`Home:${item.diemden}`,{ defaultValue: item.diemden })}</p>
                               </div>
                             </div>
 

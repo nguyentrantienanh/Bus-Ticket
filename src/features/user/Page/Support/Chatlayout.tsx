@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet  } from 'react-router-dom'
 import Listchat from './Listchat'
 export default function Chatlayout() {
   return (

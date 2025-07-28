@@ -1,6 +1,6 @@
 import HeaderAdmin from '../admin/Component/HeaderAdmin'
 import { Outlet, useLocation } from 'react-router-dom'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 export default function LayoutAdmin() {
   const SollowHide = useRef<HTMLDivElement>(null)

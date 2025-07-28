@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Icon from '../../../../icons/Icon'
 const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -131,7 +131,7 @@ function TicketConfirmed() {
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Tuyến đường</h1>
                   <p className='font-mono text-gray-600 text-[17px] '>
                     {' '}
-                    {t(`${item.diemDi}`)} - {t(`${item.diemDen}`)}
+                    {t(`${item.diemDi}`,{ defaultValue: item.diemdi })} - {t(`${item.diemDen}`,{ defaultValue: item.diemden })}
                   </p>
                 </div>
                 <div className='flex justify-between px-4'>
