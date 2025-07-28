@@ -4,7 +4,7 @@ import Background from '../../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useMediaQuery } from '@mui/material'
-
+import Icon from  '../../../icons/Icon'
 export default function InformationUser() {
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
@@ -155,6 +155,7 @@ export default function InformationUser() {
         >
           Tiếp tục thanh toán
         </button>
+        
         
       </Box>
     </div>
