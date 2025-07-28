@@ -69,6 +69,7 @@ function AppRoutes() {
     '/admin',
     '/user/payment/',
     '/user/information-guest-user/',
+    '/user/information-user/',
     '/user/support/chat'
   ]
   // loading mỗi khi chuyển trang
