@@ -3,7 +3,7 @@ import background from '../../assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useState, useEffect } from 'react'
-// import ReCAPTCHA from 'react-google-recaptcha'
+import ReCAPTCHA from 'react-google-recaptcha'
 // import FacebookLoginButton from '../../services/FacebookLoginButton'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -86,12 +86,12 @@ export default function Signin() {
   })
 
   // Hàm xử lý captcha
-  // const [captchaValue, setCaptchaValue] = useState(false)
-  // const handleCaptchaChange = (value: string | null) => {
-  //   setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
-  // }
+  const [captchaValue, setCaptchaValue] = useState(false)
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
+  }
 
-  // const handleFacebookLogin = (user: any) => {
+  // const handleFacebookLogin = ( ) => {
   //   // Xử lý đăng nhập với Facebook
   // }
 
@@ -209,12 +209,12 @@ export default function Signin() {
                   placeholder='Enter Your password'
                 />
               </div>
-              {/* <div className=' flex  '>
+              <div className=' flex  '>
                 <ReCAPTCHA
                   sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
                   onChange={handleCaptchaChange}
                 />
-              </div> */}
+              </div>
               <div className='flex justify-between items-center mt-2'>
                 <div className='flex items-center'>
                   <input type='checkbox' id='rememberme' />
@@ -229,8 +229,8 @@ export default function Signin() {
 
               <button
                 onClick={handleLogin}
-                className={`bg-[#23ff52] h-10 w-full mt-2  `}
-                // disabled={!captchaValue}
+                className={`bg-[#23ff52] h-10 w-full mt-2 ${ captchaValue  ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} `}
+                disabled={!captchaValue}
               >
                 Đăng nhập
               </button>
@@ -238,7 +238,7 @@ export default function Signin() {
               <div>
                 <p className='text-sm text-gray-500 mt-2 mb-20'>
                   Don't have an account?{' '}
-                  <a href='/signup' className='text-blue-500 hover:underline'>
+                  <a href='/signup' className={`text-blue-500 hover:underline    `} >
                     Sign Up
                   </a>
                 </p>

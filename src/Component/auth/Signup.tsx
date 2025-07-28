@@ -3,22 +3,23 @@ import background from '../../assets/auth/background-login.jpg'
 // import Icon from '../../icons/Icon'
 
 import { useState } from 'react'
-// import ReCAPTCHA from 'react-google-recaptcha'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function Signin() {
   // // Hàm xử lý captcha
-  // const [captchaValue, setCaptchaValue] = useState(false)
+  const [captchaValue, setCaptchaValue] = useState(false)
   // hàm xử lý đã check click chưa
   const [checkclick, setcheckclick] = useState(false)
-  // const handleCaptchaChange = (value: string | null) => {
-  //   setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
-  // }
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(!!value) // Chuyển đổi giá trị thành boolean
+  }
   const handleCheckclick = () => {
     setcheckclick(!checkclick)
   }
   const [confirmpassword, setconfirmpassword] = useState('')
   console.log(confirmpassword)
   const Userlist = JSON.parse(localStorage.getItem('userList') || '[]')
+
   const [fromData, setFromData] = useState({
     firstname: '',
     lastname: '',
@@ -142,12 +143,12 @@ export default function Signin() {
             </div>
           </form>
 
-          {/* <div className=' flex  '>
+          <div className=' flex  '>
             <ReCAPTCHA
               sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
               onChange={handleCaptchaChange}
             />
-          </div> */}
+          </div>
 
           <div className='flex items-center mt-2'>
             <input onChange={handleCheckclick} type='checkbox' id='I agree with' />
@@ -173,8 +174,8 @@ export default function Signin() {
 
           <button
             onClick={handleSignup}
-            className={`bg-[#23ff52] h-10 w-full mt-2 ${checkclick ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} text-black font-semibold rounded`}
-            disabled={!checkclick}
+            className={`bg-[#23ff52] h-10 w-full mt-2 ${captchaValue && checkclick ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} text-black font-semibold rounded`}
+            disabled={!captchaValue || !checkclick}
           >
             Đăng ký
           </button>
