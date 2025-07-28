@@ -1,13 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { ticket } from '../../Data/Ticket'
 import { useTranslation } from 'react-i18next'
-import backgroundBuyticket from '../../Assets/background.jpg'
+
+import backgroundBuyticket from '../../assets/background.jpg'
 import { useState, useEffect, useRef } from 'react'
 import Icon from '../../icons/Icon'
 import { Calendar } from 'react-date-range'
 import { format } from 'date-fns'
 
 import Alert from '@mui/material/Alert'
+
 
 export default function Buyticket() {
   const { id } = useParams<{ id: string }>()
