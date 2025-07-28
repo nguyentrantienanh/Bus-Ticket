@@ -20,5 +20,10 @@ export default defineConfig({
     alias: {
       '~': path.resolve(__dirname, './src')
     }
+  },
+  preview: {
+    port: 4173,
+    host: true,
+    allowedHosts: ['bus-ticket-79by.onrender.com']
   }
 })

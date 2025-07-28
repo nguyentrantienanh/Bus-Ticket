@@ -155,6 +155,7 @@ export default function InformationUser() {
         >
           Tiếp tục thanh toán
         </button>
+        
       </Box>
     </div>
   )
