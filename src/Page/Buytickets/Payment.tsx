@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import QR from '../../assets/QR.jpg'
 import bus from '../../assets/bus.png'
 import logo from '../../assets/logo/Bus_Ticket_Header.png'
-import { useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 import Icon from '../../icons/Icon'
 
@@ -63,7 +63,7 @@ export default function Payment() {
 
             <strong className='text-gray-800 text-lg md:text-xl block'>Thông tin hành trình</strong>
             {userinfo.name
-              ? ticket.map((item: any, index: number) => {
+              ? ticket.map((item: any) => {
                   const seatsticket = item.seats.map((s: any) => s.name)
 
                   return (
@@ -113,7 +113,7 @@ export default function Payment() {
                     </div>
                   )
                 })
-              : guestUserTicket.map((item: any, index: number) => {
+              : guestUserTicket.map((item: any) => {
                   const seatsticket = item.seats.map((s: any) => s.name)
                   return (
                     <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
