@@ -1,32 +1,9 @@
 import { useState } from 'react'
 import backgruond from '../../../../assets/background.jpg'
 import Icon from '../../../../icons/Icon'
-
+import { useNavigate } from 'react-router-dom'
 export default function Createnew() {
-  const [fileCount, setFileCount] = useState<number>(0)
-  const [fileNames, setFileNames] = useState<Record<number, string>>({})
-  const handlvisible = () => {
-    if (fileCount < 5) {
-      setFileCount(fileCount + 1)
-    }
-  }
-  const handleRemove = (index: number) => {
-    setFileCount((prev) => {
-      const newVisible = prev - 1
-      return newVisible < 0 ? 0 : newVisible
-    })
-    setFileNames((prev) => {
-      const newFileNames = { ...prev }
-      delete newFileNames[index]
-      return newFileNames
-    })
-  }
-
-  const handleFileChange = (e: any, index: number) => {
-    const file = e.target.files[0]
-    setFileNames((prev) => ({ ...prev, [index]: file ? file.name : 'Không có' }))
-  }
-
+  const navigate = useNavigate()
   // hàm xử lý lưu localStorage chat gồm [ id, description ,lastMessge, , Last Reply,  messages[id, sender, text, timestamp],Status,Priority ]
 
   const [description, setDescription] = useState('')
@@ -70,10 +47,11 @@ export default function Createnew() {
     // Cập nhật lại danh sách người dùng
     localStorage.setItem('userList', JSON.stringify(userList))
 
-    alert('Ticket created successfully!')
+    alert('Tạo chat thành công')
     setDescription('')
     setPriority(1)
     setChat('')
+    navigate('/user/support-ticket')
   }
 
   return (
@@ -130,63 +108,17 @@ export default function Createnew() {
             ></textarea>
           </div>
           <div>
-            <div className='flex max-sm:flex-col-reverse max-sm:gap-2    justify-between'>
-              <p
-                onClick={handlvisible}
-                className={`  text-[#fff]  font-medium rounded-[5px] p-2 ${fileCount < 5 ? ' cursor-pointer bg-gray-600 ' : '  bg-gray-400    cursor-no-drop'}`}
-              >
-                + Add Attachment
-              </p>
+            <div className='flex max-sm:flex-col-reverse max-sm:gap-2   '>
               <button
                 onClick={handleSubmit}
-                className='text-[14px] flex px-2 sm:px-20 py-2 rounded-[5px] font-medium text-[#fff] bg-green-600'
+                className='text-[14px] ml-auto  flex px-2 sm:px-20 py-2 rounded-[5px] font-medium text-[#fff] bg-green-600'
               >
                 <i className='px-2'>
                   <Icon name='send' />
                 </i>
-                Submit
+                Gửi
               </button>
             </div>
-            <p className='text-blue-500 text-[13px] sm:text-[16px] lg:[18px] '>
-              Max 5 files can be uploaded | Maximum upload size is 128MB | Allowed File Extensions: .jpg, .jpeg, .png,
-              .pdf, .doc, .docx
-            </p>
-            {fileCount ? (
-              <div>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
-                  {Array.from({ length: fileCount }, (_, index) => (
-                    <div key={index} className='flex items-center h-10 sm:w-75 justify-between rounded-[5px]'>
-                      <input
-                        type='file'
-                        className='border rounded-[10px] border-gray-200 hidden shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
-                        id={`file-input-${index}`}
-                        name={`file-${index}`}
-                        accept='.jpg,.jpeg,.png,.pdf,.doc,.docx'
-                        onChange={(e) => handleFileChange(e, index)}
-                      />
-                      <label
-                        htmlFor={`file-input-${index}`}
-                        className=' text-[14px] sm:text-[16px] cursor-pointer bg-[#00c00d] text-[#fff] h-full text-nowrap px-1 rounded-l-[5px]  flex items-center justify-center '
-                      >
-                        Choose File
-                      </label>
-                      <span className=' text-[14px] sm:text-[16px] text-gray-700 border-y-1 p-2 border-gray-400  flex items-center justify-center h-full w-full line-clamp-1 overflow-hidden text-ellipsis'>
-                        {fileNames[index] || 'No file selected'}
-                      </span>
-                      <button
-                        type='button'
-                        onClick={() => handleRemove(index)}
-                        className='bg-red-500   text-[#fff] w-25  h-full rounded-r-[5px] hover:bg-red-600'
-                      >
-                        <Icon name='close' />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
           </div>
         </form>
       </div>

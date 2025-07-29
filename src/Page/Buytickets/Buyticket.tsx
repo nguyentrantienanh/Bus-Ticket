@@ -10,7 +10,6 @@ import { format } from 'date-fns'
 
 import Alert from '@mui/material/Alert'
 
-
 export default function Buyticket() {
   const { id } = useParams<{ id: string }>()
   const { t } = useTranslation(['Home', 'Buyticket'])
@@ -108,6 +107,8 @@ export default function Buyticket() {
       endtime: ticket().find((item) => item.id === ticketId)?.endtime,
       timetogo: ticket().find((item) => item.id === ticketId)?.timetogo,
       seatLayout: ticket().find((item) => item.id === ticketId)?.seatLayout,
+      offday: ticket().find((item) => item.id === ticketId)?.offday,
+      facilities: [...(ticket().find((item) => item.id === ticketId)?.facilities || [])],
       seats: seats,
       price: tongtien,
       status: 3,

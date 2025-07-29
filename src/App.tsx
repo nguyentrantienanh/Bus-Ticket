@@ -27,6 +27,7 @@ import InformationGuestUser from './Page/GuestUser/Information'
 import Chatlayout from './features/user/Page/Support/Chatlayout'
 import Chatlist from './features/user/Page/Support/Listchat'
 import InformationUser from './features/user/Page/Information'
+import Ticketsearch from './Page/Ticketsearch/Ticket-search'
 
 // admin
 import ProtectedRouteAmin from './services/ProtectedRouteAmin'
@@ -107,6 +108,7 @@ function AppRoutes() {
         <Route path='/buytickets/:id/:name' element={<Ticket />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/ticket-search' element={<Ticketsearch />} />
 
         <Route
           path='/user/dashboard'

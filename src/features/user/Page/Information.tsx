@@ -74,7 +74,7 @@ export default function InformationUser() {
         onSubmit={handleSubmit}
         className='bg-[#fff] my-[10%] mx-[10%] p-6 rounded-lg shadow-lg w-full max-w-md z-10 relative'
       >
-        <h1 className='text-sm md:text-2xl font-bold mb-3 md:mb-6 text-center'>Thông Tin Khách Vãng Lai</h1>
+        <h1 className='text-sm md:text-2xl font-bold mb-3 md:mb-6 text-center'>Xác nhận thông tin </h1>
         <div className=' mb-1 md:mb-4'>
           <TextField
             margin={isMobile ? 'dense' : 'none'}
@@ -155,8 +155,6 @@ export default function InformationUser() {
         >
           Tiếp tục thanh toán
         </button>
-        
-        
       </Box>
     </div>
   )

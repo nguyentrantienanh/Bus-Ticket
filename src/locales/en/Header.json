@@ -13,7 +13,8 @@
     "Dashboard": "Dashboard",
     "Booking": "Booking",
     "SupportTicket": "Support Ticket",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "TicketSearch": "Ticket Search"
     },
   "Header_BUTTON":{
     "BuyTicket": "Buy Ticket"
@@ -27,6 +28,7 @@
     "ChangePassword": "Change Password",
     "Chat": "Chat"
   },
+  
   "Header_LANG": {
     "Vietnamese": "Vietnamese",
     "English": "English"

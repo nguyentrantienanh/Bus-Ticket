@@ -12,22 +12,37 @@ export default function Listchat() {
   return (
     <nav className='flex flex-col w-full bg-[#fff] h-full '>
       {/* Header */}
-      <div className='flex items-center justify-between px-6 py-3 bg-green-500 text-[#fff] sticky top-0 z-10 shadow'>
-        <Link
-          to={`/user/support-ticket`}
-          className='flex items-center  md:px-1 md:py-0 max-md:hidden   border    rounded-full bg-[#fff] text-green-600 hover:bg-gray-100 '
-        >
-          <Icon name='arrowleft' />
+      <div className='flex items-center justify-between px-3 md:px-6 py-3 bg-green-500 text-[#fff] sticky top-0 z-10 shadow'>
+        <Link to={`/user/support-ticket`} className='   max-md:hidden  '>
+          <button
+            className='bg-[#fff]  text-center cursor-pointer  w-full rounded-2xl   relative text-black text-xl font-semibold group'
+            type='button'
+          >
+            <div className='bg-green-400 rounded-xl   opacity-0 hover:opacity-100   max-md:hidden   h-full w-1/10 flex items-center justify-center absolute     group-hover:w-full z-10 duration-500'>
+              <i className='   text-[#fff]  '>
+                <Icon name='arrowleft' />
+              </i>
+            </div>
+            <p className=' py-2 px-1 text-nowrap text-[14px]'>Quay lại</p>
+          </button>
         </Link>
+
         <h3 className='font-bold text-lg flex mx-2 items-center text-nowrap gap-2'>
           <Icon name='chat' /> Danh sách chat
         </h3>
-        <Link
-          to={`/user/support-ticket`}
-          className='flex items-center px-3 py-1 border    rounded-full bg-[#fff] text-green-600 hover:bg-gray-100 md:hidden'
-        >
-          <Icon name='arrowleft' />
-          <span className='text-sm pl-2 font-medium'>Trở về</span>
+
+        <Link to={`/user/support-ticket`} className='     md:hidden  '>
+          <button
+            className='bg-[#fff] px-2 w-full  text-center cursor-pointer    rounded-2xl   relative text-black text-xl font-semibold group'
+            type='button'
+          >
+            <div className='bg-green-400 rounded-xl   opacity-0 hover:opacity-100   max-md:hidden   h-full w-1/10 flex items-center justify-center absolute     group-hover:w-full z-10 duration-500'>
+              <i className='   text-[#fff]  '>
+                <Icon name='arrowleft' />
+              </i>
+            </div>
+            <p className=' py-2 px-1 text-nowrap text-[14px]'>Quay lại</p>
+          </button>
         </Link>
       </div>
 

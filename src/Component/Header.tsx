@@ -83,7 +83,8 @@ function Header() {
     { id: 2, name: t('Header_NAV.About'), path: '/about', icon: 'about' },
     { id: 3, name: t('Header_NAV.Faqs'), path: '/faqs', icon: 'faqs' },
     { id: 4, name: t('Header_NAV.Blog'), path: '/blog', icon: 'blog' },
-    { id: 5, name: t('Header_NAV.Contact'), path: '/contact', icon: 'contact' }
+    { id: 5, name: t('Header_NAV.Contact'), path: '/contact', icon: 'contact' },
+    { id: 6, name: t('Header_NAV.TicketSearch'), path: '/ticket-search', icon: 'search' }
   ]
   const navbardashboard = [
     { id: 1, name: t('Header_NAV.Dashboard'), path: '/user/dashboard', icon: 'home' },
@@ -124,7 +125,7 @@ function Header() {
     return (
       <Link to='/buytickets' className='flex items-center gap-2'>
         <button className='cursor-pointer flex justify-center items-center rounded-xl font-semibold overflow-hidden relative z-100 border border-[#1ba000]  group px-4 py-2'>
-          <span className='relative z-10   text-green-600 group-hover:text-[#fff] text-xl duration-500 text-[13px]'>
+          <span className='relative z-10 text-nowrap  text-green-600 group-hover:text-[#fff] text-xl duration-500 text-[13px]'>
             {t('Header_BUTTON.BuyTicket')} !
           </span>
           <span className='absolute rounded-xl w-full h-full bg-[#1ba000] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500' />
@@ -228,19 +229,27 @@ function Header() {
               <div key={index} className='relative group'>
                 <Link
                   to={item.path}
-                  className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
+                  className={`text-[16px]  font-semibold   hover:text-[#1ba000] transition-all duration-300 ${
                     location.pathname === item.path
-                      ? 'text-[#1ba000]'
+                      ? 'text-[#1ba000]  '
                       : location.pathname.startsWith(item.path)
-                        ? 'text-[#1ba000]'
-                        : 'text-gray-700'
+                        ? 'text-[#1ba000]  '
+                        : 'text-gray-700 '
                   }`}
                 >
-                  <div className='flex items-center gap-2 p-2 hover:bg-gray-100 rounded w-full'>
+                  <div
+                    className={`flex items-center gap-2 p-2   border-b-3  rounded-2xl    hover:border-green-500    w-full${
+                      location.pathname === item.path
+                        ? 'text-[#1ba000]   '
+                        : location.pathname.startsWith(item.path)
+                          ? 'text-[#1ba000]  '
+                          : 'text-gray-700 border-transparent '
+                    }`}
+                  >
                     <span className='text-[#1ba000]'>
                       <Icon name={item.icon} />
                     </span>
-                    <span>{item.name}</span>
+                    <span className='text-nowrap'>{item.name}</span>
                   </div>
                 </Link>
                 {item.sub && item.sub.length > 0 && (
@@ -267,21 +276,21 @@ function Header() {
               <Link
                 key={index}
                 to={item.path}
-                className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
+                className={`text-[16px] font-semibold  border-b-3 rounded-2xl    hover:border-green-500  hover:text-[#1ba000] transition-all duration-300 ${
                   item.path === '/'
                     ? location.pathname === '/'
-                      ? 'text-[#1ba000]'
-                      : 'text-gray-700'
+                      ? 'text-[#1ba000]  '
+                      : 'text-gray-700 border-transparent'
                     : location.pathname.startsWith(item.path)
                       ? 'text-[#1ba000]'
-                      : 'text-gray-700'
+                      : 'text-gray-700 border-transparent'
                 }`}
               >
-                <div className='flex items-center gap-2 p-2 hover:bg-gray-100 rounded w-full'>
+                <div className='flex items-center gap-2 p-2  transition duration-700 rounded-2xl w-full'>
                   <span className='text-[#1ba000]'>
                     <Icon name={item.icon} />
                   </span>
-                  <span>{item.name}</span>
+                  <span className='text-nowrap'>{item.name}</span>
                 </div>
               </Link>
             ))}
@@ -302,12 +311,12 @@ function Header() {
         <div className='max-[900px]:hidden '>
           <Nav />
         </div>
-        <div className='flex gap-5 '>
+        <div className='flex pl-2 gap-5 '>
           <div className='max-[450px]:hidden'>
             <Buytikets />
           </div>
           <div className='max-[900px]:flex hidden gap-2  '>
-            <div className='   text-[24px] text-[#1ba000] cursor-pointer' onClick={toggleMenu}>
+            <div className='   text-[24px]  text-[#1ba000] cursor-pointer' onClick={toggleMenu}>
               <i>{isMenuOpen ? <Icon name='close' /> : <Icon name='menu' />}</i>
             </div>
           </div>
@@ -320,7 +329,7 @@ function Header() {
             className='fixed bg-black opacity-30 z-90 top-0 w-full h-full '
             onClick={() => setIsMenuOpen(false)}
           ></div>
-          <div className=' min-[900px]:hidden  fixed  top-0   items-start  w-full z-90 flex mt-1  '>
+          <div className=' min-[900px]:hidden  fixed  -top-1  items-start  w-full z-90 flex mt-1  '>
             <div
               className='relative   bg-[#ffffff] flex flex-col shadow-lg  w-full  justify-between p-6 animate-slideDown'
               style={{ animation: 'slideDown 0.3s ease' }}

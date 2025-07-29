@@ -8,7 +8,7 @@ const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
 root.render(
   <StrictMode>
-    <GoogleOAuthProvider clientId='600157510000-vfpbk2eg720ggdohvlhamicug2mjd4a7.apps.googleusercontent.com'>  
+    <GoogleOAuthProvider clientId='600157510000-vfpbk2eg720ggdohvlhamicug2mjd4a7.apps.googleusercontent.com'>
       <App />
     </GoogleOAuthProvider>
   </StrictMode>
