@@ -8,7 +8,7 @@ import Contact from './Page/Contact'
 import Buyticket from './Page/Buytickets/Buytickets'
 import Ticket from './Page/Buytickets/Buyticket'
 import Page404 from './Page/page404'
-// import LoadingPage from './Page/Loding'
+import LoadingPage from './Page/Loding'
 import Signin from './Component/auth/Signin'
 import Signup from './Component/auth/Signup'
 import PrivacyPolicy from './Page/viserbus/policy/PrivacyPolicy'
@@ -58,6 +58,7 @@ import Dashboard from './features/user/Dashboard'
 // import Callapi from './Page/CallAPI'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useState } from 'react'
 // import Icon from './icons/Icon'
 import { useMediaQuery } from 'react-responsive'
 
@@ -74,15 +75,15 @@ function AppRoutes() {
     '/user/support/chat'
   ]
   // loading mỗi khi chuyển trang
-  // const [loading, setLoading] = useState(true)
-  // useEffect(() => {
-  //   setLoading(true)
-  //   const timer = setTimeout(() => {
-  //     setLoading(false)
-  //   }, 1500) // Thay đổi thời gian nếu cần
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 1500) // Thay đổi thời gian nếu cần
 
-  //   return () => clearTimeout(timer)
-  // }, [location.pathname])
+    return () => clearTimeout(timer)
+  }, [location.pathname])
   // Kiểm tra xem đường dẫn hiện tại có nằm trong danh sách cần ẩn header và footer không
   const shouldHideHeaderFooter = hideHeaderFooter.some(
     (path) => location.pathname === path || location.pathname.startsWith(path)
@@ -91,11 +92,11 @@ function AppRoutes() {
   const isMdUp = useMediaQuery({ minWidth: 768 })
   return (
     <>
-      {/* {loading && (
+      {loading && (
         <div className='loading-page overflow-hidden'>
           <LoadingPage />
         </div>
-      )} */}
+      )}
       {!shouldHideHeaderFooter && <Header />}
       <ScrollToTop />
       <Routes>

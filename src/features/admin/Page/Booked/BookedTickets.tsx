@@ -12,8 +12,7 @@ const GuestUserTicket = GuestUser.map((user: any) => user.ticket).flat()
 const ve = [...veData, ...GuestUserTicket]
 
 // kiểm tra xem có vé nào đã đặt hay không userType === 1 khách hàng đã đăng nhập === 2 là khách hàng chưa đăng nhập
-const vechokhach = ve.filter((item: any) => item.userType === 1)
-console.log(vechokhach)
+// const vechokhach = ve.filter((item: any) => item.userType === 1)
 
 function Tickets() {
   const { t } = useTranslation('Home')

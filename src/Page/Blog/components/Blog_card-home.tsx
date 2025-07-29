@@ -2,7 +2,7 @@ import { BlogData } from '../../../Data/Blog'
 import Icon from '../../../icons/Icon'
 import { Link } from 'react-router-dom'
 
-function Blog() {
+function Blogf() {
   return (
     <>
       <section className='flex flex-col gap-5  '>
@@ -26,4 +26,4 @@ function Blog() {
     </>
   )
 }
-export default Blog
+export default Blogf

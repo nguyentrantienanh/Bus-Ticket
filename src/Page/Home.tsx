@@ -258,7 +258,7 @@ function Home() {
                 {t('Home_Amenities.Header.Description')}
               </p>
             </div>
-            <div className='px-[30%]  max-[1200px]:px-5 max-[1800px]:px-[10%]'>
+            <div className='px-[30%]  max-[1200px]:px-5 max-[1800px]:px-[10%] max-[1950px]:px-[15%]'>
               <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={10}
@@ -275,7 +275,7 @@ function Home() {
                 {OurAmenities.map((amenity) => (
                   <SwiperSlide
                     key={amenity.id}
-                    className='bg-[#fff] group   p-10 px-20 max-[1050px]:p-5 rounded-[10px]  cursor-pointer   transition-all duration-700 border-2 border-gray-300 hover:shadow-1xl hover:border-[#8dda7e] flex flex-col items-center gap-3 '
+                    className='bg-[#fff] group   p-10  px-20 max-[1050px]:p-5 rounded-[10px]  cursor-pointer   transition-all duration-700 border-2 border-gray-300 hover:shadow-1xl hover:border-[#8dda7e] flex flex-col items-center gap-3 '
                   >
                     <div className='flex flex-col items-center gap-2'>
                       <i className='  text-[rgb(128,128,128)] border-b-5  text-[50px] max-[900px]:text-[50px] group-hover:text-[#0e9e4d]  '>
@@ -305,7 +305,7 @@ function Home() {
             <Feedback />
           </div>
         </section>
-        <section className=' px-[30%] py-10 max-[1200px]:px-5 max-[1800px]:px-[10%]'>
+        <section className=' px-[30%] py-10 max-[1200px]:px-5 max-[1800px]:px-[10%] max-[1950px]:px-[20%] '>
           <div className='text-center m-10 max-[1200px]:m-5'>
             <strong className=' text-[30px] '>{t('Home_Post.Title')}</strong>
           </div>

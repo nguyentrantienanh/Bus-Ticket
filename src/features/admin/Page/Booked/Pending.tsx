@@ -11,7 +11,6 @@ const GuestUserTicket = GuestUser.map((user: any) => user.ticket).flat()
 
 // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
 const ve = [...veData, ...GuestUserTicket]
-console.log(ve)
 
 function TicketPending() {
   // hiện thị vé đã được duyệt

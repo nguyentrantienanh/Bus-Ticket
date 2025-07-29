@@ -46,7 +46,7 @@ export default function Ticketsearch() {
   const USERID = (userinfo.name ? UserList : GuestUser).find((user: any) =>
     user.ticket?.some((t: any) => t.id === Number(searchTerm))
   )
-  console.log(USERID, 'USERID')
+
   const seatsticket = ticketseach?.seats.map((s: any) => s.name)
 
   return (
@@ -67,7 +67,7 @@ export default function Ticketsearch() {
         className='bg-[#fff]  '
         onSubmit={handleSearch}
       >
-        <div className='  bg-[#fff]  w-full items-center justify-center px-5 md:px-10 xl:px-30 mt-10 border-b-2 border-dashed border-gray-400'>
+        <div className='  bg-[#fff] my-[7%] w-full items-center justify-center px-5 md:px-10 xl:px-30 mt-10 border-b-2 border-dashed border-gray-400'>
           <div className=' mb-4'>
             <TextField
               label='Mã vé'
@@ -106,7 +106,7 @@ export default function Ticketsearch() {
         </div>
       </Box>
 
-      <div className=' bg-[#fff] mx-10 my-10 flex justify-center items-center'>
+      <div className=' bg-[#fff] mx-10 my-10 flex   justify-center items-center'>
         {ticketseach ? (
           <div className='flex flex-col'>
             <div
