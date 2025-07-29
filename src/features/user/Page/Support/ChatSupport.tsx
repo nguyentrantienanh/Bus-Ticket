@@ -47,15 +47,25 @@ export default function ChatSupport() {
     <div className='flex flex-col w-full    bg-[#fff]  h-screen'>
       {/* Header */}
       <div className='flex items-center justify-between px-4 py-3 border-b border-gray-400 bg-[#e6f4ea] sticky top-0 z-10 shadow-sm'>
-        <div className='flex'>
-          <Link
-            to={`/user/support/chat`}
-            className='flex items-center mr-2 px-3 py-1 border rounded-full bg-[#fff] text-green-600 hover:bg-[#f0f0f0] md:hidden'
-          >
-            <Icon name='arrowleft' />
-            <span className='text-sm pl-2 font-medium'>Trở về</span>
+        <div className='flex items-center gap-2 '>
+          <Link to={`/user/support/chat`} className='  md:hidden '>
+            <button
+              className='bg-[#fff] py-1 border-green-400 border-dashed border text-center cursor-pointer   rounded-xl h-full relative text-black text-xl font-semibold group'
+              type='button'
+            >
+              <div className='bg-green-400 opacity-0 hover:opacity-100 rounded-xl h-full w-1/10 flex items-center justify-center absolute top-0    group-hover:w-full z-10 duration-500'>
+                <i className='   text-[#fff]  text-[12px] '>
+                  <Icon name='arrowleft' />
+                </i>
+              </div>
+
+              <p className=' px-1  text-nowrap text-[10px]'>Quay lại</p>
+            </button>
           </Link>
-          <h1 className='text-xl font-semibold text-green-700 truncate'>{chat[0]?.description || 'Chat hỗ trợ'}</h1>
+
+          <h1 className=' text-[15px]   md:text-xl font-semibold text-green-700 truncate'>
+            {chat[0]?.description || 'Chat hỗ trợ'}
+          </h1>
         </div>
         <div>
           {chat.map((item: any, index: any) => (

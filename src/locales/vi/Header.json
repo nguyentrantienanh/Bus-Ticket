@@ -13,7 +13,8 @@
     "Dashboard": "Bảng điều khiển",
     "Booking": "Đặt vé",
     "SupportTicket": "Hỗ trợ",
-    "Profile": "Hồ sơ"
+    "Profile": "Hồ sơ",
+    "TicketSearch": "Tìm vé"
   },
   "Header_BUTTON":{
     "BuyTicket": "Mua vé"

@@ -229,7 +229,7 @@ export default function Signin() {
 
               <button
                 onClick={handleLogin}
-                className={`bg-[#23ff52] h-10 w-full mt-2 ${ captchaValue  ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} `}
+                className={`bg-[#23ff52] h-10 w-full mt-2 ${captchaValue ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} `}
                 disabled={!captchaValue}
               >
                 Đăng nhập
@@ -238,7 +238,7 @@ export default function Signin() {
               <div>
                 <p className='text-sm text-gray-500 mt-2 mb-20'>
                   Don't have an account?{' '}
-                  <a href='/signup' className={`text-blue-500 hover:underline    `} >
+                  <a href='/signup' className={`text-blue-500 hover:underline    `}>
                     Sign Up
                   </a>
                 </p>

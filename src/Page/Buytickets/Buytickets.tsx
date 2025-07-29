@@ -238,7 +238,7 @@ function BuyticketLayout() {
                 </i>
                 <div className='flex justify-between relative w-full '>
                   <div
-                    className='cursor-pointer text-[13px] px-2 py-1 bg-[#fff] rounded'
+                    className='cursor-pointer text-[13px] px-2 py-1 bg-[#fff] rounded w-full'
                     onClick={() => setShowDiemDiDropdown(!showDiemDiDropdown)}
                   >
                     {selectedDiemDi || t('Home:Home_location.All')}
@@ -259,7 +259,10 @@ function BuyticketLayout() {
                       ))}
                     </div>
                   )}
-                  <i className='text-[14px] text-gray-600' onClick={() => setShowDiemDiDropdown(!showDiemDiDropdown)}>
+                  <i
+                    className='text-[14px] text-gray-600 cursor-pointer'
+                    onClick={() => setShowDiemDiDropdown(!showDiemDiDropdown)}
+                  >
                     <Icon name={showDiemDiDropdown ? 'up' : 'dow'} />
                   </i>
                 </div>
@@ -273,9 +276,9 @@ function BuyticketLayout() {
                   <Icon name='location' />
                 </i>
 
-                <div className='relative w-full flex justify-between'>
+                <div className='relative    w-full flex justify-between'>
                   <div
-                    className=' text-[13px]  cursor-pointer px-2 py-1 bg-[#fff] rounded'
+                    className=' text-[13px]  cursor-pointer px-2 w-full py-1 bg-[#fff] rounded'
                     onClick={() => setShowDiemDenDropdown(!showDiemDenDropdown)}
                   >
                     {selectedDiemDen || t('Home:Home_location.All')}
@@ -304,14 +307,14 @@ function BuyticketLayout() {
                   </i>
                 </div>
               </div>
-              <div className='   border border-[#8aff73] rounded-[10px] px-2 py-1 flex items-center gap-2'>
+              <div className='  cursor-pointer  border border-[#8aff73] rounded-[10px] px-2 py-1 flex items-center gap-2'>
                 <i className='text-[#66ff47]'>
                   <Icon name='calendar' />
                 </i>
-                <div className='relative w-full  '>
+                <div className='relative w-full cursor-pointer  '>
                   <div ref={refCalendar}>
                     <input
-                      className='focus:outline-none'
+                      className='focus:outline-none cursor-pointer'
                       type=''
                       value={calendar}
                       readOnly
