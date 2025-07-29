@@ -22,7 +22,7 @@ function BlogLayout() {
         </div>
       </div>
       <div
-        className={`flex ${isDetail ? 'flex-col md:flex-row' : 'flex-col'} gap-4 px-5 py-5 bg-[#f9f9f9] 2xl:px-[20%]`}
+        className={`flex ${isDetail ? 'flex-col md:flex-row' : 'flex-col'} gap-4 px-5 py-5 bg-[#f9f9f9] xl:px-[10%]`}
       >
         <div className={`w-full ${isDetail ? '  md:w-4/5 ' : 'w-full'} ${isDetail ? 'md:pr-4' : ''}`}>
           <Outlet />

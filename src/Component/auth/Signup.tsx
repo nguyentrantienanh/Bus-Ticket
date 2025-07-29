@@ -17,7 +17,7 @@ export default function Signin() {
     setcheckclick(!checkclick)
   }
   const [confirmpassword, setconfirmpassword] = useState('')
-  console.log(confirmpassword)
+
   const Userlist = JSON.parse(localStorage.getItem('userList') || '[]')
 
   const [fromData, setFromData] = useState({

@@ -79,10 +79,10 @@ const CallApi = () => {
   }
 
   // Hàm gọi API
-  const fetchData = async (movieSlug: string) => {
+  const fetchData = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`https://ophim1.com/phim/${movieSlug}`)
+      const response = await fetch(`https://ophim1.com/phim/${slug}`)
       if (!response.ok) {
         throw new Error('Không thể tải dữ liệu')
       }
@@ -112,7 +112,7 @@ const CallApi = () => {
   // Gọi API khi slug thay đổi
   useEffect(() => {
     if (slug) {
-      fetchData(slug)
+      fetchData()
     }
   }, [slug])
 
