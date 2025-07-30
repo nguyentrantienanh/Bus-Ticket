@@ -59,188 +59,189 @@ export default function Ticketsearch() {
           <h1 className=' font-bold mb-4 text-[#fff] text-[20px] sm:text-2xl lg:text-4xl   '> Tra cứu vé </h1>
         </div>
       </div>
-
-      <Box
-        component='form'
-        sx={{ '& > :not(style)': { width: '100%' } }}
-        autoComplete='off'
-        className='bg-[#fff]  '
-        onSubmit={handleSearch}
-      >
-        <div className='  bg-[#fff] my-[7%] w-full items-center justify-center px-5 md:px-10 xl:px-30 mt-10 border-b-2 border-dashed border-gray-400'>
-          <div className=' mb-4'>
-            <TextField
-              label='Mã vé'
-              variant='outlined'
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value)
-              }}
-              required
-              className='w-full'
-              placeholder='Nhập mã vé'
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '&:hover fieldset': {
-                    borderColor: '#16a34a' // green-600 khi hover
+      <div className='h-[100%]'>
+        <Box
+          component='form'
+          sx={{ '& > :not(style)': { width: '100%' } }}
+          autoComplete='off'
+          className='bg-[#fff]  '
+          onSubmit={handleSearch}
+        >
+          <div className='  bg-[#fff]   w-full items-center justify-center px-5 md:px-10 xl:px-30 mt-10 border-b-2 border-dashed border-gray-400'>
+            <div className=' mb-4'>
+              <TextField
+                label='Mã vé'
+                variant='outlined'
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value)
+                }}
+                required
+                className='w-full'
+                placeholder='Nhập mã vé'
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '&:hover fieldset': {
+                      borderColor: '#16a34a' // green-600 khi hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#16a34a' // green-600 khi focus
+                    }
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#16a34a' // green-600 khi focus
+                  '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                      color: '#16a34a' // Label màu xanh khi focus
+                    }
                   }
-                },
-                '& .MuiInputLabel-root': {
-                  '&.Mui-focused': {
-                    color: '#16a34a' // Label màu xanh khi focus
-                  }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
+
+            <div className='py-4   justify-center items-center flex  '>
+              <button className='bg-green-700 hover:bg-green-700 cursor-pointer text-[#fff] border border-green-400 border-b-4 w-80 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group'>
+                <span className='bg-green-400 shadow-green-400 font-medium absolute -top-[150%] left-0 inline-flex w-full h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]' />
+                Tra cứu
+              </button>
+            </div>
           </div>
+        </Box>
 
-          <div className='py-4   justify-center items-center flex  '>
-            <button className='bg-green-800 hover:bg-green-700 cursor-pointer text-[#fff] border border-green-400 border-b-4 w-80 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group'>
-              <span className='bg-green-400 shadow-green-400 font-medium absolute -top-[150%] left-0 inline-flex w-full h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]' />
-              Tra cứu
-            </button>
-          </div>
-        </div>
-      </Box>
-
-      <div className=' bg-[#fff] mx-10 my-10 flex   justify-center items-center'>
-        {ticketseach ? (
-          <div className='flex flex-col'>
-            <div
-              className={` transition-all duration-500  ${ticketDetail ? 'rounded-t-2xl' : 'rounded-2xl'}    bg-[#fff] shadow-md border-1  border-dashed overflow-hidden transition hover:shadow-xl`}
-            >
-              {/* Phần thông tin vé */}
-              <div className='flex flex-col md:flex-row items-start md:items-center p-5 gap-5 bg-gray-50'>
-                {/* Trái: Tuyến */}
-                <div className='flex-1'>
-                  <h1 className='text-lg font-semibold text-gray-800 line-clamp-1'>{name}</h1>
-                  <p className='text-xs text-gray-500'>Sơ đồ ghế: {ticketseach?.seatLayout}</p>
-                  <p className='text-sm text-amber-500 flex items-center gap-1 mt-1'>
-                    <Icon name='bus' /> {ticketseach?.type}
-                  </p>
-                </div>
-
-                {/* Giữa: Thời gian */}
-                <div className='flex justify-between w-full md:w-auto md:gap-10 text-sm text-gray-700'>
-                  <div className='text-center'>
-                    <p className='font-medium'>{ticketseach?.starttime}</p>
-                    <p className='text-xs text-gray-500'>
-                      {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
+        <div className=' bg-[#fff] mx-10 my-10 flex   justify-center items-center'>
+          {ticketseach ? (
+            <div className='flex flex-col'>
+              <div
+                className={` transition-all duration-500  ${ticketDetail ? 'rounded-t-2xl' : 'rounded-2xl'}    bg-[#fff] shadow-md border-1  border-dashed overflow-hidden transition hover:shadow-xl`}
+              >
+                {/* Phần thông tin vé */}
+                <div className='flex flex-col md:flex-row items-start md:items-center p-5 gap-5 bg-gray-50'>
+                  {/* Trái: Tuyến */}
+                  <div className='flex-1'>
+                    <h1 className='text-lg font-semibold text-gray-800 line-clamp-1'>{name}</h1>
+                    <p className='text-xs text-gray-500'>Sơ đồ ghế: {ticketseach?.seatLayout}</p>
+                    <p className='text-sm text-amber-500 flex items-center gap-1 mt-1'>
+                      <Icon name='bus' /> {ticketseach?.type}
                     </p>
                   </div>
 
-                  <div className='text-center'>
-                    <Icon name='arrow-right' />
-                    <p className='text-xs text-gray-500'>{ticketseach?.date}</p>
-                    <p className='text-xs text-gray-500'>{ticketseach?.timetogo}</p>
+                  {/* Giữa: Thời gian */}
+                  <div className='flex justify-between w-full md:w-auto md:gap-10 text-sm text-gray-700'>
+                    <div className='text-center'>
+                      <p className='font-medium'>{ticketseach?.starttime}</p>
+                      <p className='text-xs text-gray-500'>
+                        {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
+                      </p>
+                    </div>
+
+                    <div className='text-center'>
+                      <Icon name='arrow-right' />
+                      <p className='text-xs text-gray-500'>{ticketseach?.date}</p>
+                      <p className='text-xs text-gray-500'>{ticketseach?.timetogo}</p>
+                    </div>
+
+                    <div className='text-center'>
+                      <p className='font-medium'>{ticketseach?.endtime}</p>
+                      <p className='text-xs text-gray-500'>
+                        {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className='text-center'>
-                    <p className='font-medium'>{ticketseach?.endtime}</p>
-                    <p className='text-xs text-gray-500'>
-                      {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}
+                  {/* Phải: Ngày nghỉ + nút */}
+                  <div className='flex flex-col items-end gap-2 md:pl-4 w-full md:w-auto'>
+                    <p className='text-xs'>
+                      {t('Home:offday', { defaultValue: 'Ngày nghỉ' })}:
+                      <span className='ml-1 bg-blue-100 text-blue-800 border border-blue-300 px-2 py-0.5 rounded-full'>
+                        {ticketseach?.offday}
+                      </span>
                     </p>
+
+                    <button
+                      onClick={handleticketDetail}
+                      className=' cursor-pointer relative flex items-center text-sm px-4 py-2 overflow-hidden font-medium transition-all bg-green-500 rounded-md group'
+                    >
+                      <span className='absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-green-700 rounded group-hover:-mr-4 group-hover:-mt-4'>
+                        <span className='absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#fff]' />
+                      </span>
+                      <span className='absolute bottom-0 rotate-180 left-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-green-700 rounded group-hover:-ml-4 group-hover:-mb-4'>
+                        <span className='absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#fff]' />
+                      </span>
+                      <span className='absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-green-600 rounded-md group-hover:translate-x-0' />
+                      <span className='relative w-full text-left text-[#fff] transition-colors duration-200 ease-in-out font-medium group-hover:text-[#fff]'>
+                        {' '}
+                        Chi tiết
+                      </span>
+                    </button>
                   </div>
                 </div>
 
-                {/* Phải: Ngày nghỉ + nút */}
-                <div className='flex flex-col items-end gap-2 md:pl-4 w-full md:w-auto'>
-                  <p className='text-xs'>
-                    {t('Home:offday', { defaultValue: 'Ngày nghỉ' })}:
-                    <span className='ml-1 bg-blue-100 text-blue-800 border border-blue-300 px-2 py-0.5 rounded-full'>
-                      {ticketseach?.offday}
+                {/* Tiện nghi */}
+                <div className='border-t border-dashed border-gray-500 bg-[#fff] px-5 py-3 text-sm flex flex-wrap gap-2'>
+                  <p className='text-gray-600'>Tiện nghi:</p>
+                  {ticketseach?.facilities?.map((facility: any, index: number) => (
+                    <span key={index} className='bg-gray-100 px-3 py-1 rounded-full text-gray-700 text-xs'>
+                      {facility}
                     </span>
-                  </p>
-
-                  <button
-                    onClick={handleticketDetail}
-                    className=' cursor-pointer relative flex items-center text-sm px-4 py-2 overflow-hidden font-medium transition-all bg-green-500 rounded-md group'
-                  >
-                    <span className='absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-green-700 rounded group-hover:-mr-4 group-hover:-mt-4'>
-                      <span className='absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#fff]' />
-                    </span>
-                    <span className='absolute bottom-0 rotate-180 left-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-green-700 rounded group-hover:-ml-4 group-hover:-mb-4'>
-                      <span className='absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#fff]' />
-                    </span>
-                    <span className='absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-green-600 rounded-md group-hover:translate-x-0' />
-                    <span className='relative w-full text-left text-[#fff] transition-colors duration-200 ease-in-out font-medium group-hover:text-[#fff]'>
-                      {' '}
-                      Chi tiết
-                    </span>
-                  </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Tiện nghi */}
-              <div className='border-t border-dashed border-gray-500 bg-[#fff] px-5 py-3 text-sm flex flex-wrap gap-2'>
-                <p className='text-gray-600'>Tiện nghi:</p>
-                {ticketseach?.facilities?.map((facility: any, index: number) => (
-                  <span key={index} className='bg-gray-100 px-3 py-1 rounded-full text-gray-700 text-xs'>
-                    {facility}
+              <div
+                className={`transition-all duration-600 ease-in-out overflow-hidden ${
+                  ticketDetail ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                } bg-[#fff] border-b-1 border-r-1 border-l-1 border-dashed rounded-b-2xl p-4 shadow space-y-2`}
+              >
+                <div className='flex justify-between items-center'>
+                  <span className='text-sm text-gray-500'>Số vé/code: {ticketseach.id}</span>
+                  <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
+                    Chiều đi
                   </span>
-                ))}
-              </div>
-            </div>
-
-            <div
-              className={`transition-all duration-600 ease-in-out overflow-hidden ${
-                ticketDetail ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
-              } bg-[#fff] border-b-1 border-r-1 border-l-1 border-dashed rounded-b-2xl p-4 shadow space-y-2`}
-            >
-              <div className='flex justify-between items-center'>
-                <span className='text-sm text-gray-500'>Số vé/code: {ticketseach.id}</span>
-                <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
-                  Chiều đi
-                </span>
-              </div>
-
-              <div className='text-xl font-bold'>{name}</div>
-              <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {ticketseach.seatLayout}</p>
-
-              <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
-                <div>
-                  <div className='text-xl font-bold'>{ticketseach.starttime}</div>
-                  <div className='text-sm font-medium'>
-                    {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
-                  </div>
                 </div>
-                <div>
-                  <i className='text-green-600 border-b pl-4 pr-1'>
-                    ...
-                    <Icon name='bus-go' />
-                  </i>
-                  <div className='text-xs text-gray-500'>
-                    {ticketseach.timetogo.slice(0, 2)} giờ {ticketseach.timetogo.slice(3, 5)} phút
-                    <br />{' '}
+
+                <div className='text-xl font-bold'>{name}</div>
+                <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {ticketseach.seatLayout}</p>
+
+                <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
+                  <div>
+                    <div className='text-xl font-bold'>{ticketseach.starttime}</div>
+                    <div className='text-sm font-medium'>
+                      {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
+                    </div>
+                  </div>
+                  <div>
+                    <i className='text-green-600 border-b pl-4 pr-1'>
+                      ...
+                      <Icon name='bus-go' />
+                    </i>
+                    <div className='text-xs text-gray-500'>
+                      {ticketseach.timetogo.slice(0, 2)} giờ {ticketseach.timetogo.slice(3, 5)} phút
+                      <br />{' '}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className='text-xl font-bold'> {ticketseach.endtime}</div>
+                    <div className='text-sm font-medium'>
+                      {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <div className='text-xl font-bold'> {ticketseach.endtime}</div>
-                  <div className='text-sm font-medium'>
-                    {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}
+                <div className='bg-gray-100 p-3 rounded-lg text-sm'>
+                  <div className='font-semibold  '>{USERID?.fullName || USERID?.name}</div>
+
+                  <div className='text-xs text-gray-600'>CMND: ***</div>
+                  <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
+                  <div className='mt-2 border-t pt-2 flex justify-between'>
+                    <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
+                    <div className='font-bold text-green-600'>{ticketseach.price.toLocaleString()}đ</div>
                   </div>
-                </div>
-              </div>
-
-              <div className='bg-gray-100 p-3 rounded-lg text-sm'>
-                <div className='font-semibold  '>{USERID?.fullName || USERID?.name}</div>
-
-                <div className='text-xs text-gray-600'>CMND: ***</div>
-                <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
-                <div className='mt-2 border-t pt-2 flex justify-between'>
-                  <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
-                  <div className='font-bold text-green-600'>{ticketseach.price.toLocaleString()}đ</div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className='bg-[#fff]'></div>
-        )}
+          ) : (
+            <div className='bg-[#fff]'></div>
+          )}
+        </div>
       </div>
     </>
   )

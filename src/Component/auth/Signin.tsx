@@ -2,6 +2,7 @@ import logo from '../../assets/logo/Bus_Ticket_Header.png'
 import background from '../../assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
+
 import { useState, useEffect } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 // import FacebookLoginButton from '../../services/FacebookLoginButton'
@@ -147,7 +148,7 @@ export default function Signin() {
   return (
     <div className='flex flex-col md:flex-row  min-h-screen  bg-gray-100'>
       <div className='w-full md:w-2/4  '>
-        <img src={background} alt='Background' className='       object-cover object-left h-full w-full  ' />
+        <img src={background} alt='Background' className=' object-cover object-left h-full w-full  ' />
       </div>
 
       <div className='  flex flex-col items-center justify-start w-full md:w-2/4 min-h-screen bg-[#fff] py-8 px-4 overflow-y-auto'>
@@ -165,6 +166,7 @@ export default function Signin() {
               </i>
               <span className='text-[12px]'>Login With Google</span>
             </div>
+
             {/* <FacebookLoginButton onLogin={handleFacebookLogin} /> */}
             <div className='flex items-center justify-center p-1 rounded-[10px] gap-2 border-1 border-[#8b8b8b] w-full  '>
               <i>

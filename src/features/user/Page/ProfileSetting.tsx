@@ -1,6 +1,6 @@
 import background from '../../../assets/background.jpg'
-import Avatar from '../../../assets/avatar.jpg'
-import { useState } from 'react'
+ 
+import {   useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { googleLogout } from '@react-oauth/google'
@@ -82,8 +82,8 @@ export default function ProfileSetting() {
     const updatedUser = {
       id: UserInfo.id,
       email: emailValue,
-      firstname: nameValue.split(' ')[0] || '',
-      lastname: nameValue.split(' ')[1] || '',
+      firstname: nameValue.split(' ')[1] || '', 
+      lastname: nameValue.split(' ')[0] || '',
       googleId: UserInfo.googleId,
       imageUrl: UserInfo.imageUrl,
       name: nameValue,
@@ -119,6 +119,38 @@ export default function ProfileSetting() {
     window.location.reload()
   }
   // hàm upload ảnh
+  const handleImageupload =(e: any) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader() // Tạo một đối tượng FileReader để đọc file
+      reader.onload = (event) => // Khi đọc file thành công
+      {
+        const imageUrl = event.target?.result as string // Lấy URL của ảnh đã đọc
+         // Cập nhật UserInfo (không cần map vì UserInfo là object, không phải array)
+      const updatedUser = {
+        ...UserInfo,
+        imageUrl: imageUrl // Sửa từ imageUrls thành imageUrl
+      }
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser)) // Lưu thông tin người dùng đã cập nhật vào localStorage
+         
+        // Cập nhật thông tin người dùng trong userList
+        const updatedUserList = UserList.map((user: any) => {
+          if (user.id === parseInt(id || '0')) {
+            return {
+              ...user,
+              imageUrl: imageUrl  
+            }
+          }
+          return user
+        })
+        localStorage.setItem('userList', JSON.stringify(updatedUserList))  
+        window.alert('Ảnh đã được cập nhật!')
+        window.location.reload()  
+      }
+      reader.readAsDataURL(file)
+    }
+    
+  }
 
   return (
     <>
@@ -126,7 +158,7 @@ export default function ProfileSetting() {
         className=' w-full h-50 flex items-center justify-center  '
         style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
-        <div className='w-full h-full flex items-center justify-center bg-[#00000068]  '>
+        <div className='w-full h-full flex items-center justify-center bg-[#00000049]  '>
           <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#fff]  '>Profile Setting</h1>
         </div>
       </div>
@@ -137,12 +169,18 @@ export default function ProfileSetting() {
             <div className=' flex max-sm:flex-col max-sm:items-center gap-5  '>
               <div className=' justify-center items-center flex flex-col w-1/3  gap-2 p-4 rounded-md'>
                 <img
-                  src={UserInfo.imageUrls || Avatar}
+                  src={UserInfo.imageUrl || UserList?.imageUrl ||     `https://ui-avatars.com/api/?name=${encodeURIComponent(nameValue)}&background=30fd4f&color=fff`}
                   className=' border-2 border-green-500 w-10 h-10 sm:w-20 sm:h-20 lg:w-30 lg:h-30 xl:w-40 xl:h-40 object-cover rounded-2xl '
                 />
 
                 <button className='cursor-pointer'>
-                  <input type='file' id='img' className='hidden' />
+                  <input
+                    type='file'
+                    id='img'
+                    accept='image/*'
+                    onChange={handleImageupload}
+                    className='hidden'
+                  />
                   <i className=' text-[18px]  text-[#000000] '></i>
                   <label htmlFor={`img`}>
                     upload <Icon name='download' />
