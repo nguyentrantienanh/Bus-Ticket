@@ -28,6 +28,7 @@ import Chatlayout from './features/user/Page/Support/Chatlayout'
 import Chatlist from './features/user/Page/Support/Listchat'
 import InformationUser from './features/user/Page/Information'
 import Ticketsearch from './Page/Ticketsearch/Ticket-search'
+ 
 
 // admin
 import ProtectedRouteAmin from './services/ProtectedRouteAmin'
@@ -61,7 +62,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 // import Icon from './icons/Icon'
 import { useMediaQuery } from 'react-responsive'
-
+// test api
+import CallApiTicket from './Page/Callapiticket'
 function AppRoutes() {
   const location = useLocation()
 
@@ -100,6 +102,9 @@ function AppRoutes() {
       {!shouldHideHeaderFooter && <Header />}
       <ScrollToTop />
       <Routes>
+        <Route path='/call-api-ticket' element={<CallApiTicket />} />
+
+        {/* Các route khác */}
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/faqs' element={<FAQ />} />
@@ -110,6 +115,7 @@ function AppRoutes() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/ticket-search' element={<Ticketsearch />} />
+ 
 
         <Route
           path='/user/dashboard'

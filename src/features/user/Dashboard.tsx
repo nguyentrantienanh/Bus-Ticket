@@ -35,7 +35,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5 py-5  max[1450px]:px-[20%]'>
+        <div className=' m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5 py-5  max[1450px]:px-[20%]'>
           <div className='flex justify-center  gap-3  '>
             <div className='border-l-4 border-[#6eff34] bg-[#fff] flex items-center p-5 gap-3 rounded-2xl '>
               <div>
@@ -80,7 +80,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <Booking />
+         <div className='py-10 bg-[#fff]  '>
+          <Booking />
+         </div>
       </div>
     </>
   )
