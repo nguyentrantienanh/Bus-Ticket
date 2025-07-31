@@ -115,8 +115,8 @@ export default function Buyticket() {
       timestamp: new Date().toISOString()
     }
 
-    // Thông báo
-    setSuccessMessage(t('Buyticket:booking_success'))
+    // Thông báo 
+    setSuccessMessage ('đến trang thanh toán')
     severitys('success')
     setSelectedSeats([])
     setTimeout(() => {
@@ -200,7 +200,7 @@ export default function Buyticket() {
       .find((item) => item.id === parseInt(id || '0'))
       ?.seat?.find((s) => s.id === seatId)
     const tienve = seat?.price || 0
-    const tien = Number(tienve)
+    const tien = Number(tienve)  
     return sum + tien // cộng dồn tiền vé của từng ghế
   }, 0)
 
@@ -383,7 +383,7 @@ export default function Buyticket() {
                         <>
                           <div className=' cursor-pointer flex justify-between border-t-1 border-x-1 border-gray-300 px-3 py-2 text-[14px]'>
                             <p className='text-[13px] font-semibold'>{seat?.name}</p>
-                            <p className='text-[12px]'>{tien} USD</p>
+                            <p className='text-[12px]'>{tien.toLocaleString()} VNĐ</p>
                           </div>
                         </>
                       )
@@ -391,7 +391,7 @@ export default function Buyticket() {
                   </div>
                   <div className='flex justify-between bg-[#fff] border-1 border-gray-300 px-3 py-2 font-semibold'>
                     <p className='text-[15px]'>{t('Buyticket:total')}</p>
-                    <p className='text-[13px]'>{tongtien} USD</p>
+                    <p className='text-[13px]'>{tongtien.toLocaleString()} VNĐ</p>
                   </div>
                 </div>
               </>
