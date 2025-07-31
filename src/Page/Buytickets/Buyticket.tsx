@@ -115,8 +115,8 @@ export default function Buyticket() {
       timestamp: new Date().toISOString()
     }
 
-    // Thông báo 
-    setSuccessMessage ('đến trang thanh toán')
+    // Thông báo
+    setSuccessMessage('đến trang thanh toán')
     severitys('success')
     setSelectedSeats([])
     setTimeout(() => {
@@ -200,7 +200,7 @@ export default function Buyticket() {
       .find((item) => item.id === parseInt(id || '0'))
       ?.seat?.find((s) => s.id === seatId)
     const tienve = seat?.price || 0
-    const tien = Number(tienve)  
+    const tien = Number(tienve)
     return sum + tien // cộng dồn tiền vé của từng ghế
   }, 0)
 

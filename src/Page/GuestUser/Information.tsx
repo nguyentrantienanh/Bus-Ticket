@@ -19,18 +19,18 @@ export default function InformationGuestUser() {
     cccd: '',
     birthday: `${currentYear}-01-01`
   })
-  // Hàm xử lý thay đổi thông tin
-  const handleChange = (e: any) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }))
-  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    // phone trên 10 ký tự
+    if (formData.phone.length < 10) {
+      return alert('Số điện thoại phải có ít nhất 10 ký tự')
+    }
+    if (formData.cccd.length < 12) {
+      return alert('CCCD/CMND phải có ít nhất 12 ký tự')
+    }
 
+    e.preventDefault()
     const raw = localStorage.getItem('guestUserInfo')
     if (!raw) return alert('Không tìm thấy dữ liệu')
 
@@ -91,14 +91,14 @@ export default function InformationGuestUser() {
             name='fullName'
             label='Họ và tên'
             value={formData.fullName}
-            onChange={handleChange}
+            onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
             placeholder='Nguyễn Văn A'
           />
         </div>
 
-        <div className=' mb-1 md:mb-4'>
+        <div className='   mb-1 md:mb-4'>
           <TextField
             type='tel'
             size={isMobile ? 'small' : 'medium'}
@@ -106,7 +106,7 @@ export default function InformationGuestUser() {
             name='phone'
             label='Số điện thoại'
             value={formData.phone}
-            onChange={handleChange}
+            onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
             placeholder='0901234567'
@@ -120,7 +120,7 @@ export default function InformationGuestUser() {
             name='email'
             label='Email'
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
             placeholder='example@gmail.com'
@@ -135,7 +135,7 @@ export default function InformationGuestUser() {
             name='cccd'
             label='CCCD/CMND'
             value={formData.cccd}
-            onChange={handleChange}
+            onChange={(e) => setFormData((prev) => ({ ...prev, cccd: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
             placeholder='012345678901'
@@ -151,7 +151,7 @@ export default function InformationGuestUser() {
             label='Ngày sinh'
             variant='outlined'
             value={formData.birthday}
-            onChange={handleChange}
+            onChange={(e) => setFormData((prev) => ({ ...prev, birthday: e.target.value }))}
             required
             className='w-full'
           />
