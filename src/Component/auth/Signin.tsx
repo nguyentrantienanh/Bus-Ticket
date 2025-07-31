@@ -70,7 +70,8 @@ export default function Signin() {
       localStorage.setItem('userInfo', JSON.stringify(user))
 
       // Chuyển hướng sang dashboard
-      window.location.href = '/user/dashboard'
+      navigate('/user/dashboard') // React Router
+
     } catch (error) {
       console.error('Lỗi đăng nhập Google:', error)
     }
