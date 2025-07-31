@@ -167,7 +167,7 @@ const [isPaymentLoading, setIsPaymentLoading] = useState(false)
                         <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
                         <div className='mt-2 border-t pt-2 flex justify-between'>
                           <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
-                          <div className='font-bold text-green-600'>{item.price.toLocaleString()}đ</div>
+                          <div className='font-bold text-green-600'>{item.price.toLocaleString()}vnđ</div>
                         </div>
                       </div>
                     </div>
