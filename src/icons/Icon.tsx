@@ -207,6 +207,9 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'upload') {
     // Biểu tượng tải lên
     return <i className='fa-solid fa-cloud-arrow-up'></i>
+  } else if (props.name == 'loading') {
+    // Biểu tượng đang tải
+    return <i className='fa-solid fa-spinner animate-spin'></i>
   }
 }
 

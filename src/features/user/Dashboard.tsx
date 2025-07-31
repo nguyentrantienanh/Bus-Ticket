@@ -80,9 +80,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-         <div className='py-10 bg-[#fff]  '>
+        <div className='py-10 bg-[#fff]  '>
           <Booking />
-         </div>
+        </div>
       </div>
     </>
   )
