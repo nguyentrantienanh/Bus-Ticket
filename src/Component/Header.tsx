@@ -6,6 +6,7 @@ import my from '../assets/languageimg/my.png'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom' // ✅ Import thêm
 
 function Header() {
   const { t } = useTranslation()
@@ -91,7 +92,7 @@ function Header() {
     {
       id: 2,
       name: t('Header_NAV.Booking'),
-      path: '/buytickets',
+      path: '/user/buytickets',
       icon: 'ticket',
       sub: [
         { id: '1', name: t('Header_DROPDOWN.BuyTicket'), path: '/buytickets' },
@@ -117,6 +118,13 @@ function Header() {
       sub: [
         { id: '1', name: t('Header_DROPDOWN.Profile'), path: `/user/profile/profile-setting/${UserInfo.id || ''}` },
         { id: '2', name: t('Header_DROPDOWN.ChangePassword'), path: '/user/change-password' }
+//         // đăng xuất 
+// { id: '3', name: 'Đăng xuất', path: '/signin', action: () => {
+//           localStorage.removeItem('userInfo')
+//           localStorage.removeItem('userthongtin')
+//           window.location.reload()
+//         }
+      // }
       ]
     }
   ]
@@ -143,10 +151,19 @@ function Header() {
   // kiểm tra người dùng đã đăng nhập hay chưa
   const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const user = JSON.parse(localStorage.getItem('userthongtin') || '{}')
-  const [clickhome, setclickhome] = useState(false)
-  const handleclickhome = () => {
-    setclickhome(!clickhome)
+  const navigate = useNavigate()
+
+   const clickhome =  location.pathname.startsWith('/user/')  
+   console.log('pathname',  location.pathname)
+  
+  const handleclickhome = () => {  
+    if (clickhome) {  
+      navigate('/')  
+    } else {
+      navigate('/user/dashboard')  
+    }
   }
+
   const Header = () => {
     return (
       <header className='  max-[1800px]:px-[10%] h-8 flex  px-[20%] max-[900px]:px-[1%] max-[900px]:w-full max-[900px]:justify-start max-[430px]:flex-col max-[350px]:items-start items-center  justify-between   p-2 gap-2 text-gray-700 text-[14px]'>
@@ -172,11 +189,13 @@ function Header() {
           </div>
           {userInfo && userInfo.email ? (
             <div className=' flex  '>
+              <Link to={`/user/profile/profile-setting/${UserInfo.id}`}>
               <div className=' border-x-2  border-gray-400 px-3'>
-                <span>
-                  {t('Header_LOGIN.Hello')}: {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
+                <span className='flex justify-center items-center  '>
+                  <img src={user.imageUrl ? user.imageUrl : userInfo.imageUrl ? userInfo.imageUrl :  `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name ? user.name : userInfo.name)}&background=30fd4f&color=fff`} alt="" className='w-5 h-5 rounded-2xl   mx-1' />: {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
                 </span>
               </div>
+              </Link>
               <div className=' border-r-2 px-3 border-gray-400'>
                 {clickhome ? (
                   <Link to={'/'}>
@@ -224,7 +243,7 @@ function Header() {
     //
     return (
       <nav className='flex gap-5'>
-        {userInfo && userInfo.email && clickhome
+        {  clickhome // 
           ? navbardashboard.map((item, index) => (
               <div key={index} className='relative group'>
                 <Link
@@ -241,7 +260,7 @@ function Header() {
                     className={`flex items-center gap-2 p-2   border-b-3  rounded-2xl    hover:border-green-500    w-full${
                       location.pathname === item.path
                         ? 'text-[#1ba000]   '
-                        : location.pathname.startsWith(item.path)
+                        : location.pathname.startsWith(item.path)  
                           ? 'text-[#1ba000]  '
                           : 'text-gray-700 border-transparent '
                     }`}
@@ -326,16 +345,16 @@ function Header() {
       {isMenuOpen && (
         <div>
           <div
-            className='fixed bg-black opacity-30 z-90 top-0 w-full h-full '
+            className='fixed bg-black opacity-30 z-79 top-0 w-full h-full '
             onClick={() => setIsMenuOpen(false)}
           ></div>
-          <div className=' min-[900px]:hidden  fixed  -top-1  items-start  w-full z-90 flex mt-1  '>
+          <div className=' min-[900px]:hidden  fixed  top-17 items-start  w-full z-90 flex mt-1  '>
             <div
-              className='relative   bg-[#ffffff] flex flex-col shadow-lg  w-full  justify-between p-6 animate-slideDown'
-              style={{ animation: 'slideDown 0.3s ease' }}
+              className='relative   bg-[#ffffff] flex flex-col shadow-lg  w-full   justify-between p-6 animate-slideDown'
+              style={{ animation: 'slideDown 0.4s ease-in-out' }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className='   flex flex-wrap gap-4 text-sm text-gray-700 justify-between max-[400px]:flex-col'>
+              <div className='   flex flex-wrap gap-2 text-sm text-gray-700 max-[400px]:flex-col'>
                 <div className='flex flex-wrap gap-4 text-sm text-gray-700 justify-start max-[400px]:flex-col'>
                   <div className='flex   gap-2'>
                     <span className='text-[#1ba000]'>
@@ -353,15 +372,17 @@ function Header() {
                   </div>
                 </div>
 
-                <div className=''>
+                <div className=' ' >
                   {userInfo && userInfo.email ? (
-                    <div className=' flex max-[450px]:flex-col max-[450px]:gap-5   '>
+                    <div className=' flex max-[450px]:flex-col max-[450px]:gap-2   '>
+                      <Link to={`/user/profile/profile-setting/${UserInfo.id}`}>
                       <div className=' border-x-2 max-[450px]:border-none  px-3 max-[450px]:px-0  border-gray-400  '>
-                        <span>
-                          {t('Header_LOGIN.Hello')}: {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
-                        </span>
+                       <span className='flex  '>
+                  <img src={user.imageUrl ? user.imageUrl : userInfo.imageUrl ? userInfo.imageUrl :  `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name ? user.name : userInfo.name)}&background=30fd4f&color=fff`} alt="" className='w-5 h-5 rounded-2xl    ' />: {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
+                </span>
                       </div>
-                      <div className=' border-r-2 max-[450px]:border-none px-3 max-[450px]:px-0  border-gray-400'>
+                     </Link>
+                      <div   className=' border-r-2 max-[450px]:border-none px-3 max-[450px]:px-0  border-gray-400'>
                         {clickhome ? (
                           <Link to={'/'}>
                             <span onClick={handleclickhome}>{t('Header_NAV.Home')}</span>
@@ -401,7 +422,7 @@ function Header() {
                 </div>
               </div>
 
-              <div className='space-y-2  '>
+              <div className='space-y-2  '  >
                 {userInfo && userInfo.email && clickhome
                   ? navbardashboard.map((item, index) => (
                       <div key={index} className='relative group  '>
@@ -480,8 +501,8 @@ function Header() {
             <style>
               {`
               @keyframes slideDown {
-                0% { transform: translateY(-100%); opacity: 0; }
-                100% { transform: translateY(0); opacity: 1; }
+                0% { transform: translateX(-100%); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
               }
             `}
             </style>{' '}

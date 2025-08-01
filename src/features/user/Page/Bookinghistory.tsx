@@ -76,7 +76,7 @@ export function Booking() {
                       )}
                     </td>
                     <td className='py-2 px-2 text-[#1645ff] hidden md:table-cell'>
-                      ${item.price} <span className='text-xs'>USD</span>
+                      ${item.price} <span className='text-xs'> vnđ</span>
                     </td>
                     <td className='py-2 px-2 text-center  '>
                       <button
@@ -110,7 +110,7 @@ export function Booking() {
           <div className='bg-black fixed top-0 z-90 opacity-30 h-full w-full ' onClick={isclick}></div>
 
           <div
-            className={` fixed top-1/9   left-1/2 transform -translate-x-1/2  rounded z-900
+            className={` fixed top-1/9  md:w-[600px] left-1/2 transform -translate-x-1/2  rounded z-900
           
           
           `}
@@ -119,16 +119,16 @@ export function Booking() {
             }}
           >
             {thongtinve.map((item: any) => (
-              <div className='  w-150 rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
+              <div className='  w-full rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
                 <div
                   key={item.id}
                   className='bg-[#fff]   rounded-xl p-4 shadow space-y-2
                   '
                 >
                   <div className='flex justify-between px-2 py-2  border-b-2  '>
-                    <h1 className='font-extrabold text-gray-600 text-[17px] flex items-center'>
+                    <h1 className='font-extrabold text-gray-600 text-nowrap text-[13px] md:text-[17px] flex max-md:flex-col items-center'>
                       Ticket Booking History{' '}
-                      <p className='font-mono px-2 text-gray-600 text-[14px] '>
+                      <p className='font-mono px-2 text-gray-600 text-[10px] max-md:mr-auto max-md:px-0 max-md:py-1 md:text[14px] '>
                         {Status.map((status) => {
                           if (item.status === status.id) {
                             return (
@@ -142,7 +142,7 @@ export function Booking() {
                           }
                           return
                         })}
-                      </p>{' '}
+                      </p> 
                     </h1>
 
                     <div className='flex justify-between px-4'></div>
@@ -153,44 +153,44 @@ export function Booking() {
                     </span>
                   </div>
                   <div className='flex justify-between items-center'>
-                    <span className='text-sm text-gray-500'>Số vé/code: {item.id}</span>
-                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
+                    <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
                       Chiều đi
                     </span>
                   </div>
 
-                  <div className='text-xl font-bold'>
+                  <div className=' text-[13px] md:text-xl font-bold'>
                     {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
                   </div>
                   <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {item.seatLayout}</p>
 
                   <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                     <div>
-                      <div className='text-xl font-bold'>{item.starttime}</div>
-                      <div className='text-sm font-medium'>{t(item.diemDi)}</div>
+                      <div className='text-[13px] md:text-xl font-bold'>{item.starttime}</div>
+                      <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDi)}</div>
                     </div>
                     <div>
-                      <i className='text-green-600 border-b pl-4 pr-1'>
+                      <i className='text-green-600 max-md:text-[13px] border-b pl-4 pr-1'>
                         ...
                         <Icon name='bus-go' />
                       </i>
-                      <div className='text-xs text-gray-500'>
+                      <div className='text-[10px] md:text-xs text-gray-500'>
                         {item.timetogo?.slice(0, 2)} giờ {item.timetogo?.slice(3, 5)} phút
                       </div>
                     </div>
 
                     <div>
-                      <div className='text-xl font-bold'>{item.endtime}</div>
-                      <div className='text-sm font-medium'>{t(item.diemDen)}</div>
+                      <div className='text-[13px] md:text-xl font-bold'>{item.endtime}</div>
+                      <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDen)}</div>
                     </div>
                   </div>
 
                   <div className='bg-gray-100 p-3 rounded-lg text-sm'>
-                    <div className='font-semibold  '>{test.fullName || test.name}</div>
+                    <div className='font-semibold max-md:text-[13px] '>{test.fullName || test.name}</div>
                     <div className='text-xs text-gray-600 '>
-                      CMND: <span className='font-normal'>{test.cccd || ''} </span>{' '}
+                      CMND: <span className='font-normal max-md:text-[12px]'>{test.cccd || ''} </span>{' '}
                     </div>
-                    <div className='text-xs text-gray-600 '> Ghi chú: Mang CMND/Hộ chiếu</div>
+                    <div className='text-xs text-gray-600 max-md:text-[10px] '> Ghi chú: Mang CMND/Hộ chiếu</div>
                     <div className='mt-2 border-t pt-2 flex justify-between'>
                       <div className=' '>
                         {' '}
@@ -199,7 +199,7 @@ export function Booking() {
                           {item.seats.map((s: any) => s.name).join(', ')}
                         </span>{' '}
                       </div>
-                      <div className='font-bold text-green-600'>{item.price.toLocaleString()}đ</div>
+                      <div className='font-bold text-green-600'>{item.price.toLocaleString()} vnđ</div>
                     </div>
                   </div>
                 </div>

@@ -30,12 +30,9 @@ export default function Buyticket() {
   // lưu vào localStorage
   const [ticketId] = useState<number>(parseInt(id || '0'))
 
-  // thông báo đăt vé thành công
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
-  const [severity, setSeverity] = useState<'success' | 'warning'>('success')
-  const severitys = (type: 'success' | 'warning') => {
-    setSeverity(type)
-  }
+ 
+   
+   
   // hiện Ngày đã chọn trong localStorage calendar
   const [calendar, setCalendar] = useState(() => {
     const savedDate = localStorage.getItem('DayData')
@@ -70,15 +67,21 @@ export default function Buyticket() {
       setCalendar(savedDate)
     }
   }, [])
-
+ const [successMessage, setSuccessMessage] = useState(false)
+ 
   // kiểm tra đã đăng nhập hay chưa
   const isAuthenticated = localStorage.getItem('userInfo') !== null
   const handleBooking = () => {
+    
     if (selectedSeats.length === 0) {
-      setSuccessMessage(t('Buyticket:please_select_seat'))
-      severitys('warning')
+     setSuccessMessage(true)
+   
+      setTimeout(() => {
+        setSuccessMessage(false)
+      }, 3000)
       return
     }
+     
 
     // Tạo danh sách ghế
     const seats = selectedSeats.map((seatId) => {
@@ -116,12 +119,8 @@ export default function Buyticket() {
     }
 
     // Thông báo
-    setSuccessMessage('đến trang thanh toán')
-    severitys('success')
-    setSelectedSeats([])
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 5000)
+    
+     
 
     // XỬ LÝ KHI USER ĐÃ ĐĂNG NHẬP
     const userInfoRaw = localStorage.getItem('userInfo')
@@ -400,9 +399,9 @@ export default function Buyticket() {
             <div>
               <button
                 onClick={handleBooking}
-                className='cursor-pointer text-[#fff] bg-[#00a108] rounded-[7px] px-8 py-2 flex items-center  '
+                className={`  text-[#fff]   rounded-[7px] px-8 py-2 flex items-center  bg-[#00a108] cursor-pointer ' }  `}
               >
-                <span className='text-[13px] font-medium'>{t('Buyticket:book_ticket')}</span>
+                <span className='text-[13px] font-medium'>    {t('Buyticket:book_ticket')}    </span>
               </button>
             </div>
           </div>
@@ -474,8 +473,31 @@ export default function Buyticket() {
 
       {/* thông báo đặt vé thành công */}
       {successMessage && (
-        <div className='fixed top-5  left-1/2 transform -translate-x-1/2   rounded  z-900'>
-          <Alert severity={severity}>{successMessage}</Alert>
+        <div className='fixed h-20  justify-center  left-1/2 transform -translate-x-1/2 top-10  rounded  z-900'>
+         
+          <Alert severity='warning' onClose={() => setSuccessMessage(false)} className='w-full  max-w-md shadow-lg'
+            style={{ animation: 'slideDown 0.3s ease' }}
+            >
+            chọn ít nhất 1 ghế để đặt vé
+          </Alert>
+
+          {
+            <style>
+              {`
+              @keyframes slideDown {
+                from {
+                  transform: translateY(-20px);
+                  opacity: 0;
+                }
+                to {
+                  transform: translateY(0);
+                  opacity: 1;
+                }
+              }
+               
+            `}
+            </style>
+          }
         </div>
       )}
     </>

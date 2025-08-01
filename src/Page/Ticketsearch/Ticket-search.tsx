@@ -21,22 +21,28 @@ export default function Ticketsearch() {
 
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
   const ve = [...veData, ...GuestUserTicket]
-
+  const [isSearch, setisSearch] = useState(false)
   // hàm xử lý tìm kiếm vé khi nhấn sẽ tìm ra vé và ruter trên là ticketseach
   const handleSearch = (e: any) => {
     if (e) e.preventDefault()
+
     if (!searchTerm) {
       alert('Vui lòng nhập mã để tìm kiếm')
       return
     }
-    const ticketseachs = ve.filter((item: any) => item.id === Number(searchTerm))
+    setisSearch(true)
+    setTimeout(() => {
+      const ticketseachs = ve.filter((item: any) => item.id === Number(searchTerm))
+      if (ticketseachs.length === 0) {
+        setTicketsearch(null)
+        alert('Không tìm thấy vé nào với mã đã nhập')
+      } else {
+        const ticket = ticketseachs[0] // Lấy vé đầu tiên
+        setTicketsearch(ticket)
+      }
 
-    if (ticketseachs.length === 0) {
-      alert('Không tìm thấy vé nào với mã đã nhập')
-      return
-    }
-    const ticket = ticketseachs[0] // Lấy vé đầu tiên
-    setTicketsearch(ticket)
+      setisSearch(false)
+    }, 2000)
   }
   // ticketseach lấy id
 
@@ -76,7 +82,6 @@ export default function Ticketsearch() {
                 onChange={(e) => {
                   setSearchTerm(e.target.value)
                 }}
-                required
                 className='w-full'
                 placeholder='Nhập mã vé'
                 sx={{
@@ -98,9 +103,23 @@ export default function Ticketsearch() {
             </div>
 
             <div className='py-4   justify-center items-center flex  '>
-              <button className='bg-green-700 hover:bg-green-700 cursor-pointer text-[#fff] border border-green-400 border-b-4 w-80 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group'>
-                <span className='bg-green-400 shadow-green-400 font-medium absolute -top-[150%] left-0 inline-flex w-full h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]' />
-                Tra cứu
+              <button
+                disabled={isSearch}
+                className={`  text-[#fff] border  border-b-4 w-80 font-medium overflow-hidden relative px-4 py-2 rounded-md    ${isSearch ? 'bg-gray-500 hover border-gray-500 cursor-not-allowed' : 'cursor-pointer bg-green-700 hover:bg-green-700 border-green-400   hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group'}`}
+              >
+                <span
+                  className={` absolute -top-[150%] left-0 inline-flex w-full h-[5px] rounded-md opacity-50  font-medium   shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]     ${isSearch ? 'bg-gray-500 shadow-gray-500' : 'bg-green-400 shadow-green-400 group-hover:top-[150%] duration-500 '}`}
+                />
+                {isSearch ? (
+                  <div>
+                    <i className='px-2'>
+                      <Icon name='loading' />
+                    </i>
+                    Đang tra cứu vé...
+                  </div>
+                ) : (
+                  ' Tra cứu'
+                )}
               </button>
             </div>
           </div>
@@ -166,9 +185,9 @@ export default function Ticketsearch() {
                         <span className='absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#fff]' />
                       </span>
                       <span className='absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-green-600 rounded-md group-hover:translate-x-0' />
-                      <span className='relative w-full text-left text-[#fff] transition-colors duration-200 ease-in-out font-medium group-hover:text-[#fff]'>
+                      <span className='relative w-full text-left  text-[#fff] transition-colors duration-200 ease-in-out font-medium group-hover:text-[#fff]'>
                         {' '}
-                        Chi tiết
+                        {ticketDetail ? 'Rút gọn' : 'Chi tiết'}
                       </span>
                     </button>
                   </div>
@@ -239,7 +258,10 @@ export default function Ticketsearch() {
               </div>
             </div>
           ) : (
-            <div className='bg-[#fff]'></div>
+            <div className='text-center text-gray-500 py-10'>
+              <Icon name='ticket' />
+              <p className='text-lg'>Không tìm thấy vé nào với mời nhập lại</p>
+            </div>
           )}
         </div>
       </div>

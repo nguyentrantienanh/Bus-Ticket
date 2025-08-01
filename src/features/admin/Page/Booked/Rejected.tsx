@@ -91,7 +91,7 @@ function TicketRejected() {
                       <span className='px-3 py-1 rounded-full text-[#f00] bg-[#ff000036] border-2'>Rejected</span>
                     </td>
                     <td className='py-2 px-2 text-indigo-600 font-semibold'>
-                      ${item.price} <span className='text-xs'>USD</span>
+                      ${item.price} <span className='text-xs'> vnđ</span>
                     </td>
                     <td className='py-2 px-2'>
                       <button

@@ -71,7 +71,6 @@ export default function Signin() {
 
       // Chuyển hướng sang dashboard
       navigate('/user/dashboard') // React Router
-
     } catch (error) {
       console.error('Lỗi đăng nhập Google:', error)
     }
@@ -152,8 +151,8 @@ export default function Signin() {
         <img src={background} alt='Background' className=' object-cover object-left h-full w-full  ' />
       </div>
 
-      <div className='  flex flex-col items-center justify-start w-full md:w-2/4 min-h-screen bg-[#fff] py-8 px-4 overflow-y-auto'>
-        <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain mb-6' />
+      <div className='  flex flex-col items-center justify-start w-full md:w-2/4 max-h-screen bg-[#fff] py-4 px-4 overflow-y-auto'>
+        <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
         {/* hiệu email người đăng nhập */}
 
         <div className='w-full max-w-md'>
@@ -169,14 +168,14 @@ export default function Signin() {
             </div>
 
             {/* <FacebookLoginButton onLogin={handleFacebookLogin} /> */}
-            <div className='flex items-center justify-center p-1 rounded-[10px] gap-2 border-1 border-[#8b8b8b] w-full  '>
+            {/* <div className='flex items-center justify-center p-1 rounded-[10px] gap-2 border-1 border-[#8b8b8b] w-full  '>
               <i>
                 <Icon name='linkedin' />
               </i>
               <span className='text-[12px]'> Login With Google</span>
-            </div>
+            </div> */}
           </div>
-          <div className='flex items-center justify-center my-4'>
+          <div className='flex items-center justify-center my-2 md:my-4'>
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
             <span className='mx-2 text-gray-500 text-sm'>OR</span>
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
@@ -239,7 +238,7 @@ export default function Signin() {
               </button>
 
               <div>
-                <p className='text-sm text-gray-500 mt-2 mb-20'>
+                <p className='text-sm text-gray-500 mt-2 mb-10'>
                   Don't have an account?{' '}
                   <a href='/signup' className={`text-blue-500 hover:underline    `}>
                     Sign Up

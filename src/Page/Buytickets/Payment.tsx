@@ -19,6 +19,7 @@ export default function Payment() {
   const guestUserticketList = GuestUserInfo.map((user: any) => user.ticket).flat()
   const guestUserTicket = guestUserticketList.filter((item: any) => item.id === parseInt(id || '0'))
   const isUserLoggedIn = userinfo.name || userinfo.email
+
   // const seats = (userinfo.name ? ticketList : guestUserticketList)
   //   .map((item: any) => item.seats)
   //   .map((item: any) => {
@@ -66,24 +67,24 @@ export default function Payment() {
       label: 'Quét mã QR'
     }
   ]
-const [isPaymentLoading, setIsPaymentLoading] = useState(false)
+  const [isPaymentLoading, setIsPaymentLoading] = useState(false)
   // xử lý thanh toán zaloPay
   const handleZaloPay = async () => {
     const price = guestUserTicket[0]?.price || ticket[0]?.price
+    const id = guestUserTicket[0]?.id || ticket[0]?.id
     if (price < 1000) {
       alert('Giá vé phải lớn hơn 1000đ để thanh toán qua ZaloPay.')
       return
     }
-      setIsPaymentLoading(true)
+    setIsPaymentLoading(true)
     try {
       const res = await fetch('http://localhost:4001/api/zalo/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: price,
-          description: `Thanh toán vé xe-họ và tên: ${USERID.fullName}-SĐT: ${USERID.phone}`,
-          app_user: USERID.email,
-          ticketId: ticket[0]?.id || guestUserTicket[0]?.id
+          description: `Thanh toán vé xe code: ${id} - họ và tên: ${USERID.fullName} - SĐT: ${USERID.phone}`,
+          app_user: USERID.email
         })
       })
       const data = await res.json()
@@ -167,7 +168,7 @@ const [isPaymentLoading, setIsPaymentLoading] = useState(false)
                         <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
                         <div className='mt-2 border-t pt-2 flex justify-between'>
                           <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
-                          <div className='font-bold text-green-600'>{item.price.toLocaleString()}vnđ</div>
+                          <div className='font-bold text-green-600'>{item.price.toLocaleString()} vnđ</div>
                         </div>
                       </div>
                     </div>
@@ -230,23 +231,38 @@ const [isPaymentLoading, setIsPaymentLoading] = useState(false)
                   )
                 })}
 
-            <div className='flex justify-center gap-4 pt-4 max-md:justify-between max-md:px-5'>
-              <button
-                className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg shadow hover:bg-green-600 transition
+            <div className='flex justify-center gap-10 pt-4 max-md:justify-between max-md:px-5'>
+              {selectePaymen === 1 ? (
+                ''
+              ) : (
+                <button
+                  className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg shadow hover:bg-green-600 transition
                
                   `}
-                onClick={handlePayNow}
-              >
-                Xác nhận
-              </button>
-              <button
-                className={`bg-red-500 text-[#fff]   px-6 py-2 rounded-lg shadow hover:bg-red-600 transition
+                  onClick={handlePayNow}
+                >
+                  Xác nhận
+                </button>
+              )}
+              {selectePaymen === 1 ? (
+                <button
+                  className={`bg-red-500 text-[#fff]    px-12 py-2 rounded-lg shadow hover:bg-red-600 transition
                
                   `}
-                onClick={handleExit}
-              >
-                Hủy
-              </button>
+                  onClick={handleExit}
+                >
+                  Hủy
+                </button>
+              ) : (
+                <button
+                  className={`bg-red-500 text-[#fff]   px-6 py-2 rounded-lg shadow hover:bg-red-600 transition
+               
+                  `}
+                  onClick={handleExit}
+                >
+                  Hủy
+                </button>
+              )}
             </div>
           </div>
 
@@ -305,25 +321,23 @@ const [isPaymentLoading, setIsPaymentLoading] = useState(false)
                       </p>
                       <button
                         onClick={handleZaloPay}
-                         disabled={isPaymentLoading}
-                       className={`px-4 py-2 rounded-lg shadow transition flex items-center justify-center gap-2 ${
-    isPaymentLoading 
-      ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
-      : 'bg-green-500 text-[#fff] cursor-pointer hover:bg-green-600'
-  }`}
-                      >  
-                       {isPaymentLoading ? (
-    <>
-    <i  >
-      <Icon name='loading'   />
-    </i>
-      
-      Đang xử lý...
-    </>
-  ) : (
-    'Thanh toán qua ZaloPay'
-  )}
-
+                        disabled={isPaymentLoading}
+                        className={`px-4 py-2 rounded-lg shadow transition flex items-center justify-center gap-2 ${
+                          isPaymentLoading
+                            ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                            : 'bg-green-500 text-[#fff] cursor-pointer hover:bg-green-600'
+                        }`}
+                      >
+                        {isPaymentLoading ? (
+                          <>
+                            <i>
+                              <Icon name='loading' />
+                            </i>
+                            Đang xử lý...
+                          </>
+                        ) : (
+                          'Thanh toán qua ZaloPay'
+                        )}
                       </button>
                       <p className='mt-3 w-full text-gray-600 text-center text-sm border-t-2 border-gray-400 border-dashed pt-5 leading-5 '>
                         <strong>Chú ý:</strong> Thanh toán qua ZaloPay sẽ được xử lý ngay lập tức. Vui lòng đảm bảo

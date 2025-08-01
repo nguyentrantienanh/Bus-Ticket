@@ -30,6 +30,11 @@ export default function Signin() {
   const ktremail = Userlist.find((u: any) => u.email === fromData.email)
 
   const handleSignup = () => {
+    if (fromData.password.length < 10) {
+      alert('Mật khẩu phải có (trên 10 ký tự)')
+      return
+    }
+
     if (ktremail) {
       alert('Email đã tồn tại trong hệ thống. Vui lòng sử dụng email khác.')
       return
@@ -53,7 +58,7 @@ export default function Signin() {
       name: `${fromData.firstname} ${fromData.lastname}`,
       imageUrl: '',
       chats: [],
-      ticket: [] // Giả sử người dùng mới không có vé nào
+      ticket: []
     }
     Userlist.push(newUser)
     localStorage.setItem('userList', JSON.stringify(Userlist))
@@ -61,30 +66,19 @@ export default function Signin() {
     window.location.href = '/signin'
   }
 
+  console.log('confirmpassword', confirmpassword)
+  // hàm kiểm tra confirmpassword
+
   return (
     <div className='flex flex-col md:flex-row  min-h-screen  bg-gray-100'>
       <div className='w-full md:w-2/4  '>
-        <img src={background} alt='Background' className='       object-cover object-left h-full w-full  ' />
+        <img src={background} alt='Background' className=' object-cover object-left h-full w-full ' />
       </div>
-      <div className='  flex flex-col items-center justify-start w-full md:w-2/4 min-h-screen bg-[#fff] py-8 px-4 overflow-y-auto'>
-        <img src={logo} alt='Bus Ticket Logo' className='w-50 h-50 object-cover mb-4' />
+      <div className='  flex flex-col items-center justify-start w-full md:w-2/4 max-h-screen bg-[#fff] py-4 px-4 overflow-y-auto'>
+        <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
 
         <div>
-          <form className='grid grid-cols-2 gap-4 my-4'>
-            <div>
-              <label htmlFor='firstname' className='block text-sm font-medium text-gray-700'>
-                First Name<sup className='text-red-600'>*</sup>
-              </label>
-              <input
-                type='firstname'
-                id='firstname'
-                value={fromData.firstname}
-                required
-                onChange={(e) => setFromData({ ...fromData, firstname: e.target.value })}
-                className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-              />
-            </div>
-
+          <form className='grid grid-cols-2 gap-4 md:my-4'>
             <div>
               <label htmlFor='lastname' className='block text-sm font-medium text-gray-700'>
                 Last Name<sup className='text-red-600'>*</sup>
@@ -96,6 +90,21 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, lastname: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
+                placeholder='Nhập họ...'
+              />
+            </div>
+            <div>
+              <label htmlFor='firstname' className='block text-sm font-medium text-gray-700'>
+                First Name<sup className='text-red-600'>*</sup>
+              </label>
+              <input
+                type='firstname'
+                id='firstname'
+                value={fromData.firstname}
+                required
+                onChange={(e) => setFromData({ ...fromData, firstname: e.target.value })}
+                className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
+                placeholder='Nhập tên...'
               />
             </div>
 
@@ -110,6 +119,7 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, email: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
+                placeholder='Nhập email...'
               />
             </div>
 
@@ -124,6 +134,7 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, password: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300  focus:border-green-500 sm:text-sm'
+                placeholder='Nhập mật khẩu...'
               />
             </div>
             <div>
@@ -139,16 +150,16 @@ export default function Signin() {
                   setconfirmpassword(e.target.value)
                 }}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
+                placeholder='Nhập lại mật khẩu...'
+              />
+            </div>
+            <div className=' flex mt-1  col-span-2'>
+              <ReCAPTCHA
+                sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
+                onChange={handleCaptchaChange}
               />
             </div>
           </form>
-
-          <div className=' flex  '>
-            <ReCAPTCHA
-              sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
-              onChange={handleCaptchaChange}
-            />
-          </div>
 
           <div className='flex items-center mt-2'>
             <input onChange={handleCheckclick} type='checkbox' id='I agree with' />
@@ -180,7 +191,7 @@ export default function Signin() {
             Đăng ký
           </button>
           <div>
-            <p className='text-sm text-gray-500 mt-2 mb-20'>
+            <p className='text-sm text-gray-500 mt-2 mb-10'>
               Don't have an account?{' '}
               <a href='/signin' className='text-blue-500 hover:underline'>
                 Sign In
