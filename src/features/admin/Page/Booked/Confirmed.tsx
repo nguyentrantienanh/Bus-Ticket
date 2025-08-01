@@ -70,7 +70,7 @@ function TicketConfirmed() {
                       <span className='px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2'>Confirmed</span>
                     </td>
                     <td className='py-2 px-2 text-indigo-600 font-semibold'>
-                      ${item.price} <span className='text-xs'>USD</span>
+                      ${item.price} <span className='text-xs'> vnđ</span>
                     </td>
                     <td className='py-2 px-2'>
                       <button
@@ -137,7 +137,7 @@ function TicketConfirmed() {
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Giá</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} USD</p>
+                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} vnđ</p>
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Trạng thái</h1>

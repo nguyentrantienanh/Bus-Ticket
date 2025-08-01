@@ -14,10 +14,10 @@ function Contact() {
           <h1 className='text-4xl font-bold mb-4 text-[#fff]  '>{t('title')}</h1>
         </div>
       </div>
-      <section className='flex flex-col gap-5 xl:px-[15%] bg-[#f9f9f9]'>
+      <section className='flex flex-col md:gap-5 gap-2 xl:px-[15%] bg-[#f9f9f9]'>
         <div className='flex py-10 flex-col gap-3 items-center'>
           <strong className='text-[30px]  font-bold'>{t('letsGetInTouch')}</strong>
-          <span className='text-[16px]   text-gray-600'>{t('subtitle')}</span>
+          <span className='text-[16px]  px-5   text-gray-600'>{t('subtitle')}</span>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-5 px-5'>
           <div className='w-full h-30 flex border-1 py-5 px-2 lg:px-5 border-[#0e9e4d] gap-3 rounded-2xl'>
@@ -48,19 +48,19 @@ function Contact() {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-5 px-5 py-5'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-5 px-5 md:py-5 mb-1'>
           <div className='w-full h-full p-5  shadow-lg rounded-lg'>
-            <form action='' className='flex flex-col gap-3'>
+            <form action='' className='flex flex-col md:gap-3'>
               <strong>{t('formTitle')}</strong>
               <div className='grid grid-cols-2 gap-3'>
                 <div>
-                  <label className='block mt-4'>
+                  <label className='block mt-1 md:mt-4'>
                     {t('name')} <sup className='text-[#ff2020]'>*</sup>
                   </label>
                   <input type='text' className='w-full p-2 border border-gray-300 rounded-lg' placeholder={t('name')} />
                 </div>
                 <div>
-                  <label className='block mt-4'>
+                  <label className='block mt-1 md:mt-4'>
                     {t('emailLabel')} <sup className='text-[#ff2020]'>*</sup>
                   </label>
                   <input
@@ -71,7 +71,7 @@ function Contact() {
                 </div>
               </div>
               <div>
-                <label className='block mt-4'>
+                <label className='block mt-1 md:mt-4'>
                   {t('subject')} <sup className='text-[#ff2020]'>*</sup>
                 </label>
                 <input
@@ -81,7 +81,7 @@ function Contact() {
                 />
               </div>
               <div>
-                <label className='block mt-4'>
+                <label className='block mt-1 md:mt-4'>
                   {t('message')} <sup className='text-[#ff2020]'>*</sup>
                 </label>
                 <textarea
@@ -93,14 +93,14 @@ function Contact() {
               <div>
                 <button
                   type='submit'
-                  className='bg-[#0e9e4d] text-[#fff] px-5 py-2 rounded-lg mt-4 hover:bg-[#0e9e4d]/80 transition-all duration-300'
+                  className='bg-[#0e9e4d] text-[#fff] px-5 py-2 rounded-lg mt-1 md:mt-4 hover:bg-[#0e9e4d]/80 transition-all duration-300'
                 >
                   {t('send')}
                 </button>
               </div>
             </form>
           </div>
-          <div className='w-full h-full shadow-lg rounded-lg  '>
+          <div className='w-full h-full shadow-lg rounded-lg mb-1 '>
             <iframe
               className=' w-full h-full'
               data-src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15596.876986944912!2d109.1959979!3d12.233429!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317067afcd045dbf%3A0x4feb318618fc1dcf!2sAdamas%20Boutique%20Hotel!5e0!3m2!1svi!2s!4v1714620728105!5m2!1svi!2s'

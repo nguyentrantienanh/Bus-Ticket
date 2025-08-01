@@ -22,8 +22,8 @@
   "Header_DROPDOWN": {
     "BuyTicket": "Buy Ticket",
     "BookingHistory": "Booking History",
-    "CreateNew": "Create New",
-    "Tickets": "Tickets",
+    "CreateNew":  "Create New Support Chat",
+    "Tickets":  "Support Tickets",
     "Profile": "Profile",
     "ChangePassword": "Change Password",
     "Chat": "Chat"

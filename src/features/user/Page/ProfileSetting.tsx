@@ -50,7 +50,8 @@ export default function ProfileSetting() {
   }
   // Hàm xử lý thong tin
   const handlePhoneChange = (e: any) => {
-    setPhoneValue(e.target.value)
+    // Loại bỏ các ký tự không phải số
+    setPhoneValue(e.target.value.replace(/\D/g, '')) // Cập nhật giá trị state khi người dùng nhập
   }
   const handleAddressChange = (e: any) => {
     setaddressValue(e.target.value)
@@ -162,11 +163,11 @@ export default function ProfileSetting() {
           <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#fff]  '>Profile Setting</h1>
         </div>
       </div>
-      <div className='flex flex-col  max-sm:items-center mx-10  bg-[#fff]  '>
+      <div className='flex flex-col  max-sm:items-center mx-10 rounded-2xl    bg-[#fff]  '>
         <h1 className='font-black pt-5 text-1xl sm:text-2xl'>Thông tin cá nhân</h1>
-        <div className='h-full py-5'>
-          <div className='p-4  shadow-[0_5px_25px_rgba(0,0,0,0.25)]'>
-            <div className=' flex max-sm:flex-col max-sm:items-center gap-5  '>
+        <div className='h-full py-5 '>
+          <div className='p-4   rounded-2xl bg-[#fff] shadow-[0_5px_25px_rgba(0,0,0,0.25)]'>
+            <div className=' flex max-sm:flex-col max-sm:items-center md:gap-5  '>
               <div className=' justify-center items-center flex flex-col w-1/3  gap-2 p-4 rounded-md'>
                 <img
                   src={
@@ -176,21 +177,22 @@ export default function ProfileSetting() {
                   }
                   className=' border-2 border-green-500 w-10 h-10 sm:w-20 sm:h-20 lg:w-30 lg:h-30 xl:w-40 xl:h-40 object-cover rounded-2xl '
                 />
-
-                <button className='cursor-pointer'>
+                <button className='flex border items-center justify-center gap-2 bg-gray-200  rounded-sm px-1  '>
                   <input type='file' id='img' accept='image/*' onChange={handleImageupload} className='hidden' />
-                  <i className=' text-[18px]  text-[#000000] '></i>
-                  <label htmlFor={`img`}>
-                    upload <Icon name='download' />
+                 
+                  <label htmlFor={`img`} className=' flex items-center cursor-pointer text-[10px] md:text-[15px]'>
+                    upload  <i className='pl-1'><Icon name='download' /></i>
                   </label>
                 </button>
+            
+                 
                 <p className='text-nowrap font-medium'>
                   {userlist?.name || `${UserInfo.firstname} ${UserInfo.lastname}`}
                 </p>
               </div>
 
-              <form className=' grid grid-cols-1 sm:grid-cols-2 w-full gap-4 sm:my-4'>
-                <div className='flex flex-col col-span-1 sm:col-span-2 gap-2 text-[15px] sm:text-[18px]'>
+              <form className=' grid grid-cols-1 sm:grid-cols-2 w-full gap-1 md:gap-4 sm:my-4'>
+                <div className='flex flex-col col-span-1 sm:col-span-2 md:gap-2 text-[15px] sm:text-[18px]'>
                   <label htmlFor=''>
                     Username <sup className='text-red-600'>*</sup>
                   </label>
@@ -198,33 +200,33 @@ export default function ProfileSetting() {
                     type='text'
                     value={nameValue}
                     onChange={handleChange}
-                    className='p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
+                    className='text-[14px] sm:text-[18px] p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                   />
                 </div>
 
-                <div className='flex flex-col text-[15px] sm:text-[18px]  gap-2'>
+                <div className='flex flex-col text-[15px] sm:text-[18px]  md:gap-2'>
                   <label htmlFor=''>
                     Country <sup className='text-red-600'>*</sup>
                   </label>
                   <select
                     value={countryValue}
                     onChange={handleCountryChange}
-                    className=' text-[15px] sm:text-[18px] p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
+                    className=' text-[14px] sm:text-[18px] p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                   >
                     {countryOptions.map((option) => (
-                      <option key={option.id} value={option.value} id={option.id}>
+                      <option key={option.id} value={option.value} id={option.id} className='  text-[10px] md:text-[18px]  hover'>
                         {option.label}
                       </option>
                     ))}
                   </select>
                 </div>
-                <div className='flex flex-col gap-2 text-[15px] sm:text-[18px]'>
+                <div className='flex flex-col md:gap-2 text-[15px] sm:text-[18px]'>
                   <label htmlFor=''>
                     Mobile<sup className='text-red-600'>*</sup>
                   </label>
                   <div className='flex flex-col '>
                     <div className='flex items-center border-1 border-gray-300 rounded-md shadow-sm '>
-                      <span className='p-2 border-1 w-20 bg-[#e2e2e2] border-gray-300 rounded-l-md text-[15px] sm:text-[18px] text-nowrap'>
+                      <span className='text-[14px] sm:text-[18px] p-2 border-1 w-20 bg-[#e2e2e2] border-gray-300 rounded-l-md   text-nowrap'>
                         {countryCode}
                       </span>
                       <input
@@ -232,42 +234,46 @@ export default function ProfileSetting() {
                         value={phoneValue}
                         onChange={handlePhoneChange}
                         maxLength={10} // giới hạn độ dài
-                        className={`p-2 border-1 text-[15px] sm:text-[18px] border-gray-300 rounded-r-md shadow-sm w-full 
+                        className={`p-2 border-1 text-[14px] sm:text-[18px] border-gray-300 rounded-r-md shadow-sm w-full 
                                focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500
                                    ${phoneValue.length > 0 && phoneValue.length !== 10 ? 'border-red-500' : ''}
                                       `}
                         placeholder='Nhập số điện thoại...'
+                    
                       />
                     </div>
 
                     {phoneValue.length > 0 && phoneValue.length !== 10 && (
-                      <span className='text-red-500   mt-1 text-[15px] sm:text-[18px]'>
+                      <span className='text-red-500   mt-1 text-[14px] sm:text-[18px]'>
                         Số điện thoại phải có đúng 10 chữ số.
                       </span>
                     )}
                   </div>
                 </div>
-                <div className='flex flex-col text-[15px] sm:text-[18px] gap-2'>
+                <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>
                   <label htmlFor=''>Address</label>
                   <input
                     type='text'
                     value={addressValue}
                     onChange={handleAddressChange}
-                    className='p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
+                    className='p-2 border-1 text-[14px] sm:text-[18px] border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                     placeholder='Nhập  địa chỉ'
+                  
+                    
                   />
                 </div>
-                <div className='flex flex-col text-[15px] sm:text-[18px] gap-2'>
+                <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>
                   <label htmlFor=''>Email</label>
                   <input
                     type='text'
                     value={emailValue}
                     onChange={handleEmailChange}
-                    className='p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
+                    className='p-2 border-1 text-[14px] sm:text-[18px] cursor-no-drop bg-gray-200  border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                     placeholder={` ${UserInfo.email}`}
+                     disabled
                   />
                 </div>
-                <div className='flex flex-col text-[15px] sm:text-[18px] gap-2'>
+                <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>
                   <label htmlFor=''>Zip Code</label>
                   <input
                     type='text'
@@ -278,7 +284,7 @@ export default function ProfileSetting() {
                   />
                 </div>
 
-                <div className='flex flex-col text-[15px] sm:text-[18px] gap-2'>
+                <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>
                   <label htmlFor=''>City</label>
                   <input
                     type='text'
@@ -290,16 +296,16 @@ export default function ProfileSetting() {
                 </div>
               </form>
             </div>
-            <div className='sm:px-10 px-2 mt-2 flex gap-4 max-sm:justify-between'>
+            <div className='sm:px-10 px-2 md:mt-2 mt-4 flex  gap-4 max-sm:justify-between'>
               <button
                 onClick={handleSaveUserthonin}
-                className='rounded-lg relative w-full h-10 cursor-pointer  flex items-center justify-center border   border-green-400 bg-green-400 group hover:bg-green-400 active:bg-green-500 active:border-green-500'
+                className='rounded-lg relative w-full h-10 cursor-pointer  flex items-center justify-center border   border-green-500 bg-green-500 group hover:bg-green-500 active:bg-green-500 active:border-green-500'
               >
-                <span className='text-gray-200   font-semibold ml-8 transform group-hover:translate-x-20 group-hover:opacity-0 transition-all duration-300'>
+                <span className='text-gray-200 text-[12px] md:text-[15px]  font-semibold md:ml-8 transform group-hover:translate-x-20 group-hover:opacity-0 transition-all duration-300'>
                   {' '}
-                  cập nhật
+                  Cập nhật
                 </span>
-                <span className='absolute right-0 h-full  w-10 rounded-lg bg-green-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300'>
+                <span className='absolute right-0 h-full max-md:hover:opacity-100 max-md:opacity-0  w-10 rounded-lg bg-green-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300'>
                   <i className='text-[#fff]'>
                     <Icon name='upload' />
                   </i>
@@ -308,12 +314,12 @@ export default function ProfileSetting() {
 
               <button
                 onClick={handleGoogleLogout}
-                className='rounded-lg relative w-full h-10 cursor-pointer  flex items-center justify-center border   border-red-400 bg-red-400 group hover:bg-red-400 active:bg-red-500 active:border-red-500'
+                className='rounded-lg relative w-full h-10 cursor-pointer  flex items-center justify-center border   border-red-500 bg-red-500 group hover:bg-red-500 active:bg-red-500 active:border-red-500'
               >
-                <span className='text-gray-200   font-semibold ml-8 transform group-hover:translate-x-20 group-hover:opacity-0 transition-all duration-300'>
+                <span className='text-gray-200 text-[12px] md:text-[15px] font-semibold md:ml-8 transform group-hover:translate-x-20 group-hover:opacity-0 transition-all duration-300'>
                   Đăng xuất
                 </span>
-                <span className='absolute right-0 h-full   w-10 rounded-lg bg-red-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300'>
+                <span className='absolute right-0 h-full   max-md:hover:opacity-100 max-md:opacity-0  w-10 rounded-lg bg-red-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300'>
                   <i className='text-[#fff]'>
                     {' '}
                     <Icon name='logout' />

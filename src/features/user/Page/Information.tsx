@@ -3,8 +3,9 @@ import { useState } from 'react'
 import Background from '../../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import { useMediaQuery } from '@mui/material'
-// import Icon from  '../../../icons/Icon'
+import {  useMediaQuery } from '@mui/material'
+ 
+import Icon from  '../../../icons/Icon'
 export default function InformationUser() {
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
@@ -21,11 +22,13 @@ export default function InformationUser() {
     cccd: user?.cccd || '',
     birthday: user?.birthday || `${currentYear}-01-01`
   })
-
+const [ishandlesumit, setishandlesubmit] = useState(false)
   // Hàm xử lý submit form lưu thông tin người dùng mới up vào push thêm userList
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    e.preventDefault()
+    setishandlesubmit(true)
+    setTimeout(() => {  
+       
     // phone trên 10 ký tự
     if (formData.phone.length < 10) {
       return alert('Số điện thoại phải có ít nhất 10 ký tự')
@@ -53,6 +56,8 @@ export default function InformationUser() {
     localStorage.setItem('userList', JSON.stringify(UserList))
     // Điều hướng đến trang thanh toán
     navigate(`/user/payment/${id}`)
+    setishandlesubmit(false)
+    }, 3000)
   }
 
   // repository
@@ -92,7 +97,7 @@ export default function InformationUser() {
 
         <div className=' mb-1 md:mb-4'>
           <TextField
-            type='tel'
+            type='text'
             size={isMobile ? 'small' : 'medium'}
             margin={isMobile ? 'dense' : 'none'}
             name='phone'
@@ -151,9 +156,9 @@ export default function InformationUser() {
 
         <button
           type='submit'
-          className='bg-green-500 text-[#fff] px-6 py-2 rounded-lg hover:bg-green-600 w-full text-sm md:text-xl '
+          className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg hover:bg-green-600 w-full text-sm md:text-xl transition-colors duration-300 ${ishandlesumit ? 'opacity-50 cursor-not-allowed' : ''}`} 
         >
-          Tiếp tục thanh toán
+          {ishandlesumit ?  <><Icon name='loading'/> </> : 'Xác nhận thông tin'}
         </button>
       </Box>
     </div>

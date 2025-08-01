@@ -91,7 +91,7 @@ function Tickets() {
                     </td>
 
                     <td className='py-2 px-2 text-[#1645ff] text-nowrap'>
-                      ${item.price} <span className=''>USD</span>
+                      ${item.price} <span className=''> vnđ</span>
                     </td>
                     {/* thông tin vé */}
 
@@ -163,7 +163,7 @@ function Tickets() {
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Giá</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} USD</p>
+                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} vnđ</p>
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Trạng thái</h1>
