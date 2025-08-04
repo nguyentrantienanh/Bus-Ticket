@@ -28,6 +28,7 @@ import Chatlayout from './features/user/Page/Support/Chatlayout'
 import Chatlist from './features/user/Page/Support/Listchat'
 import InformationUser from './features/user/Page/Information'
 import Ticketsearch from './Page/Ticketsearch/Ticket-search'
+import ForgotPassword from './Component/auth/ForgotPassword'
 
 // admin
 import ProtectedRouteAmin from './services/ProtectedRouteAmin'
@@ -73,7 +74,8 @@ function AppRoutes() {
     '/user/payment/',
     '/user/information-guest-user/',
     '/user/information-user/',
-    '/user/support/chat'
+    '/user/support/chat',
+    '/forgot-password'
   ]
   // loading mỗi khi chuyển trang
   // const [loading, setLoading] = useState(true)
@@ -116,7 +118,7 @@ function AppRoutes() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/ticket-search' element={<Ticketsearch />} />
-
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route
           path='/user/dashboard'
           element={

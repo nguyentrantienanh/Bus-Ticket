@@ -160,14 +160,14 @@ export default function ProfileSetting() {
         style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className='w-full h-full flex items-center justify-center bg-[#00000049]  '>
-          <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#fff]  '>Profile Setting</h1>
+          <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 max-sm:items-center  text-[#fff]  '>Profile Setting</h1>
         </div>
       </div>
-      <div className='flex flex-col  max-sm:items-center mx-10 rounded-2xl    bg-[#fff]  '>
-        <h1 className='font-black pt-5 text-1xl sm:text-2xl'>Thông tin cá nhân</h1>
+      <div className='flex flex-col  mx-10 rounded-2xl    bg-[#fff]  '>
+        <h1 className='font-black pt-5 text-1xl sm:text-2xl max-sm:text-center'>Thông tin cá nhân</h1>
         <div className='h-full py-5 '>
-          <div className='p-4   rounded-2xl bg-[#fff] shadow-[0_5px_25px_rgba(0,0,0,0.25)]'>
-            <div className=' flex max-sm:flex-col max-sm:items-center md:gap-5  '>
+          <div className='md:p-4   rounded-2xl bg-[#fff] md:shadow-[0_5px_25px_rgba(0,0,0,0.25)]'>
+            <div className=' flex max-sm:flex-col max-sm:items-center md:gap-5   '>
               <div className=' justify-center items-center flex flex-col w-1/3  gap-2 p-4 rounded-md'>
                 <img
                   src={

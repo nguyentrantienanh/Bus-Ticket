@@ -99,9 +99,9 @@ function TicketPending() {
 
   return (
     <>
-      <div className='bg-yellow-50 px-10 py-6 min-h-screen'>
+      <div className='bg-yellow-50 md:px-10 py-6 min-h-screen'>
         <div className='overflow-x-auto'>
-          <table className='min-w-full bg-yellow-500 rounded-t-2xl text-[13px]'>
+          <table className='min-w-full bg-yellow-500 md:rounded-t-2xl text-[13px]'>
             <thead>
               <tr className='text-[#fff] space-nowrap text-nowrap'>
                 <th className='py-2 px-2 text-left w-[90px]'>ID</th>
@@ -139,7 +139,7 @@ function TicketPending() {
                       </span>
                     </td>
                     <td className='py-2 px-2 text-indigo-600 font-semibold'>
-                      ${item.price} <span className='text-xs'> vnđ</span>
+                      ${item.price.toLocaleString()} <span className='text-xs'> VNĐ</span>
                     </td>
                     <td className='py-2 px-2 text-center'>
                       <button
@@ -224,7 +224,7 @@ function TicketPending() {
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Giá</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} vnđ</p>
+                  <p className='font-mono text-gray-600 text-[17px] '>{item.price.toLocaleString()} VNĐ</p>
                 </div>
                 <div className='flex justify-between px-4'>
                   <h1 className='font-extrabold text-gray-400 text-[17px]'>Trạng thái</h1>
@@ -277,8 +277,8 @@ export default function Pending() {
 
   return (
     <>
-      <div className=' bg-yellow-50 flex flex-col  px-2 w-full py-4  pt-2 '>
-        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg  '>
+      <div className=' bg-yellow-50 flex flex-col  md:px-2 w-full py-4  pt-2 '>
+        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
           <h1 className=' text-1xl sm:text-3xl font-bold text-gray-700'>Vé chờ duyệt</h1>
           <div className='  flex justify-between px-2 items-center  w-15  sm:w-30 h-full rounded-lg   m-2 bg-yellow-500 shadow-md'>
             <i className='  text-[14px]  sm:text-4xl text-[#fff]/20'>

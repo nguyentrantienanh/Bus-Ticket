@@ -64,7 +64,7 @@ export default function Createnew() {
           <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#fff]  '> Open Ticket</h1>
         </div>
       </div>
-      <div className=' m-15  mx-[10%]  shadow-[0_5px_25px_rgba(0,0,0,0.25)]  p-4  border-1  rounded-[10px] border-gray-200 '>
+      <div className=' md:m-15  md:mx-[10%]  md:shadow-[0_5px_25px_rgba(0,0,0,0.25)]  p-4  md:border-1  rounded-[10px] border-gray-200 '>
         <form action='' className='m-2'>
           <div className='grid gap-3 sm:gap-20 grid-cols-1 sm:grid-cols-2  '>
             <div className='flex flex-col'>
@@ -84,13 +84,13 @@ export default function Createnew() {
                 Priority<sup className='text-red-600'>*</sup>
               </label>
               <select
-                className='p-2 border-1 rounded-[10px] border-gray-200  shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500'
+                className='p-2 border-1 text-[14px] font-medium rounded-[10px] border-gray-200  shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500'
                 value={priority}
                 onChange={(e) => setPriority(Number(e.target.value))}
               >
-                <option value='1'>Hight</option>
-                <option value='2'>Medium</option>
-                <option value='3'>Low</option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='1'>Hight</option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='2'>Medium</option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='3'>Low</option>
               </select>
             </div>
           </div>

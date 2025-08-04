@@ -24,9 +24,9 @@ export function AccountLocked() {
   }
   return (
     <>
-      <div className='bg-red-50 px-2 sm:px-4 md:px-10 py-6 min-h-screen'>
+      <div className='bg-red-50   md:px-10 py-6 min-h-screen'>
         <div className='overflow-x-auto'>
-          <table className='min-w-full bg-red-600 rounded-t-2xl text-[13px] text-[#fff]'>
+          <table className='min-w-full bg-red-600 md:rounded-t-2xl text-[13px] text-[#fff]'>
             <thead>
               <tr className='text-[#fff]  text-nowrap space-nowrap'>
                 <th className='py-2 px-2 text-left w-[90px]'>ID</th>
@@ -120,9 +120,9 @@ export default function Locked() {
   const countLocked = UserList.filter((item: any) => item.status === 0).length
   return (
     <>
-      <div className=' bg-red-50 flex flex-col h-full px-2 w-full py-4  pt-2 '>
-        <div className='flex flex-col  px-2 w-full py-4  pt-2 '>
-          <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg  '>
+      <div className=' bg-red-50 flex flex-col h-full md:px-2 w-full py-4  pt-2 '>
+        <div className='flex flex-col  md:px-2 w-full py-4  pt-2 '>
+          <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
             <h1 className='text-3xl font-bold text-gray-700'>Tài khoảng khóa</h1>
             <div className='  flex justify-between px-2 items-center    w-30 h-full rounded-lg   m-2 bg-red-500 shadow-md'>
               <i className='    text-4xl text-[#fff]/20'>

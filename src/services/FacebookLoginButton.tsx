@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Icon from '../icons/Icon'
+ 
 declare global {
   interface Window {
     FB: any
@@ -11,13 +12,13 @@ interface FacebookLoginButtonProps {
   onLogin?: (user: any) => void
 }
 
-const FACEBOOK_APP_ID = '24502652375988239' // Thay bằng App ID của bạn
+const ID = import.meta.env.VITE_FACEBOOK_APP_ID // Lấy App ID từ biến môi trường
 
 function FacebookLoginButton({ onLogin }: FacebookLoginButtonProps) {
   useEffect(() => {
     window.fbAsyncInit = function () {
       window.FB.init({
-        appId: FACEBOOK_APP_ID,
+        appId:   ID,
         cookie: true,
         xfbml: true,
         version: 'v19.0'

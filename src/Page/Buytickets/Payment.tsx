@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import QR from '../../assets/QR.jpg'
 import bus from '../../assets/bus.png'
 import logo from '../../assets/logo/Bus_Ticket_Header.png'
-
+import emailjs from 'emailjs-com'
 import { useTranslation } from 'react-i18next'
 import Icon from '../../icons/Icon'
 import { useState } from 'react'
@@ -26,9 +26,7 @@ export default function Payment() {
   //     return item.map((seat: any) => seat.name)
   //   })
 
-  const handlePayNow = () => {
-    window.location.href = '/buytickets'
-  }
+ 
 
   const handleExit = () => {
     const updatedList = (isUserLoggedIn ? UserList : GuestUserInfo).map((user: any) => {
@@ -102,6 +100,52 @@ export default function Payment() {
     }
   }
 
+    const handlePayNow = async () => {
+    try{
+      const templateParams = {
+          order_id: ticket[0]?.id || guestUserTicket[0]?.id,
+          start_time: ticket[0]?.starttime || guestUserTicket[0]?.starttime,
+          departure_location: ticket[0]?.diemDi || guestUserTicket[0]?.diemDi,
+          travel_time: ticket[0]?.timetogo || guestUserTicket[0]?.timetogo,
+          end_time: ticket[0]?.endtime || guestUserTicket[0]?.endtime,
+          destination_location: ticket[0]?.diemDen || guestUserTicket[0]?.diemDen,
+          ticket_id: ticket[0]?.id || guestUserTicket[0]?.id,
+          departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
+          bus_type: ticket[0]?.type || guestUserTicket[0]?.type,
+          seat_layout: ticket[0]?.seatLayout || guestUserTicket[0]?.seatLayout,
+          seat_numbers: (ticket[0]?.seats || guestUserTicket[0]?.seats).map((s: any) => s.name).join(', '),
+          ticket_quantity: (ticket[0]?.seats || guestUserTicket[0]?.seats).length,
+          passenger_name: USERID.fullName,
+          passenger_email: USERID.email,
+          passenger_phone: USERID.phone,
+          passenger_id: USERID.cccd,
+          total_amount: (ticket[0]?.price || guestUserTicket[0]?.price).toLocaleString() + ' VNĐ',
+          payment_status: 'Đã thanh toán',
+          support_phone: import.meta.env.VITE_SUPPORT_PHONE,
+          support_email: import.meta.env.VITE_SUPPORT_EMAIL,
+          website_url: import.meta.env.VITE_WEBSITE_URL,
+          email: `${USERID.email}, ${import.meta.env.VITE_SUPPORT_EMAIL}`
+      }
+      const result = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_TICKET_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+
+      console.log('Email sent successfully:', result.text)
+      alert('Thanh toán thành công! Vé của bạn đã được gửi qua email.')
+       window.location.href = '/buytickets'
+    } catch (error) {
+      console.error('Error sending email:', error)
+      alert('Lỗi khi gửi vé qua email. Vui lòng thử lại sau.')
+    }
+
+       
+
+    
+  }
+
   return (
     <div className='min-h-screen py-10 px-4 flex items-center justify-center bg-gray-100 relative'>
       <div
@@ -128,12 +172,17 @@ export default function Payment() {
 
                   return (
                     <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
-                      <div className='flex justify-between items-center'>
-                        <span className='text-sm text-gray-500'>Số vé/code: {item.id}</span>
-                        <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
-                          Chiều đi
-                        </span>
-                      </div>
+                     <div className='flex max-md:flex-col justify-between items-center'>
+                    <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                     <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
+                       <span className='pl-1'>{item.dateStart}</span>
+                    </span>
+                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                      Chiều đi
+                    </span>
+                     </div>
+                  </div>
 
                       <div className='text-xl font-bold'>
                         {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
@@ -142,6 +191,7 @@ export default function Payment() {
 
                       <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                         <div>
+                          <div className='text-[14px] font-medium '>Giờ khởi hành</div>
                           <div className='text-xl font-bold'>{item.starttime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDi)}</div>
                         </div>
@@ -157,6 +207,7 @@ export default function Payment() {
                         </div>
 
                         <div>
+                          <div className='text-[14px] font-medium '>Giờ đến nơi</div>
                           <div className='text-xl font-bold'>{item.endtime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDen)}</div>
                         </div>
@@ -168,7 +219,7 @@ export default function Payment() {
                         <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
                         <div className='mt-2 border-t pt-2 flex justify-between'>
                           <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
-                          <div className='font-bold text-green-600'>{item.price.toLocaleString()} vnđ</div>
+                          <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
                         </div>
                       </div>
                     </div>
@@ -178,12 +229,17 @@ export default function Payment() {
                   const seatsticket = item.seats.map((s: any) => s.name)
                   return (
                     <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
-                      <div className='flex justify-between items-center'>
-                        <span className='text-sm text-gray-500'>Số vé/code: {item.id}</span>
-                        <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
-                          Chiều đi
-                        </span>
-                      </div>
+                     <div className='flex max-md:flex-col justify-between items-center'>
+                    <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                     <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
+                       <span className='pl-1'>{item.dateStart}</span>
+                    </span>
+                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                      Chiều đi
+                    </span>
+                     </div>
+                  </div>
 
                       <div className='text-xl font-bold'>
                         {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
@@ -192,6 +248,7 @@ export default function Payment() {
 
                       <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                         <div>
+                            <div className='text-[14px] font-medium '>Giờ khởi hành</div>
                           <div className='text-xl font-bold'>{item.starttime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDi)}</div>
 
@@ -209,6 +266,7 @@ export default function Payment() {
                         </div>
 
                         <div>
+                          <div className='text-[14px] font-medium '>Giờ đến nơi</div>
                           <div className='text-xl font-bold'>{item.endtime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDen)}</div>
                           <p className='text-[11px] text-gray-500'>Giờ đến nơi</p>
@@ -224,7 +282,7 @@ export default function Payment() {
                             <strong>Ghế:</strong>{' '}
                             <span className='text-gray-600 font-medium '> {seatsticket.join(', ')} </span>
                           </div>
-                          <div className='font-bold text-green-600'>{item.price.toLocaleString()} vnđ</div>
+                          <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
                         </div>
                       </div>
                     </div>
@@ -316,7 +374,7 @@ export default function Payment() {
                         Số tiền cần thanh toán:{' '}
                         <span className='font-bold text-red-600'>
                           {' '}
-                          {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} vnđ
+                          {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} VNĐ
                         </span>
                       </p>
                       <button
@@ -366,7 +424,7 @@ export default function Payment() {
                           Số tiền cần thanh toán:{' '}
                           <span className='font-bold text-red-600'>
                             {' '}
-                            {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} vnđ
+                            {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} VNĐ
                           </span>
                         </p>
                         <p className='text-sm text-gray-700 mt-1'>

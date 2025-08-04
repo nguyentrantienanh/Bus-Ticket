@@ -33,7 +33,7 @@ export function Booking() {
   const test = UserList.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id))
   return (
     <>
-      <div className='bg-[#fff] px-2 sm:px-4 md:px-10 py-6'>
+      <div className='bg-[#fff]  px-0 md:px-10 py-6'>
         <div className='overflow-x-auto'>
           <table className='min-w-full text-sm md:text-[13px]'>
             <thead>
@@ -76,7 +76,7 @@ export function Booking() {
                       )}
                     </td>
                     <td className='py-2 px-2 text-[#1645ff] hidden md:table-cell'>
-                      ${item.price} <span className='text-xs'> vnđ</span>
+                      {item.price.toLocaleString()} <span className='text-xs'> VNĐ</span>
                     </td>
                     <td className='py-2 px-2 text-center  '>
                       <button
@@ -107,7 +107,7 @@ export function Booking() {
 
       {informationticket && (
         <div>
-          <div className='bg-black fixed top-0 z-90 opacity-30 h-full w-full ' onClick={isclick}></div>
+          <div className='bg-black fixed top-0 left-0 z-100 opacity-30 w-screen h-screen' onClick={isclick}></div>
 
           <div
             className={` fixed top-1/9  md:w-[600px] left-1/2 transform -translate-x-1/2  rounded z-900
@@ -152,11 +152,16 @@ export function Booking() {
                       </i>
                     </span>
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex max-md:flex-col justify-between items-center'>
                     <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                     <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
+                       <span className='pl-1'>{item.dateStart}</span>
+                    </span>
                     <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
                       Chiều đi
                     </span>
+                     </div>
                   </div>
 
                   <div className=' text-[13px] md:text-xl font-bold'>
@@ -166,6 +171,7 @@ export function Booking() {
 
                   <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                     <div>
+                        <div className='text-[14px] font-medium '>Giờ khởi hành</div>
                       <div className='text-[13px] md:text-xl font-bold'>{item.starttime}</div>
                       <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDi)}</div>
                     </div>
@@ -180,6 +186,7 @@ export function Booking() {
                     </div>
 
                     <div>
+                        <div className='text-[14px] font-medium '>Giờ  đến nơi</div>
                       <div className='text-[13px] md:text-xl font-bold'>{item.endtime}</div>
                       <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDen)}</div>
                     </div>
@@ -199,7 +206,7 @@ export function Booking() {
                           {item.seats.map((s: any) => s.name).join(', ')}
                         </span>{' '}
                       </div>
-                      <div className='font-bold text-green-600'>{item.price.toLocaleString()} vnđ</div>
+                      <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
                     </div>
                   </div>
                 </div>

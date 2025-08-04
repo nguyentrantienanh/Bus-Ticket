@@ -19,7 +19,7 @@ function TicketConfirmed() {
   const seats = ConfirmedTickets.map((item: any) => item.seats).map((item: any) => {
     return item.map((seat: any) => seat.name)
   })
-
+ 
   // click thông tin vé
   const [informationticket, setinformationticket] = useState(false)
   const isclick = () => {
@@ -28,13 +28,14 @@ function TicketConfirmed() {
 
   // thongtinve
   const thongtinve = JSON.parse(localStorage.getItem('thongtinve') || '{}')
-  // hàm đếm
+const test = UserList.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id) || GuestUser.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id)))
+
 
   return (
     <>
-      <div className='   bg-green-50   px-2 sm:px-4 md:px-10 py-6 min-h-screen'>
+      <div className='   bg-green-50    md:px-10 py-6 min-h-screen'>
         <div className='overflow-x-auto'>
-          <table className='min-w-full bg-[#1ba000] table-fixed rounded-t-2xl text-[13px]'>
+          <table className='min-w-full bg-[#1ba000] table-fixed md:rounded-t-2xl text-[13px]'>
             <thead>
               <tr className='text-[#fff]  space-nowrap text-nowrap'>
                 <th className='py-2 px-2 text-left w-[90px]'>ID</th>
@@ -70,7 +71,7 @@ function TicketConfirmed() {
                       <span className='px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2'>Confirmed</span>
                     </td>
                     <td className='py-2 px-2 text-indigo-600 font-semibold'>
-                      ${item.price} <span className='text-xs'> vnđ</span>
+                      ${item.price.toLocaleString()} <span className='text-xs'> VNĐ</span>
                     </td>
                     <td className='py-2 px-2'>
                       <button
@@ -98,10 +99,10 @@ function TicketConfirmed() {
       </div>
       {informationticket && (
         <div>
-          <div className='bg-black fixed top-0 z-90 opacity-30 h-full w-full ' onClick={isclick}></div>
+          <div className='bg-black fixed top-0 left-0 z-100 opacity-30 w-screen h-screen ' onClick={isclick}></div>
 
           <div
-            className={` fixed top-1/9   left-1/2 transform -translate-x-1/2  rounded z-900
+            className={`  fixed top-1/9  md:w-[600px] left-1/2 transform -translate-x-1/2  rounded z-900
           
           
           `}
@@ -110,62 +111,98 @@ function TicketConfirmed() {
             }}
           >
             {thongtinve.map((item: any) => (
-              <div className='bg-[#fff] w-150 rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
-                <div className='flex justify-between px-4 py-2  border-b-2  '>
-                  <h1 className='font-extrabold text-gray-600 text-[17px]'>Ticket Booking History</h1>
-                  <span onClick={isclick}>
-                    <i className=' cursor-pointer'>
-                      <Icon name='close' />
-                    </i>
-                  </span>
-                </div>
-                <div className='flex justify-between px-4'>
-                  <h1 className='font-extrabold text-gray-400 text-[17px]'>Ngày: </h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.dateStart}</p>
-                </div>
-                <div className='flex justify-between px-4'>
-                  <h1 className='font-extrabold text-gray-400 text-[17px]'>mã vé</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.ticketId}</p>
-                </div>
-                <div className='flex justify-between px-4'>
-                  <h1 className='font-extrabold text-gray-400 text-[17px]'>Tuyến đường</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>
-                    {' '}
-                    {t(`${item.diemDi}`, { defaultValue: item.diemdi })} -{' '}
-                    {t(`${item.diemDen}`, { defaultValue: item.diemden })}
-                  </p>
-                </div>
-                <div className='flex justify-between px-4'>
-                  <h1 className='font-extrabold text-gray-400 text-[17px]'>Giá</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>{item.price} vnđ</p>
-                </div>
-                <div className='flex justify-between px-4'>
-                  <h1 className='font-extrabold text-gray-400 text-[17px]'>Trạng thái</h1>
-                  <p className='font-mono text-gray-600 text-[17px] '>
-                    <td className='py-2 px-4 '>
-                      <span className='px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2'>Confirmed</span>
-                    </td>
-                  </p>
-                </div>
+              <div className='  w-full rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
+                <div
+                  key={item.id}
+                  className='bg-[#fff]   rounded-xl p-4 shadow space-y-2
+                  '
+                >
+                  <div className='flex justify-between px-2 py-2  border-b-2  '>
+                    <h1 className='font-extrabold text-gray-600 text-nowrap text-[13px] md:text-[17px] flex max-md:flex-col items-center'>
+                      Ticket Booking History{' '}
+                      <p className='font-mono px-2 text-gray-600 text-[10px] max-md:mr-auto max-md:px-0 max-md:py-1 md:text[14px] '>
+                         <span className='  font-bold px-3 py-1 rounded-full bg-[#00ff2636] text-[#00d40e]  '
+                         >Confirmed</span>
+                      </p> 
+                    </h1>
 
-                <div className='pr-4'>
-                  <button onClick={isclick} className='  float-end bg-red-500 px-8 py-4 rounded-2xl'>
-                    {' '}
-                    xóa
-                  </button>
+                    <div className='flex justify-between px-4'></div>
+                    <span onClick={isclick}>
+                      <i className=' cursor-pointer'>
+                        <Icon name='close' />
+                      </i>
+                    </span>
+                  </div>
+                 <div className='flex max-md:flex-col justify-between items-center'>
+                    <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                     <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
+                       <span className='pl-1'>{item.dateStart}</span>
+                    </span>
+                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                      Chiều đi
+                    </span>
+                     </div>
+                  </div>
+
+                  <div className=' text-[13px] md:text-xl font-bold'>
+                    {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
+                  </div>
+                  <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {item.seatLayout}</p>
+
+                  <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
+                    <div>
+                      <div className='text-[14px] font-medium  '>Giờ khởi hành</div>
+                      <div className='text-[13px] md:text-xl font-bold'>{item.starttime}</div>
+                      <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDi)}</div>
+                    </div>
+                    <div>
+                      <i className='text-green-600 max-md:text-[13px] border-b pl-4 pr-1'>
+                        ...
+                        <Icon name='bus-go' />
+                      </i>
+                      <div className='text-[10px] md:text-xs text-gray-500'>
+                        {item.timetogo?.slice(0, 2)} giờ {item.timetogo?.slice(3, 5)} phút
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className='text-[14px] font-medium  '>Giờ đến nơi</div>
+                      <div className='text-[13px] md:text-xl font-bold'>{item.endtime}</div>
+                      <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDen)}</div>
+                    </div>
+                  </div>
+
+                  <div className='bg-gray-100 p-3 rounded-lg text-sm'>
+                    <div className='font-semibold max-md:text-[13px] '>{test?.fullName || test?.name}</div>
+                    <div className='text-xs text-gray-600 '>
+                      CMND: <span className='font-normal max-md:text-[12px]'>{test?.cccd} </span> 
+                    </div>
+                    <div className='font-semibold text-sm text-gray-700 max-md:text-[10px] '> <strong>{test?.type === 1 ? 'Khách hàng' : 'Khách vãng lai'}</strong></div>
+                    <div className='mt-2 border-t pt-2 flex justify-between'>
+                      <div className=' '>
+                        {' '}
+                        <strong>Ghế:</strong>{' '}
+                        <span className='text-blue-600 font-medium '>
+                          {item.seats.map((s: any) => s.name).join(', ')}
+                        </span>{' '}
+                      </div>
+                      <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          <style>
+         <style>
             {`  
               @keyframes slideDown{
               0% {
               top: 0;
-                transform: translateY(-100%); opacity: 0; 
+                transform: traslateY(-100%); opacity: 0; 
               }
                 100% {
-                  transform: translateY(-100%); opacity: 1; 
+                  transform: traslateY(-100%); opacity: 1; 
                 }
               }
                 @keyframes slideUp{
@@ -189,8 +226,8 @@ export default function Confirmed() {
   const totalConfirmed = ve.filter((item: any) => item.status === 1).length
   return (
     <>
-      <div className=' bg-green-50  flex flex-col  px-2 w-full py-4  pt-2 '>
-        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg  '>
+      <div className=' bg-green-50  flex flex-col  md:px-2 w-full py-4  pt-2 '>
+        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
           <h1 className='text-1xl sm:text-3xl font-bold text-gray-700'>Vé đã được duyệt</h1>
           <div className='  flex justify-between px-2 items-center  w-15  sm:w-30 h-full rounded-lg   m-2 bg-green-500 shadow-md'>
             <i className='  text-[14px]  sm:text-4xl text-[#fff]/20'>

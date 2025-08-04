@@ -41,7 +41,7 @@ export default function Dashboard() {
   return (
     <>
       <div className='bg-[#f0f0f0] min-h-screen'>
-        <div className='sm:py-3 py-1 flex justify-between px-1 sm:px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg  '>
+        <div className='sm:py-3 py-1 flex justify-between px-1 sm:px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
           <h1 className='text-1xl sm:text-2xl font-bold text-gray-700'>Dashboard</h1>
           <div className='flex items-center gap-2'>
             <i className='text-1xl sm:text-2xl my-1 text-gray-700 cursor-pointer relative'>

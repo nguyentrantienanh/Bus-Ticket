@@ -286,6 +286,22 @@ function Header() {
                           </Link>
                         </li>
                       ))}
+                      {item.id === 4 && (
+                        <li key="logout">
+                            <Link
+                              to="/signin"
+                              className=" min-w-max block text-[15px] px-4 py-2 text-sm text-red-700 hover:bg-[#1ba000] hover:text-[#fff] hover:pr-auto  transition-all duration-300 ease-in "
+                              onClick={() => {
+                                localStorage.removeItem('userInfo')
+                                localStorage.removeItem('userthongtin')
+                                navigate('/signin')
+                              }}
+                            >
+                               Đăng xuất <Icon name='logout' />
+                            </Link>
+                          </li>
+                      )}
+                       
                     </ul>
                   </div>
                 )}
@@ -450,6 +466,7 @@ function Header() {
                                 <Icon name={isopenclick === item.id ? 'up' : 'dow'} />
                               </span>
                             )}
+                           
                           </div>
                         </div>
                         <div
@@ -469,6 +486,19 @@ function Header() {
                                   </Link>
                                 </li>
                               ))}
+                              {item.id === 4 && (
+                              <span
+                                className='text-red-700  min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] hover:pr-auto  transition-all duration-300 ease-in '
+                                onClick={() => {
+                                  localStorage.removeItem('userInfo')
+                                  localStorage.removeItem('userthongtin')
+                                  navigate('/signin')
+                                }}
+                              >
+                              Đăng xuất
+                                <Icon name='logout' />
+                              </span>
+                            )}
                             </ul>
                           )}
                         </div>

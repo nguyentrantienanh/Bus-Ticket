@@ -1,5 +1,5 @@
-import logo from '../../assets/logo/Bus_Ticket_Header.png'
-import background from '../../assets/auth/background-login.jpg'
+import logo from '@assets/logo/Bus_Ticket_Header.png'
+import background from '@assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
 
@@ -7,24 +7,11 @@ import { useState, useEffect } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 // import FacebookLoginButton from '../../services/FacebookLoginButton'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+// Signin.tsx - import với relative path
+import type { UserInfo } from '../../types/userInfo'
 
-type UserInfo = {
-  id: number
-  email: string
-  firstname: string
-  status: number
-  username?: string
-  password?: string
-  address?: string
-  lastname: string
-  googleId?: string
-  imageUrl: string
-  name: string
-  ticket: any[]
-  chats: any[]
-  type: number
-}
+ 
 
 export default function Signin() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
@@ -75,10 +62,9 @@ export default function Signin() {
       console.error('Lỗi đăng nhập Google:', error)
     }
   }
-
   // Hàm xử lý đăng nhập thất bại với Google
   const handleGoogleLoginError = () => {
-    console.error('Google Login Failed')
+     
   }
   // Sử dụng hook useGoogleLogin để đăng nhập với Google
   const login = useGoogleLogin({
@@ -122,8 +108,20 @@ export default function Signin() {
     })
   }, [])
 
+  const [islogin,setlogin] = useState(false)
   const handleLogin = (e: any) => {
     e.preventDefault()
+    if (!captchaValue) {
+      alert('Vui lòng xác nhận captcha trước khi đăng nhập.')
+      return
+    }
+    if (!useremail || !password) {
+      alert('Vui lòng điền đầy đủ thông tin đăng nhập.')
+      return
+    }
+    setlogin(true)
+    setTimeout(() => {
+
     try {
       // Lấy danh sách user đã lưu
       const userList: UserInfo[] = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -137,25 +135,37 @@ export default function Signin() {
         // Sử dụng navigate thay vì window.location.href
         navigate('/user/dashboard')
       } else {
-        alert('Tên đăng nhập hoặc mật khẩu không đúng.')
+        alert('email hoặc mật khẩu không đúng.')
       }
     } catch (error) {
       console.error('Lỗi đăng nhập:', error)
       alert('Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau.')
     }
+    setlogin(false)
+    }, 3000)
   }
 
   return (
     <div className='flex flex-col md:flex-row  min-h-screen  bg-gray-100'>
+      
+       
       <div className='w-full md:w-2/4  '>
         <img src={background} alt='Background' className=' object-cover object-left h-full w-full  ' />
       </div>
 
       <div className='  flex flex-col items-center justify-start w-full md:w-2/4 max-h-screen bg-[#fff] py-4 px-4 overflow-y-auto'>
+        <div
+          onClick={() => navigate('/')}
+         className=' cursor-pointer mr-auto ml-0 md:ml-4  text-gray-500  font-semibold text-[#000]'>
+          <i className='text-[12px]'>
+             <Icon name='arrowleft' />
+          </i>
+           <span className='text-[12px] font-bold'> Quay lại</span>
+        </div>
         <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
         {/* hiệu email người đăng nhập */}
 
-        <div className='w-full max-w-md'>
+        <div className='  w-full max-w-md'>
           <div className='gap-4 flex flex-col  '>
             <div
               onClick={() => login()}
@@ -181,7 +191,7 @@ export default function Signin() {
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
           </div>
 
-          <div>
+          <div className=''>
             <form className='flex flex-col gap-4'>
               <div>
                 <label htmlFor='username' className='block text-sm font-medium text-gray-700'>
@@ -213,28 +223,40 @@ export default function Signin() {
               </div>
               <div className=' flex  '>
                 <ReCAPTCHA
-                  sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
+                  sitekey={import.meta.env.VITE_RECAPTCHA_KEY} // Thay bằng site key của bạn
                   onChange={handleCaptchaChange}
                 />
               </div>
-              <div className='flex justify-between items-center mt-2'>
+              <div className='   flex justify-between items-center mt-2'>
                 <div className='flex items-center'>
-                  <input type='checkbox' id='rememberme' />
-                  <label htmlFor='rememberme' className='ml-2 text-sm text-gray-700'>
+                  <input className='cursor-pointer' type='checkbox' id='rememberme' />
+                  <label htmlFor='rememberme' className=' cursor-pointer ml-2 text-[15px] text-gray-700'>
                     Remember me
                   </label>
                 </div>
+                <Link to='/forgot-password' className='text-[15px] text-gray-500'>
                 <div>
-                  <p>Forgot Password?</p>
+                  <p className=' cursor-pointer text-[15px] text-gray-500'>Forgot Password?</p>
                 </div>
+                </Link>
               </div>
 
               <button
                 onClick={handleLogin}
-                className={`bg-[#23ff52] h-10 w-full mt-2 ${captchaValue ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} `}
-                disabled={!captchaValue}
-              >
-                Đăng nhập
+                className={`bg-[#23ff52] h-10 w-full mt-1 ${captchaValue && !islogin 
+      ? 'hover:bg-[#00ff37] cursor-pointer' 
+      : 'opacity-50 cursor-not-allowed'
+    }   text-black font-semibold rounded`}
+                disabled={!captchaValue || islogin}
+              > 
+                {islogin ? (
+                  <div className='flex items-center justify-center'>
+                    <i className='fa-solid fa-spinner animate-spin mr-2'></i>
+                    <span>Đang đăng nhập...</span>
+                  </div>
+                ) : (
+                  'Login'
+                )}
               </button>
 
               <div>

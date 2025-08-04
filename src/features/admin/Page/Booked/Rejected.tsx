@@ -56,9 +56,9 @@ function TicketRejected() {
   }
   return (
     <>
-      <div className='bg-red-50 px-2 sm:px-4 md:px-10 py-6 min-h-screen'>
+      <div className='bg-red-50   md:px-10 py-6 min-h-screen'>
         <div className='overflow-x-auto'>
-          <table className='min-w-full bg-red-500 table-fixed rounded-t-2xl text-[13px]'>
+          <table className='min-w-full bg-red-500 table-fixed md:rounded-t-2xl text-[13px]'>
             <thead>
               <tr className='text-[#fff] space-nowrap text-nowrap'>
                 <th className='py-2 px-2 text-left w-[90px]'>ID</th>
@@ -91,7 +91,7 @@ function TicketRejected() {
                       <span className='px-3 py-1 rounded-full text-[#f00] bg-[#ff000036] border-2'>Rejected</span>
                     </td>
                     <td className='py-2 px-2 text-indigo-600 font-semibold'>
-                      ${item.price} <span className='text-xs'> vnđ</span>
+                      ${item.price.toLocaleString()} <span className='text-xs'> VNĐ</span>
                     </td>
                     <td className='py-2 px-2'>
                       <button

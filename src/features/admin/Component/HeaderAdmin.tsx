@@ -118,11 +118,11 @@ function HeaderAdmin() {
       {' '}
       <aside
         className={`md:h-screen top-0 left-0 bg-gray-100 flex flex-col justify-between transition-all duration-500 z-50 ${
-          collapsed ? 'md:w-18' : 'md:w-80'
+          collapsed ? 'md:w-12' : 'md:w-80'
         }`}
       >
         <div>
-          <div className='flex items-center justify-between p-4 border-b cursor-pointer'>
+          <div className='flex items-center justify-between p-4 border-b cursor-pointer  '>
             <div className='flex items-center justify-center gap-2' onClick={() => setCollapsed(false)}>
               <img src={logo} alt='Logo' className='h-10 object-contain' />
               <span
@@ -149,7 +149,7 @@ function HeaderAdmin() {
                 setopenshow(null)
                 setIsLanguageOpen(false)
               }}
-              className='text-gray-500 hover:text-gray-700 max-md:hidden'
+              className='text-gray-500 hover:text-gray-700  max-md:hidden'
             >
               {collapsed ? <Icon name='circle-right' /> : <Icon name='circle-left' />}
             </button>
@@ -171,7 +171,7 @@ function HeaderAdmin() {
           <nav
             className={`flex flex-col mt-2 overflow-hidden transition-all duration-500 ease-in-out ${
               mobileMenuOpen
-                ? 'max-md:max-h-[500px] max-md:opacity-100' // Mobile: hiện khi menu mở
+                ? 'max-md:max-h-[500px] max-md:opacity-100 ' // Mobile: hiện khi menu mở
                 : 'max-md:max-h-0 max-md:opacity-0' // Mobile: ẩn khi menu đóng
             } md:max-h-[calc(100vh-200px)] md:opacity-100 md:overflow-y-auto`}
           >
@@ -179,12 +179,13 @@ function HeaderAdmin() {
               <div key={item.id} className='relative group'>
                 <Link
                   to={item.path}
-                  className={`flex items-center gap-3 px-3 py-2 rounded hover:bg-green-100 transition-all ${
+                  className={`flex  py-4 items-center gap-3 px-3  rounded hover:bg-green-100 transition-all ${
                     location.pathname.startsWith(item.path) ? 'bg-green-200 text-[#1ba000]' : 'text-gray-700'
                   }`}
                   onClick={() => {
                     // Đóng mobile menu khi click vào Link
                     setMobileMenuOpen(false)
+                    setCollapsed(false)
                   }}
                 >
                   <Icon name={item.icon} />

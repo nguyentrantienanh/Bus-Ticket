@@ -35,9 +35,9 @@ function Account() {
 
   return (
     <>
-      <div className='bg-[#fff] px-2 sm:px-4 md:px-10 py-6'>
+      <div className='bg-[#fff]   md:px-10 py-6'>
         <div className='overflow-x-auto'>
-          <table className='min-w-full bg-[#1ba000] rounded-t-2xl text-[13px]'>
+          <table className='min-w-full bg-[#1ba000] md:rounded-t-2xl text-[13px]'>
             <thead>
               <tr className='text-[#fff]  space-nowrap text-nowrap'>
                 <th className='py-2 px-2 text-left w-[90px]'>ID</th>
@@ -155,7 +155,7 @@ function AccountVerified() {
   const countUnverifiedPhone = UserList.filter((item: any) => !item.phone).length
   return (
     <>
-      <div className=' grid grid-cols-4  col-span-4  '>
+      <div className=' grid   grid-cols-1 sm:grid-cols-2   lg:grid-cols-4 '>
         {/* Tổng người dùng */}
         <div className='relative  rounded-lg overflow-hidden m-2 bg-[#4F46E5] shadow-md'>
           <i className='absolute bottom-0 left-0 text-5xl text-[#fff]/20'>
@@ -211,9 +211,9 @@ export default function UserAccount() {
   const Disable = UserList.filter((item: any) => item.status !== 1).length
   return (
     <>
-      <div className='flex flex-col h-full px-2 w-full py-4  pt-2 '>
-        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg  '>
-          <h1 className='text-3xl font-bold text-gray-700'>Tài khoảng người dùng</h1>
+      <div className='flex flex-col h-full md:px-2 w-full py-4  pt-2 '>
+        <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
+          <h1 className='text-1xl sm:text-3xl font-bold text-gray-700'>Tài khoảng người dùng</h1>
         </div>
         {/* Account */}
         <div>

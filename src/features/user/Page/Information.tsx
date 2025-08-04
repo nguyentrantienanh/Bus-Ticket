@@ -156,9 +156,10 @@ const [ishandlesumit, setishandlesubmit] = useState(false)
 
         <button
           type='submit'
-          className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg hover:bg-green-600 w-full text-sm md:text-xl transition-colors duration-300 ${ishandlesumit ? 'opacity-50 cursor-not-allowed' : ''}`} 
+          className={`  text-[#fff] px-6 py-2 rounded-lg  w-full text-sm md:text-xl transition-colors duration-300 ${ishandlesumit ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'bg-green-500 hover:bg-green-600 '}`} 
+          disabled={ishandlesumit}
         >
-          {ishandlesumit ?  <><Icon name='loading'/> </> : 'Xác nhận thông tin'}
+          {ishandlesumit ?  <><Icon name='loading'/> Đang xử lý...</> : 'Xác nhận thông tin'}
         </button>
       </Box>
     </div>

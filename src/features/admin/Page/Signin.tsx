@@ -69,7 +69,7 @@ const Signin: React.FC = () => {
         </div>
         <div className=' flex py-2 '>
           <ReCAPTCHA
-            sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
+            sitekey={import.meta.env.VITE_RECAPTCHA_KEY} // Thay bằng site key của bạn
             onChange={handleCaptchaChange}
           />
         </div>

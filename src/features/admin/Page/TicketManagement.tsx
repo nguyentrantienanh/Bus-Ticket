@@ -77,8 +77,8 @@ export default function TicketManagement() {
   }
 
   return (
-    <div className='p-4  w-full space-y-4'>
-      <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] rounded-lg '>
+    <div className='md:p-4  w-full space-y-4'>
+      <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg '>
         <div className='flex items-center gap-2'>
           <h1 className='text-1xl items-center text-nowrap sm:text-3xl  font-bold text-gray-700'>Quản lý vé</h1>
           <div className='   flex justify-between px-2 items-center  w-10  sm:w-30 h-full rounded-lg bg-blue-500 shadow-md'>

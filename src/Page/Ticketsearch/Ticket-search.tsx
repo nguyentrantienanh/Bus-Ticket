@@ -39,6 +39,7 @@ export default function Ticketsearch() {
       } else {
         const ticket = ticketseachs[0] // Lấy vé đầu tiên
         setTicketsearch(ticket)
+        alert('Tìm thấy vé')
       }
 
       setisSearch(false)
@@ -124,6 +125,9 @@ export default function Ticketsearch() {
             </div>
           </div>
         </Box>
+        <div className='text-center text-gray-500 text-sm mt-2'>
+          <strong>Chú ý:</strong><span>Các vé đã xuất phát đc 15 ngày sẽ không hiển thị trong kết quả tìm kiếm.</span>
+        </div>
 
         <div className=' bg-[#fff] mx-10 my-10 flex   justify-center items-center'>
           {ticketseach ? (
@@ -209,18 +213,24 @@ export default function Ticketsearch() {
                   ticketDetail ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
                 } bg-[#fff] border-b-1 border-r-1 border-l-1 border-dashed rounded-b-2xl p-4 shadow space-y-2`}
               >
-                <div className='flex justify-between items-center'>
-                  <span className='text-sm text-gray-500'>Số vé/code: {ticketseach.id}</span>
-                  <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold'>
-                    Chiều đi
-                  </span>
-                </div>
+                <div className='flex max-md:flex-col justify-between items-center'>
+                    <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {ticketseach.id}</span>
+                     <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
+                       <span className='pl-1'>{ticketseach.dateStart}</span>
+                    </span>
+                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                      Chiều đi
+                    </span>
+                     </div>
+                  </div>
 
                 <div className='text-xl font-bold'>{name}</div>
                 <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {ticketseach.seatLayout}</p>
 
                 <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                   <div>
+                      <div className='text-[14px] font-medium '>Giờ khởi hành</div>
                     <div className='text-xl font-bold'>{ticketseach.starttime}</div>
                     <div className='text-sm font-medium'>
                       {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
@@ -238,6 +248,7 @@ export default function Ticketsearch() {
                   </div>
 
                   <div>
+                      <div className='text-[14px] font-medium '>Giờ đến nơi</div>
                     <div className='text-xl font-bold'> {ticketseach.endtime}</div>
                     <div className='text-sm font-medium'>
                       {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}

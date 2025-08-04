@@ -58,10 +58,10 @@ export default function Changepassword() {
         </div>
       </div>
 
-      <div className=' sm:px-[5%] lg:px-[15%] xl:px-[30%] my-10'>
+      <div className=' sm:px-[5%] lg:px-[15%] xl:px-[30%] my-2 md:my-10'>
         <form
           onSubmit={handleSubmit}
-          className='rounded-2xl shadow-[0_5px_25px_rgba(0,0,0,0.25)] p-3 flex flex-col gap-8'
+          className='rounded-2xl md:shadow-[0_5px_25px_rgba(0,0,0,0.25)] p-3 flex flex-col gap-8'
         >
           {/* Nếu có mật khẩu cũ mới hiện input Current Password */}
           {userInfo?.password && (

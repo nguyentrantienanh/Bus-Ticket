@@ -146,8 +146,9 @@ function Icon(props: { name: string }) {
     // Dấu chấm tròn bên trái
     return <i className='fa-regular fa-circle-left'></i>
   } else if (props.name == 'arrowleft') {
-    // Mũi tên bên nhọn
+    // Mũi tên bên nhọn trái
     return <i className='fa-solid fa-arrow-left'></i>
+ 
   } else if (props.name == 'logout') {
     // Đăng xuất
     return <i className='fa-solid fa-right-from-bracket'></i>

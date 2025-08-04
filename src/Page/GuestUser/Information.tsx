@@ -4,6 +4,7 @@ import Background from '../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useMediaQuery } from '@mui/material'
+import Icon from '../../icons/Icon'
 
 export default function InformationGuestUser() {
   const { id } = useParams<{ id: string }>()
@@ -19,9 +20,11 @@ export default function InformationGuestUser() {
     cccd: '',
     birthday: `${currentYear}-01-01`
   })
-
+const [ishandlesumit, setishandlesubmit] = useState(false)
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    setishandlesubmit(true)
+    setTimeout(() => {
     // phone trên 10 ký tự
     if (formData.phone.length < 10) {
       return alert('Số điện thoại phải có ít nhất 10 ký tự')
@@ -61,6 +64,8 @@ export default function InformationGuestUser() {
 
     // Điều hướng đến trang thanh toán
     navigate(`/user/payment/${id}`)
+    setishandlesubmit(false)
+    }, 3000)
   }
 
   // repository
@@ -159,9 +164,12 @@ export default function InformationGuestUser() {
 
         <button
           type='submit'
-          className='bg-green-500 text-[#fff] px-6 py-2 rounded-lg hover:bg-green-600 w-full text-sm md:text-2xl '
+          className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg  w-full text-sm md:text-2xl 
+            ${ishandlesumit ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'hover:bg-green-600 bg-green-500'}
+            `}
+            disabled={ishandlesumit}
         >
-          Tiếp tục thanh toán
+          {ishandlesumit ?  <><Icon name='loading'/> Đang xử lý...</> : 'Xác nhận thông tin'}
         </button>
       </Box>
     </div>

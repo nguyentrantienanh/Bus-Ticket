@@ -4,8 +4,11 @@ import background from '../../assets/auth/background-login.jpg'
 
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
+import Icon from '../../icons/Icon'
+import { useNavigate } from 'react-router-dom'
 
 export default function Signin() {
+  const navigate = useNavigate()
   // // Hàm xử lý captcha
   const [captchaValue, setCaptchaValue] = useState(false)
   // hàm xử lý đã check click chưa
@@ -28,7 +31,7 @@ export default function Signin() {
   })
 
   const ktremail = Userlist.find((u: any) => u.email === fromData.email)
-
+  const [isSignup, setisSignup] = useState(false)
   const handleSignup = () => {
     if (fromData.password.length < 10) {
       alert('Mật khẩu phải có (trên 10 ký tự)')
@@ -49,6 +52,8 @@ export default function Signin() {
       alert('Vui lòng điền đầy đủ thông tin.')
       return
     }
+    setisSignup(true)
+    setTimeout(() => {
     // Lưu thông tin người dùng mới vào localStorage
     const newUser = {
       ...fromData,
@@ -64,9 +69,9 @@ export default function Signin() {
     localStorage.setItem('userList', JSON.stringify(Userlist))
     alert('tạo tài khoảng thành công mời bạn đăng nhập')
     window.location.href = '/signin'
+    setisSignup(false)
+    }, 3000)
   }
-
-  console.log('confirmpassword', confirmpassword)
   // hàm kiểm tra confirmpassword
 
   return (
@@ -75,6 +80,14 @@ export default function Signin() {
         <img src={background} alt='Background' className=' object-cover object-left h-full w-full ' />
       </div>
       <div className='  flex flex-col items-center justify-start w-full md:w-2/4 max-h-screen bg-[#fff] py-4 px-4 overflow-y-auto'>
+      <div
+          onClick={() => navigate('/')}
+         className=' cursor-pointer mr-auto ml-0 md:ml-4  text-gray-500 font-semibold  '>
+          <i className='text-[12px]'>
+             <Icon name='arrowleft' />
+          </i>
+           <span className='text-[12px] font-bold'> Quay lại</span>
+        </div>
         <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
 
         <div>
@@ -110,7 +123,7 @@ export default function Signin() {
 
             <div className='col-span-2'>
               <label htmlFor='e-mailaddress' className='block text-sm font-medium text-gray-700'>
-                E-Mail Address<sup className='text-red-600'>*</sup>
+                E-Mail<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='e-mailaddress'
@@ -155,7 +168,7 @@ export default function Signin() {
             </div>
             <div className=' flex mt-1  col-span-2'>
               <ReCAPTCHA
-                sitekey='6LfaJl8rAAAAAJJD6pV-vSh9tV8gvUeEFU6B6B5k' // Thay bằng site key của bạn
+               sitekey={import.meta.env.VITE_RECAPTCHA_KEY} // Thay bằng site key của bạn
                 onChange={handleCaptchaChange}
               />
             </div>
@@ -185,10 +198,16 @@ export default function Signin() {
 
           <button
             onClick={handleSignup}
-            className={`bg-[#23ff52] h-10 w-full mt-2 ${captchaValue && checkclick ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} text-black font-semibold rounded`}
-            disabled={!captchaValue || !checkclick}
+            className={`bg-[#23ff52] h-10 w-full mt-2 ${captchaValue && checkclick && !isSignup ? 'hover:bg-[#00ff37] cursor-pointer' : 'opacity-50 cursor-not-allowed'} text-black font-semibold rounded`}
+            disabled={!captchaValue || !checkclick || isSignup}
           >
-            Đăng ký
+            {isSignup ? (
+              <>
+                <Icon name='loading' /> Đang tạo tài khoảng...
+              </>
+            ) : (
+              'Đăng ký'
+            )}
           </button>
           <div>
             <p className='text-sm text-gray-500 mt-2 mb-10'>
