@@ -102,13 +102,15 @@ export default function Payment() {
 
     const handlePayNow = async () => {
     try{
+       const currentTicket = ticket[0] || guestUserTicket[0]
+    
       const templateParams = {
           order_id: ticket[0]?.id || guestUserTicket[0]?.id,
           start_time: ticket[0]?.starttime || guestUserTicket[0]?.starttime,
-          departure_location: ticket[0]?.diemDi || guestUserTicket[0]?.diemDi,
+          departure_location:  t(currentTicket?.diemDi) || currentTicket?.diemDi,
           travel_time: ticket[0]?.timetogo || guestUserTicket[0]?.timetogo,
           end_time: ticket[0]?.endtime || guestUserTicket[0]?.endtime,
-          destination_location: ticket[0]?.diemDen || guestUserTicket[0]?.diemDen,
+          destination_location: t(currentTicket?.diemDen) || guestUserTicket[0]?.diemDen,
           ticket_id: ticket[0]?.id || guestUserTicket[0]?.id,
           departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
           bus_type: ticket[0]?.type || guestUserTicket[0]?.type,

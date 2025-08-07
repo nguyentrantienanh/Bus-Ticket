@@ -227,7 +227,7 @@ export default function Buyticket() {
                 // kiểm tra nếu có dữ liệu vé đã đặt và isBooked sẽ là true nếu ghế đã được đặt
                 isBooked =
                   ve.filter(
-                    (booking: any) => booking.seats.some((s: any) => s.id === seat.id) && booking.dateStart === calendar
+                    (booking: any) => booking.seats.some((s: any) => s.id === seat.id) && booking.dateStart === calendar && booking.status !== 2
                   ).length > 0
               }
 

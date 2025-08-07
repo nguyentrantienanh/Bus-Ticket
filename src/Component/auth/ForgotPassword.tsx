@@ -7,9 +7,18 @@ export default  function ForgotPassword() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
  const [isSearch, setIsSearch] = useState(false)
+ const Userlist =  JSON.parse(localStorage.getItem('userList') || '[]')
+ const ktremail = Userlist.map((u: any) => u.email === email)
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSearch(true)
+
+
+    if(!ktremail){
+      alert('email chưa có tài khoảng nào')
+      return
+    } else{
+ 
     
     try {
        
@@ -20,7 +29,7 @@ export default  function ForgotPassword() {
       setMessage('Đã xảy ra lỗi khi gửi email. Vui lòng thử lại sau.')
       setIsSearch(false)
     }
-  }
+  } }
 
   return (
     <div>
