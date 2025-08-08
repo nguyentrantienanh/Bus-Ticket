@@ -1,6 +1,6 @@
 import logo from '../../assets/logo/Bus_Ticket_Header.png'
 import background from '../../assets/auth/background-login.jpg'
-// import Icon from '../../icons/Icon'
+import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -8,6 +8,7 @@ import Icon from '../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
 
 export default function Signin() {
+  const { t } = useTranslation('auth', { keyPrefix: 'Signup' })
   const navigate = useNavigate()
   // // Hàm xử lý captcha
   const [captchaValue, setCaptchaValue] = useState(false)
@@ -34,22 +35,22 @@ export default function Signin() {
   const [isSignup, setisSignup] = useState(false)
   const handleSignup = () => {
     if (fromData.password.length < 10) {
-      alert('Mật khẩu phải có (trên 10 ký tự)')
+      alert(t('messages.passwordTooShort'))
       return
     }
 
     if (ktremail) {
-      alert('Email đã tồn tại trong hệ thống. Vui lòng sử dụng email khác.')
+      alert(t('messages.emailExists'))
       return
     }
 
     if (fromData.lastname && fromData.firstname && fromData.email && fromData.password && confirmpassword) {
       if (fromData.password !== confirmpassword) {
-        alert('Mật khẩu không khớp. Vui lòng kiểm tra lại.')
+        alert(t('messages.passwordMismatch'))
         return
       }
     } else {
-      alert('Vui lòng điền đầy đủ thông tin.')
+      alert(t('messages.fillAllFields'))
       return
     }
     setisSignup(true)
@@ -67,7 +68,7 @@ export default function Signin() {
       }
       Userlist.push(newUser)
       localStorage.setItem('userList', JSON.stringify(Userlist))
-      alert('tạo tài khoảng thành công mời bạn đăng nhập')
+      alert(t('messages.accountCreated'))
       window.location.href = '/signin'
       setisSignup(false)
     }, 3000)
@@ -87,7 +88,7 @@ export default function Signin() {
           <i className='text-[12px]'>
             <Icon name='arrowleft' />
           </i>
-          <span className='text-[12px] font-bold'> Quay lại</span>
+          <span className='text-[12px] font-bold'> {t('navigation.goBack')}</span>
         </div>
         <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
 
@@ -95,7 +96,7 @@ export default function Signin() {
           <form className='grid grid-cols-2 gap-4 md:my-4'>
             <div>
               <label htmlFor='lastname' className='block text-sm font-medium text-gray-700'>
-                Last Name<sup className='text-red-600'>*</sup>
+                {t('form.lastName.label')}<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='lastname'
@@ -104,12 +105,12 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, lastname: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                placeholder='Nhập họ...'
+                placeholder={t('form.lastName.placeholder')}
               />
             </div>
             <div>
               <label htmlFor='firstname' className='block text-sm font-medium text-gray-700'>
-                First Name<sup className='text-red-600'>*</sup>
+                {t('form.firstName.label')}<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='firstname'
@@ -118,13 +119,13 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, firstname: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                placeholder='Nhập tên...'
+                placeholder={t('form.firstName.placeholder')}
               />
             </div>
 
             <div className='col-span-2'>
               <label htmlFor='e-mailaddress' className='block text-sm font-medium text-gray-700'>
-                E-Mail<sup className='text-red-600'>*</sup>
+                {t('form.email.label')}<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='e-mailaddress'
@@ -133,13 +134,13 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, email: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                placeholder='Nhập email...'
+                placeholder={t('form.email.placeholder')}
               />
             </div>
 
             <div>
               <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                Password<sup className='text-red-600'>*</sup>
+                {t('form.password.label')}<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='password'
@@ -148,12 +149,12 @@ export default function Signin() {
                 required
                 onChange={(e) => setFromData({ ...fromData, password: e.target.value })}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300  focus:border-green-500 sm:text-sm'
-                placeholder='Nhập mật khẩu...'
+                placeholder={t('form.password.placeholder')}
               />
             </div>
             <div>
               <label htmlFor='confirmpassword' className='block text-sm font-medium text-gray-700'>
-                Confirm Password<sup className='text-red-600'>*</sup>
+                {t('form.confirmPassword.label')}<sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='password'
@@ -164,7 +165,7 @@ export default function Signin() {
                   setconfirmpassword(e.target.value)
                 }}
                 className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                placeholder='Nhập lại mật khẩu...'
+                placeholder={t('form.confirmPassword.placeholder')}
               />
             </div>
             <div className=' flex mt-1  col-span-2'>
@@ -178,21 +179,21 @@ export default function Signin() {
           <div className='flex items-center mt-2'>
             <input onChange={handleCheckclick} type='checkbox' id='I agree with' />
             <label htmlFor='I agree with' className='ml-2 text-sm text-gray-700'>
-              I agree with{' '}
+              {t('agreement.text')}{' '}
               <a href='/viserbus/policy/privacy-policy' className='text-green-600 hover:underline'>
-                privacy policy
+                {t('agreement.privacyPolicy')}
               </a>
               ,{' '}
               <a href='viserbus/policy/terms-of-service' className='text-green-600 hover:underline'>
-                Terms of Service
+                {t('agreement.termsOfService')}
               </a>
               ,{' '}
               <a href='viserbus/policy/ticket-policy' className='text-green-600 hover:underline'>
-                Ticket Policy
+                {t('agreement.ticketPolicy')}
               </a>
               ,{' '}
               <a href='viserbus/policy/refund-policy' className='text-green-600 hover:underline'>
-                Refund Policy
+                {t('agreement.refundPolicy')}
               </a>
             </label>
           </div>
@@ -204,17 +205,17 @@ export default function Signin() {
           >
             {isSignup ? (
               <>
-                <Icon name='loading' /> Đang tạo tài khoảng...
+                <Icon name='loading' /> {t('buttons.creatingAccount')}
               </>
             ) : (
-              'Đăng ký'
+              t('buttons.signup')
             )}
           </button>
           <div>
             <p className='text-sm text-gray-500 mt-2 mb-10'>
-              Don't have an account?{' '}
+              {t('signin.haveAccount')}{' '}
               <a href='/signin' className='text-blue-500 hover:underline'>
-                Sign In
+                {t('signin.signInLink')}
               </a>
             </p>
           </div>

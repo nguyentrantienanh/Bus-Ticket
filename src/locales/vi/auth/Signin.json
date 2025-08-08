@@ -1,0 +1,36 @@
+{
+  "navigation": {
+    "goBack": "Go back"
+  },
+  "buttons": {
+    "loginWithGoogle": "Login With Google",
+    "login": "Login",
+    "loggingIn": "Logging in..."
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter Your email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter Your password"
+    },
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot Password?"
+  },
+  "messages": {
+    "note": "Note:",
+    "captchaRequired": "Please complete the captcha before logging in.",
+    "fieldsRequired": "Please fill in all login information.",
+    "accountLocked": "Your account has been locked. Please contact the administrator.",
+    "loginSuccess": "Login successful!",
+    "invalidCredentials": "Email or password is incorrect.",
+    "loginError": "An error occurred during login. Please try again later."
+  },
+  "signup": {
+    "noAccount": "Don't have an account?",
+    "signUpLink": "Sign Up"
+  },
+  "divider": "OR"
+}

@@ -2,6 +2,7 @@ import logo from '@assets/logo/Bus_Ticket_Header.png'
 import background from '@assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
+import { useTranslation } from 'react-i18next'
 
 import { useState, useEffect } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -12,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { UserInfo } from '../../types/userInfo'
 
 export default function Signin() {
+  const { t } = useTranslation('auth', { keyPrefix: 'Signin' })
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const navigate = useNavigate()
   const handleGoogleLogin = async (response: any) => {
@@ -108,11 +110,11 @@ export default function Signin() {
   const handleLogin = (e: any) => {
     e.preventDefault()
     if (!captchaValue) {
-      setMessage('Vui lòng xác nhận captcha trước khi đăng nhập.')
+      setMessage(t('messages.captchaRequired'))
       return
     }
     if (!useremail || !password) {
-      setMessage('Vui lòng điền đầy đủ thông tin đăng nhập.')
+      setMessage(t('messages.fieldsRequired'))
       return
     }
 
@@ -126,21 +128,21 @@ export default function Signin() {
         const user = userList.find((u) => u.email === useremail && u.password === password)
         if (user) {
           if (user.status === 0) {
-            setMessage('Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.')
+            setMessage(t('messages.accountLocked'))
             setlogin(false)
             return
           }
           // Lưu thông tin người dùng vào localStorage
           localStorage.setItem('userInfo', JSON.stringify(user))
-          alert('Đăng nhập thành công!')
+          alert(t('messages.loginSuccess'))
           // Sử dụng navigate thay vì window.location.href
           navigate('/user/dashboard')
         } else {
-          setMessage('email hoặc mật khẩu không đúng.')
+          setMessage(t('messages.invalidCredentials'))
         }
       } catch (error) {
         console.error('Lỗi đăng nhập:', error)
-        alert('Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau.')
+        alert(t('messages.loginError'))
       }
       setlogin(false)
     }, 3000)
@@ -160,7 +162,7 @@ export default function Signin() {
           <i className='text-[12px]'>
             <Icon name='arrowleft' />
           </i>
-          <span className='text-[12px] font-bold'> Quay lại</span>
+          <span className='text-[12px] font-bold'> {t('navigation.goBack')}</span>
         </div>
         <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
         {/* hiệu email người đăng nhập */}
@@ -174,7 +176,7 @@ export default function Signin() {
               <i>
                 <Icon name='google' />
               </i>
-              <span className='text-[12px]'>Login With Google</span>
+              <span className='text-[12px]'>{t('buttons.loginWithGoogle')}</span>
             </div>
 
             {/* <FacebookLoginButton onLogin={handleFacebookLogin} /> */}
@@ -187,13 +189,13 @@ export default function Signin() {
           </div>
           <div className='flex items-center justify-center my-2 md:my-4'>
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
-            <span className='mx-2 text-gray-500 text-sm'>OR</span>
+            <span className='mx-2 text-gray-500 text-sm'>{t('divider')}</span>
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
           </div>
           {message && (
             <div className='text-red-500 text-sm mb-4 md:mb-6 border border-red-50 p-1 rounded-lg bg-red-100 flex justify-between'>
               <div>
-                <strong className='text-[13px] '>Chú ý: </strong>
+                <strong className='text-[13px] '>{t('messages.note')} </strong>
                 <span className='text-[12px] text-nowrap'>{message}</span>
               </div>
               <i className=' cursor-pointer text-[12px] text-red-500 hover:text-red-700' onClick={() => setMessage('')}>
@@ -207,7 +209,7 @@ export default function Signin() {
             <form className='flex flex-col gap-4'>
               <div>
                 <label htmlFor='username' className='block text-sm font-medium text-gray-700'>
-                  Email<sup className='text-red-600'>*</sup>
+                  {t('form.email.label')}<sup className='text-red-600'>*</sup>
                 </label>
                 <input
                   type='username'
@@ -216,12 +218,12 @@ export default function Signin() {
                   value={useremail}
                   onChange={(e) => setUseremail(e.target.value)}
                   className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                  placeholder='Enter Your  email'
+                  placeholder={t('form.email.placeholder')}
                 />
               </div>
               <div>
                 <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                  Password<sup className='text-red-600'>*</sup>
+                  {t('form.password.label')}<sup className='text-red-600'>*</sup>
                 </label>
                 <input
                   type='password'
@@ -230,7 +232,7 @@ export default function Signin() {
                   autoComplete='new-password'
                   onChange={(e) => setPassword(e.target.value)}
                   className='mt-1   w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500 sm:text-sm'
-                  placeholder='Enter Your password'
+                  placeholder={t('form.password.placeholder')}
                 />
               </div>
               <div className=' flex  '>
@@ -243,12 +245,12 @@ export default function Signin() {
                 <div className='flex items-center'>
                   <input className='cursor-pointer' type='checkbox' id='rememberme' />
                   <label htmlFor='rememberme' className=' cursor-pointer ml-2 text-[15px] text-gray-700'>
-                    Remember me
+                    {t('form.rememberMe')}
                   </label>
                 </div>
                 <Link to='/forgot-password' className='text-[15px] text-gray-500'>
                   <div>
-                    <p className=' cursor-pointer text-[15px] text-gray-500'>Forgot Password?</p>
+                    <p className=' cursor-pointer text-[15px] text-gray-500'>{t('form.forgotPassword')}</p>
                   </div>
                 </Link>
               </div>
@@ -263,18 +265,18 @@ export default function Signin() {
                 {islogin ? (
                   <div className='flex items-center justify-center'>
                     <i className='fa-solid fa-spinner animate-spin mr-2'></i>
-                    <span>Đang đăng nhập...</span>
+                    <span>{t('buttons.loggingIn')}</span>
                   </div>
                 ) : (
-                  'Login'
+                  t('buttons.login')
                 )}
               </button>
 
               <div>
                 <p className='text-sm text-gray-500 mt-2 mb-10'>
-                  Don't have an account?{' '}
+                  {t('signup.noAccount')}{' '}
                   <a href='/signup' className={`text-blue-500 hover:underline    `}>
-                    Sign Up
+                    {t('signup.signUpLink')}
                   </a>
                 </p>
               </div>

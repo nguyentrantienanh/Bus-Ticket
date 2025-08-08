@@ -1,0 +1,50 @@
+{
+  "navigation": {
+    "goBack": "Go back"
+  },
+  "form": {
+    "lastName": {
+      "label": "Last Name",
+      "placeholder": "Enter last name..."
+    },
+    "firstName": {
+      "label": "First Name", 
+      "placeholder": "Enter first name..."
+    },
+    "email": {
+      "label": "E-Mail",
+      "placeholder": "Enter email..."
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter password..."
+    },
+    "confirmPassword": {
+      "label": "Confirm Password",
+      "placeholder": "Re-enter password..."
+    }
+  },
+  "agreement": {
+    "text": "I agree with",
+    "privacyPolicy": "privacy policy",
+    "termsOfService": "Terms of Service",
+    "ticketPolicy": "Ticket Policy",
+    "refundPolicy": "Refund Policy"
+  },
+  "buttons": {
+    "signup": "Sign Up",
+    "creatingAccount": "Creating account..."
+  },
+  "messages": {
+    "passwordTooShort": "Password must be more than 10 characters",
+    "emailExists": "Email already exists in the system. Please use a different email.",
+    "passwordMismatch": "Passwords do not match. Please check again.",
+    "fillAllFields": "Please fill in all information.",
+    "accountCreated": "Account created successfully, please sign in",
+    "signupError": "An error occurred during registration. Please try again later."
+  },
+  "signin": {
+    "haveAccount": "Already have an account?",
+    "signInLink": "Sign In"
+  }
+}
