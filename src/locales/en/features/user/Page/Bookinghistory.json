@@ -1,0 +1,38 @@
+{
+  "title": "Booking History",
+  "table": {
+    "headers": {
+      "id": "ID",
+      "acNonAc": "AC / Non-AC", 
+      "start": "Start",
+      "drop": "Drop",
+      "date": "Date",
+      "time": "Time",
+      "seats": "Seats",
+      "status": "Status",
+      "fare": "Fare",
+      "info": "Info"
+    },
+    "noTickets": "No tickets booked yet.",
+    "currency": "VND"
+  },
+  "status": {
+    "confirmed": "Confirmed",
+    "rejected": "Rejected", 
+    "pending": "Pending"
+  },
+  "ticketDetails": {
+    "title": "Ticket Booking History",
+    "ticketCode": "Ticket Code",
+    "departureDate": "Departure Date",
+    "oneWay": "One Way",
+    "seatLayout": "Seat Layout",
+    "departureTime": "Departure Time",
+    "arrivalTime": "Arrival Time",
+    "travelTime": "hours",
+    "minute": "minutes",
+    "idNote": "ID Card",
+    "note": "Note: Bring ID Card/Passport",
+    "seat": "Seat"
+  }
+}

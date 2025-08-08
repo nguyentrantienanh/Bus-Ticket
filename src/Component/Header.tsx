@@ -95,7 +95,7 @@ function Header() {
       path: '/user/buytickets',
       icon: 'ticket',
       sub: [
-        { id: '1', name: t('Header_DROPDOWN.BuyTicket'), path: '/buytickets' },
+        { id: '1', name: t('Header_DROPDOWN.BuyTicket'), path: '/user/buytickets' },
         { id: '2', name: t('Header_DROPDOWN.BookingHistory'), path: '/user/booked-ticket/history' }
       ]
     },
@@ -187,82 +187,67 @@ function Header() {
           <div>
             <LanguageSwitch />
           </div>
- {userInfo && userInfo.email ? (
-  <div className="flex items-center   ">
-    {/* Avatar + Tên */}
-    <Link
-      to={`/user/profile/profile-setting/${UserInfo.id}`}
-      className="flex items-center px-3 gap-2 border-x-1  border-gray-400"
-    >
-      <img
-        src={
-          user.imageUrl
-            ? user.imageUrl
-            : userInfo.imageUrl
-            ? userInfo.imageUrl
-            : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                user.name ? user.name : userInfo.name
-              )}&background=30fd4f&color=fff`
-        }
-        alt=""
-        className="w-6 h-6 rounded-full"
-      />
-      <span className="   ">
-        {user.name
-          ? user.name
-          : userInfo.name
-          ? userInfo.name
-          : '???'}
-      </span>
-    </Link>
+          {userInfo && userInfo.email ? (
+            <div className='flex items-center   '>
+              {/* Avatar + Tên */}
+              <Link
+                to={`/user/profile/profile-setting/${UserInfo.id}`}
+                className='flex items-center px-3 gap-2 border-x-1  border-gray-400'
+              >
+                <img
+                  src={
+                    user.imageUrl
+                      ? user.imageUrl
+                      : userInfo.imageUrl
+                        ? userInfo.imageUrl
+                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                            user.name ? user.name : userInfo.name
+                          )}&background=30fd4f&color=fff`
+                  }
+                  alt=''
+                  className='w-6 h-6 rounded-full'
+                />
+                <span className='   '>{user.name ? user.name : userInfo.name ? userInfo.name : '???'}</span>
+              </Link>
 
-    {/* Home / Dashboard */}
-    <div className="flex items-center px-3 gap-1">
-      {clickhome ? (
-        <Link to={'/'}>
-          <i className="text-[#1ba000] text-lg">
-            <Icon name="home" />
-          </i>
-          <span onClick={handleclickhome}>
-            {t('Header_NAV.Home')}
-          </span>
-        </Link>
-      ) : (
-        <Link to={'/user/dashboard'}>
-          <i className="text-[#1ba000] text-lg">
-            <Icon name="Dashboard" />
-          </i>
-          <span onClick={handleclickhome}>
-            {t('Header_NAV.Dashboard')}
-          </span>
-        </Link>
-      )}
-    </div>
-  </div>
-) : (
-  <div className="flex items-center gap-2">
-    <Link to={'/signin'} className="flex items-center gap-1">
-      <i className="text-[#1ba000]">
-        <Icon name="signin" />
-      </i>
-      <span className="max-[350px]:hidden">
-        {t('Header_LOGIN.SingIn')}
-      </span>
-    </Link>
+              {/* Home / Dashboard */}
+              <div className='flex items-center px-3 gap-1'>
+                {clickhome ? (
+                  <Link to={'/'}>
+                    <i className='text-[#1ba000] text-lg'>
+                      <Icon name='home' />
+                    </i>
+                    <span onClick={handleclickhome}>{t('Header_NAV.Home')}</span>
+                  </Link>
+                ) : (
+                  <Link to={'/user/dashboard'}>
+                    <i className='text-[#1ba000] text-lg'>
+                      <Icon name='Dashboard' />
+                    </i>
+                    <span onClick={handleclickhome}>{t('Header_NAV.Dashboard')}</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className='flex items-center gap-2'>
+              <Link to={'/signin'} className='flex items-center gap-1'>
+                <i className='text-[#1ba000]'>
+                  <Icon name='signin' />
+                </i>
+                <span className='max-[350px]:hidden'>{t('Header_LOGIN.SingIn')}</span>
+              </Link>
 
-    <span>/</span>
+              <span>/</span>
 
-    <Link to={'/signup'} className="flex items-center gap-1">
-      <i className="text-[#1ba000]">
-        <Icon name="signup" />
-      </i>
-      <span className="max-[350px]:hidden">
-        {t('Header_LOGIN.SignUp')}
-      </span>
-    </Link>
-  </div>
-)}
-
+              <Link to={'/signup'} className='flex items-center gap-1'>
+                <i className='text-[#1ba000]'>
+                  <Icon name='signup' />
+                </i>
+                <span className='max-[350px]:hidden'>{t('Header_LOGIN.SignUp')}</span>
+              </Link>
+            </div>
+          )}
         </div>
       </header>
     )
@@ -402,184 +387,188 @@ function Header() {
               style={{ animation: 'slideDown 0.4s ease-in-out' }}
               onClick={(e) => e.stopPropagation()}
             >
-    {/* --- Thông tin liên hệ + user --- */}
-    <div className="flex flex-wrap items-center gap-3 text-sm text-gray-700 border-b pb-3 max-sm:flex-col justify-center   ">
-      <div className="flex flex-wrap items-center gap-4 justify-center pb-2 ">
-        <div className="flex items-center gap-2">
-          <span className="text-[#1ba000]"><Icon name="phone" /></span>
-          <span>+84 972364028</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[#1ba000]"><Icon name="email" /></span>
-          <span>nttanh0412@gmail.com</span>
-        </div>
-      </div>
+              {/* --- Thông tin liên hệ + user --- */}
+              <div className='flex flex-wrap items-center gap-3 text-sm text-gray-700 border-b pb-3 max-sm:flex-col justify-center   '>
+                <div className='flex flex-wrap items-center gap-4 justify-center pb-2 '>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-[#1ba000]'>
+                      <Icon name='phone' />
+                    </span>
+                    <span>+84 972364028</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-[#1ba000]'>
+                      <Icon name='email' />
+                    </span>
+                    <span>nttanh0412@gmail.com</span>
+                  </div>
+                </div>
 
-<div className="flex items-center justify-center w-full">
-  {userInfo && userInfo.email ? (
-    <div className="flex items-center justify-center gap-4 max-[450px]:flex-col max-[450px]:gap-2">
-      <Link to={`/user/profile/profile-setting/${UserInfo.id}`}>
-        <div className="flex items-center gap-3 px-2">
-          <img
-            src={
-              user.imageUrl
-                ? user.imageUrl
-                : userInfo.imageUrl
-                ? userInfo.imageUrl
-                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    user.name ? user.name : userInfo.name
-                  )}&background=30fd4f&color=fff`
-            }
-            alt=""
-            className="w-8 h-8 rounded-full object-cover"
-          />
-          <span className=" text-sm font-medium truncate">
-            {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
-          </span>
-        </div>
-      </Link>
+                <div className='flex items-center justify-center w-full'>
+                  {userInfo && userInfo.email ? (
+                    <div className='flex items-center justify-center gap-4 max-[450px]:flex-col max-[450px]:gap-2'>
+                      <Link to={`/user/profile/profile-setting/${UserInfo.id}`}>
+                        <div className='flex items-center gap-3 px-2'>
+                          <img
+                            src={
+                              user.imageUrl
+                                ? user.imageUrl
+                                : userInfo.imageUrl
+                                  ? userInfo.imageUrl
+                                  : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                      user.name ? user.name : userInfo.name
+                                    )}&background=30fd4f&color=fff`
+                            }
+                            alt=''
+                            className='w-8 h-8 rounded-full object-cover'
+                          />
+                          <span className=' text-sm font-medium truncate'>
+                            {user.name ? user.name : userInfo.name ? userInfo.name : '???'}
+                          </span>
+                        </div>
+                      </Link>
 
-      <div className="flex items-center gap-3 px-2">
-        {clickhome ? (
-          <Link to={'/'} className="flex items-center gap-2">
-            <span className="text-[#1ba000] text-lg">
-              <Icon name="home" />
-            </span>
-            <span onClick={handleclickhome} className="text-sm"> {t('Header_NAV.Home')}</span>
-          </Link>
-        ) : (
-          <Link to={'/user/dashboard'} className="flex items-center gap-2">
-            <span className="text-[#1ba000] text-lg">
-              <Icon name="Dashboard" />
-            </span>
-            <span onClick={handleclickhome} className="text-sm"> {t('Header_NAV.Dashboard')}</span>
-          </Link>
-        )}
-      </div>
-    </div>
-  ) : (
-    <div className="flex items-center justify-center gap-4 max-[450px]:flex-col max-[450px]:gap-2">
-      <Link to={'/signin'} className="flex items-center gap-2 text-[#1ba000] px-2">
-        <span className="text-lg"><Icon name="signin" /></span>
-        <span className="text-sm"> {t('Header_LOGIN.SingIn')}</span>
-      </Link>
+                      <div className='flex items-center gap-3 px-2'>
+                        {clickhome ? (
+                          <Link to={'/'} className='flex items-center gap-2'>
+                            <span className='text-[#1ba000] text-lg'>
+                              <Icon name='home' />
+                            </span>
+                            <span onClick={handleclickhome} className='text-sm'>
+                              {' '}
+                              {t('Header_NAV.Home')}
+                            </span>
+                          </Link>
+                        ) : (
+                          <Link to={'/user/dashboard'} className='flex items-center gap-2'>
+                            <span className='text-[#1ba000] text-lg'>
+                              <Icon name='Dashboard' />
+                            </span>
+                            <span onClick={handleclickhome} className='text-sm'>
+                              {' '}
+                              {t('Header_NAV.Dashboard')}
+                            </span>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='flex items-center justify-center gap-4   max-[450px]:gap-2'>
+                      <Link to={'/signin'} className='flex items-center gap-2 text-[#1ba000] px-2'>
+                        <span className='text-lg'>
+                          <Icon name='signin' />
+                        </span>
+                        <span className='text-sm'> {t('Header_LOGIN.SingIn')}</span>
+                      </Link>
 
-      <div className="text-sm text-gray-400">|</div>
+                      <div className='text-sm text-gray-400'>|</div>
 
-      <Link to={'/signup'} className="flex items-center gap-2 text-[#1ba000] px-2">
-        <span className="text-lg"><Icon name="signup" /></span>
-        <span className="text-sm"> {t('Header_LOGIN.SignUp')}</span>
-      </Link>
-    </div>
-  )}
-</div>
+                      <Link to={'/signup'} className='flex items-center gap-2 text-[#1ba000] px-2'>
+                        <span className='text-lg'>
+                          <Icon name='signup' />
+                        </span>
+                        <span className='text-sm'> {t('Header_LOGIN.SignUp')}</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
 
-<div>
+                <div>
                   <LanguageSwitch />
                 </div>
               </div>
-          
-<div className="max-[350px]:h-55 overflow-y-auto h-[calc(100vh-200px)]">
-  <div className="space-y-2 ">
-    {userInfo && userInfo.email && clickhome
-      ? navbardashboard.map((item, index) => (
-          <div key={index} className="relative group">
-            <div
-              className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
-                location.pathname === item.path
-                  ? 'text-[#1ba000]'
-                  : location.pathname.startsWith(item.path)
-                  ? 'text-[#1ba000]'
-                  : 'text-gray-700'
-              }`}
-            >
-              <div className="flex items-center justify-between gap-2 py-2 hover:bg-gray-100 rounded w-full">
-                <Link to={item.path}>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[#1ba000]">
-                      <Icon name={item.icon} />
-                    </span>
-                    <span>{item.name}</span>
-                  </div>
-                </Link>
-                {item.sub && item.sub.length > 0 && (
-                  <span
-                    onClick={() => toggleClick(item.id)}
-                    className="text-[#1ba000]"
-                  >
-                    <Icon
-                      name={isopenclick === item.id ? 'up' : 'dow'}
-                    />
-                  </span>
-                )}
-              </div>
-            </div>
-            <div
-              className={`left-0 top-full overflow-hidden bg-[#ffffff] transition-all duration-500 ease-in-out rounded shadow-md divide-y invisible opacity-0 group-hover:opacity-100 group-hover:visible ${
-                isopenclick === item.id
-                  ? 'visible max-h-40 opacity-100'
-                  : 'max-h-0 opacity-0'
-              }`}
-            >
-              {item.sub && item.sub.length > 0 && (
-                <ul className="divide-y divide-gray-300 flex flex-col">
-                  {item.sub.map((subItem) => (
-                    <li key={subItem.id}>
-                      <Link
-                        to={subItem.path}
-                        className={`min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] transition-all duration-300 ease-in ${
-                          location.pathname === subItem.path
-                            ? 'text-[#1ba000]'
-                            : 'text-gray-700'
-                        }`}
-                      >
-                        {subItem.name}
-                      </Link>
-                    </li>
-                  ))}
-                  {item.id === 4 && (
-                    <span
-                      className="text-red-700 min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] transition-all duration-300 ease-in"
-                      onClick={() => {
-                        localStorage.removeItem('userInfo');
-                        localStorage.removeItem('userthongtin');
-                        navigate('/signin');
-                      }}
-                    >
-                      Đăng xuất
-                      <Icon name="logout" />
-                    </span>
-                  )}
-                </ul>
-              )}
-            </div>
-          </div>
-        ))
-      : navbar.map((item, index) => (
-          <Link
-            key={index}
-            to={item.path}
-            className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
-              item.path === '/'
-                ? location.pathname === '/'
-                  ? 'text-[#1ba000]'
-                  : 'text-gray-700'
-                : location.pathname.startsWith(item.path)
-                ? 'text-[#1ba000]'
-                : 'text-gray-700'
-            }`}
-          >
-            <div className="flex items-center gap-2 py-2 hover:bg-gray-100 rounded w-full">
-              <span className="text-[#1ba000]">
-                <Icon name={item.icon} />
-              </span>
-              <span>{item.name}</span>
-            </div>
-          </Link>
-        ))}
-  </div>
- </div>
 
+              <div className='max-[350px]:h-55 overflow-y-auto h-[calc(100vh-200px)]'>
+                <div className='space-y-2 '>
+                  {userInfo && userInfo.email && clickhome
+                    ? navbardashboard.map((item, index) => (
+                        <div key={index} className='relative group'>
+                          <div
+                            className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
+                              location.pathname === item.path
+                                ? 'text-[#1ba000]'
+                                : location.pathname.startsWith(item.path)
+                                  ? 'text-[#1ba000]'
+                                  : 'text-gray-700'
+                            }`}
+                          >
+                            <div className='flex items-center justify-between gap-2 py-2 hover:bg-gray-100 rounded w-full'>
+                              <Link to={item.path}>
+                                <div className='flex items-center gap-2'>
+                                  <span className='text-[#1ba000]'>
+                                    <Icon name={item.icon} />
+                                  </span>
+                                  <span>{item.name}</span>
+                                </div>
+                              </Link>
+                              {item.sub && item.sub.length > 0 && (
+                                <span onClick={() => toggleClick(item.id)} className='text-[#1ba000]'>
+                                  <Icon name={isopenclick === item.id ? 'up' : 'dow'} />
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div
+                            className={`left-0 top-full overflow-hidden bg-[#ffffff] transition-all duration-500 ease-in-out rounded shadow-md divide-y invisible opacity-0 group-hover:opacity-100 group-hover:visible ${
+                              isopenclick === item.id ? 'visible max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                            }`}
+                          >
+                            {item.sub && item.sub.length > 0 && (
+                              <ul className='divide-y divide-gray-300 flex flex-col'>
+                                {item.sub.map((subItem) => (
+                                  <li key={subItem.id}>
+                                    <Link
+                                      to={subItem.path}
+                                      className={`min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] transition-all duration-300 ease-in ${
+                                        location.pathname === subItem.path ? 'text-[#1ba000]' : 'text-gray-700'
+                                      }`}
+                                    >
+                                      {subItem.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                                {item.id === 4 && (
+                                  <span
+                                    className='text-red-700 min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] transition-all duration-300 ease-in'
+                                    onClick={() => {
+                                      localStorage.removeItem('userInfo')
+                                      localStorage.removeItem('userthongtin')
+                                      navigate('/signin')
+                                    }}
+                                  >
+                                    Đăng xuất
+                                    <Icon name='logout' />
+                                  </span>
+                                )}
+                              </ul>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    : navbar.map((item, index) => (
+                        <Link
+                          key={index}
+                          to={item.path}
+                          className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
+                            item.path === '/'
+                              ? location.pathname === '/'
+                                ? 'text-[#1ba000]'
+                                : 'text-gray-700'
+                              : location.pathname.startsWith(item.path)
+                                ? 'text-[#1ba000]'
+                                : 'text-gray-700'
+                          }`}
+                        >
+                          <div className='flex items-center gap-2 py-2 hover:bg-gray-100 rounded w-full'>
+                            <span className='text-[#1ba000]'>
+                              <Icon name={item.icon} />
+                            </span>
+                            <span>{item.name}</span>
+                          </div>
+                        </Link>
+                      ))}
+                </div>
+              </div>
             </div>
             <style>
               {`
@@ -588,7 +577,7 @@ function Header() {
                 100% { transform: translateY(0); opacity: 1; }
               }
             `}
-            </style> 
+            </style>
             <div></div>
           </div>
         </div>

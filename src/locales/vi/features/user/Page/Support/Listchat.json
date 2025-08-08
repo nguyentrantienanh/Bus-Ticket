@@ -1,0 +1,16 @@
+{
+  "header": {
+    "backButton": "Quay lại",
+    "title": "Danh sách chat"
+  },
+  "priority": {
+    "label": "Mức độ:",
+    "high": "Quan trọng",
+    "normal": "Bình thường",
+    "low": "Thấp"
+  },
+  "messages": {
+    "noMessages": "Chưa có tin nhắn",
+    "addNewChat": "Thêm cuộc trò chuyện"
+  }
+}

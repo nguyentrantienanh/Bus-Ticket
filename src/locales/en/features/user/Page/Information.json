@@ -1,0 +1,40 @@
+{
+  "title": "Confirm Information",
+  "form": {
+    "fullName": {
+      "label": "Full Name",
+      "placeholder": "John Doe"
+    },
+    "phone": {
+      "label": "Phone Number",
+      "placeholder": "0901234567"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "example@gmail.com"
+    },
+    "cccd": {
+      "label": "ID Card/Passport",
+      "placeholder": "012345678901"
+    },
+    "birthday": {
+      "label": "Date of Birth"
+    }
+  },
+  "button": {
+    "confirm": "Confirm Information",
+    "processing": "Processing..."
+  },
+  "validation": {
+    "notice": "Notice:",
+    "phoneAndCccdInvalid": "Phone number and ID card are invalid",
+    "phoneMinLength": "Phone number must have at least 10 characters",
+    "cccdMinLength": "ID card must have at least 12 characters",
+    "phoneMaxLength": "Phone number cannot exceed 10 characters",
+    "cccdMaxLength": "ID card cannot exceed 12 characters"
+  },
+  "errors": {
+    "noData": "No data found",
+    "userNotFound": "User not found"
+  }
+}

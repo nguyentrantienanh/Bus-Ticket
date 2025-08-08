@@ -1,0 +1,16 @@
+{
+  "header": {
+    "backButton": "Quay lại",
+    "defaultTitle": "Chat hỗ trợ",
+    "priority": {
+      "label": "Mức độ:",
+      "high": "Quan trọng",
+      "normal": "Bình thường", 
+      "low": "Thấp"
+    }
+  },
+  "input": {
+    "placeholder": "Nhập tin nhắn...",
+    "emptyMessage": "Vui lòng nhập tin nhắn"
+  }
+}

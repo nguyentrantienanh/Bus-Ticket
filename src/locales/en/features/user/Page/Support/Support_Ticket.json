@@ -1,0 +1,28 @@
+{
+  "title": "Support Ticket",
+  "table": {
+    "headers": {
+      "subject": "Subject",
+      "status": "Status",
+      "priority": "Priority",
+      "lastReply": "Last Reply",
+      "info": "Info"
+    },
+    "status": {
+      "responded": "Responded",
+      "noResponded": "No Responded"
+    },
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "noTickets": "No tickets found"
+  },
+  "timeAgo": {
+    "undefined": "Undefined",
+    "minutesAgo": "minutes ago",
+    "hoursAgo": "hours ago", 
+    "daysAgo": "days ago"
+  }
+}

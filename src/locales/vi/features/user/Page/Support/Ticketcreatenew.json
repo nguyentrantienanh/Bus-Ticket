@@ -1,0 +1,35 @@
+{
+  "title": "Tạo yêu cầu hỗ trợ",
+  "form": {
+    "description": {
+      "label": "Mô tả",
+      "placeholder": "Vé bị lỗi...",
+      "required": "*"
+    },
+    "priority": {
+      "label": "Mức độ ưu tiên",
+      "required": "*",
+      "options": {
+        "high": "Cao",
+        "medium": "Trung bình",
+        "low": "Thấp"
+      }
+    },
+    "message": {
+      "label": "Tin nhắn",
+      "placeholder": "Nhập tin nhắn của bạn...",
+      "required": "*"
+    }
+  },
+  "button": {
+    "submit": "Gửi"
+  },
+  "validation": {
+    "fillAllFields": "Vui lòng nhập đầy đủ thông tin",
+    "userInfoNotFound": "Không tìm thấy thông tin người dùng",
+    "userNotFound": "Không tìm thấy người dùng"
+  },
+  "success": {
+    "chatCreated": "Tạo chat thành công"
+  }
+}

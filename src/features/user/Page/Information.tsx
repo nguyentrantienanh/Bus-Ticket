@@ -4,9 +4,11 @@ import Background from '../../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useMediaQuery } from '@mui/material'
-
+import { useTranslation } from 'react-i18next'
 import Icon from '../../../icons/Icon'
+
 export default function InformationUser() {
+  const { t } = useTranslation('Information')
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -34,29 +36,28 @@ export default function InformationUser() {
         (formData.phone.length < 10 && formData.cccd.length < 12) ||
         (formData.phone.length > 10 && formData.cccd.length > 12)
       ) {
-        return setMessage('Số điện thoại và CCCD/CMND không hợp lệ')
+        return setMessage(t('validation.phoneAndCccdInvalid'))
       }
-      // phone trên 10 ký tự
       if (formData.phone.length < 10) {
-        return setMessage('Số điện thoại phải có ít nhất 10 ký tự')
+        return setMessage(t('validation.phoneMinLength'))
       }
       if (formData.cccd.length < 12) {
-        return setMessage('CCCD/CMND phải có ít nhất 12 ký tự')
+        return setMessage(t('validation.cccdMinLength'))
       }
       if (formData.phone.length > 10) {
-        setMessage('Số điện thoại không được quá 10 ký tự')
+        setMessage(t('validation.phoneMaxLength'))
       }
       if (formData.cccd.length > 12) {
-        setMessage('CCCD/CMND không được quá 12 ký tự')
+        setMessage(t('validation.cccdMaxLength'))
       }
       const raw = localStorage.getItem('userList')
-      if (!raw) return alert('Không tìm thấy dữ liệu')
+      if (!raw) return alert(t('errors.noData'))
 
       console.log('userList', UserList)
 
       // Tìm index người dùng có id khớp
       const index = UserList.findIndex((user: any) => user.id === parseInt(name || '0'))
-      if (index === -1) return alert('Không tìm thấy người dùng')
+      if (index === -1) return alert(t('errors.userNotFound'))
       // Cập nhật thông tin người dùng
       UserList[index] = {
         ...UserList[index], // giữ nguyên thông tin cũ
@@ -92,11 +93,11 @@ export default function InformationUser() {
         onSubmit={handleSubmit}
         className='bg-[#fff] my-[10%] mx-[5%] p-6 rounded-lg shadow-lg w-full max-w-lg z-10 relative '
       >
-        <h1 className='text-sm md:text-2xl font-bold mb-3 md:mb-6 text-center'>Xác nhận thông tin </h1>
+        <h1 className='text-sm md:text-2xl font-bold mb-3 md:mb-6 text-center'>{t('title')}</h1>
         {message && (
           <div className='text-red-500 text-sm mb-4 md:mb-6 border border-red-500 p-3 rounded-lg bg-red-100 flex justify-between'>
             <div>
-              <strong className='text-[13px] '>Chú ý: </strong>
+              <strong className='text-[13px] '>{t('validation.notice')} </strong>
               <span className='text-[12px] text-nowrap'>{message}</span>
             </div>
             <i className=' cursor-pointer text-red-500 hover:text-red-700' onClick={() => setMessage('')}>
@@ -111,12 +112,12 @@ export default function InformationUser() {
             size={isMobile ? 'small' : 'medium'}
             type='text'
             name='fullName'
-            label='Họ và tên'
+            label={t('form.fullName.label')}
             value={formData.fullName}
             onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
-            placeholder='Nguyễn Văn A'
+            placeholder={t('form.fullName.placeholder')}
           />
         </div>
 
@@ -126,12 +127,12 @@ export default function InformationUser() {
             size={isMobile ? 'small' : 'medium'}
             margin={isMobile ? 'dense' : 'none'}
             name='phone'
-            label='Số điện thoại'
+            label={t('form.phone.label')}
             value={formData.phone}
             onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
-            placeholder='0901234567'
+            placeholder={t('form.phone.placeholder')}
           />
         </div>
         <div className=' mb-1 md:mb-4'>
@@ -140,12 +141,12 @@ export default function InformationUser() {
             margin={isMobile ? 'dense' : 'none'}
             type='email'
             name='email'
-            label='Email'
+            label={t('form.email.label')}
             value={formData.email}
             onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
-            placeholder='example@gmail.com'
+            placeholder={t('form.email.placeholder')}
           />
         </div>
 
@@ -155,12 +156,12 @@ export default function InformationUser() {
             margin={isMobile ? 'dense' : 'none'}
             type='text'
             name='cccd'
-            label='CCCD/CMND'
+            label={t('form.cccd.label')}
             value={formData.cccd}
             onChange={(e) => setFormData((prev) => ({ ...prev, cccd: e.target.value }))}
             required
             className='w-full border rounded px-3 py-2'
-            placeholder='012345678901'
+            placeholder={t('form.cccd.placeholder')}
           />
         </div>
 
@@ -170,7 +171,7 @@ export default function InformationUser() {
             margin={isMobile ? 'dense' : 'none'}
             type='date'
             name='birthday'
-            label='Ngày sinh'
+            label={t('form.birthday.label')}
             variant='outlined'
             value={formData.birthday}
             onChange={(e) => setFormData((prev) => ({ ...prev, birthday: e.target.value }))}
@@ -194,10 +195,10 @@ export default function InformationUser() {
         >
           {ishandlesumit ? (
             <>
-              <Icon name='loading' /> Đang xử lý...
+              <Icon name='loading' /> {t('button.processing')}
             </>
           ) : (
-            'Xác nhận thông tin'
+            t('button.confirm')
           )}
         </button>
       </Box>

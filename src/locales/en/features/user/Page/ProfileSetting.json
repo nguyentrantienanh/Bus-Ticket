@@ -1,0 +1,51 @@
+{
+  "title": "Profile Setting",
+  "personalInfo": "Personal Information",
+  "upload": "Upload",
+  "form": {
+    "username": {
+      "label": "Username",
+      "required": "*"
+    },
+    "country": {
+      "label": "Country",
+      "required": "*",
+      "options": {
+        "vietnam": "Vietnam",
+        "usa": "USA",
+        "japan": "Japan",
+        "korea": "Korea"
+      }
+    },
+    "mobile": {
+      "label": "Mobile",
+      "required": "*",
+      "placeholder": "Enter phone number...",
+      "validation": "Phone number must have exactly 10 digits."
+    },
+    "address": {
+      "label": "Address",
+      "placeholder": "Enter address"
+    },
+    "email": {
+      "label": "Email"
+    },
+    "zipCode": {
+      "label": "Zip Code",
+      "placeholder": "Enter zip code"
+    },
+    "city": {
+      "label": "City",
+      "placeholder": "Enter city"
+    }
+  },
+  "buttons": {
+    "update": "Update",
+    "logout": "Logout"
+  },
+  "messages": {
+    "error": "Please fill in all information!",
+    "successUpdate": "Information has been updated!",
+    "successImage": "Image has been updated!"
+  }
+}

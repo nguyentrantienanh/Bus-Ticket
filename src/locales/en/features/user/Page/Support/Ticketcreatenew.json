@@ -1,0 +1,35 @@
+{
+  "title": "Create Support Ticket",
+  "form": {
+    "description": {
+      "label": "Description",
+      "placeholder": "Ticket issue...",
+      "required": "*"
+    },
+    "priority": {
+      "label": "Priority",
+      "required": "*",
+      "options": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      }
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Enter your message...",
+      "required": "*"
+    }
+  },
+  "button": {
+    "submit": "Send"
+  },
+  "validation": {
+    "fillAllFields": "Please fill in all information",
+    "userInfoNotFound": "User information not found",
+    "userNotFound": "User not found"
+  },
+  "success": {
+    "chatCreated": "Chat created successfully"
+  }
+}

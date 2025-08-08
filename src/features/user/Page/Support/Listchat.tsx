@@ -1,7 +1,9 @@
 import Icon from '../../../../icons/Icon'
 import { Link, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function Listchat() {
+  const { t } = useTranslation('ListSupport')
   const { id } = useParams<{ id: string }>()
 
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -23,12 +25,12 @@ export default function Listchat() {
                 <Icon name='arrowleft' />
               </i>
             </div>
-            <p className=' py-2 px-1 text-nowrap text-[14px]'>Quay lại</p>
+            <p className=' py-2 px-1 text-nowrap text-[14px]'>{t('header.backButton')}</p>
           </button>
         </Link>
 
         <h3 className='font-bold text-lg flex mx-2 items-center text-nowrap gap-2'>
-          <Icon name='chat' /> Danh sách chat
+          <Icon name='chat' /> {t('header.title')}
         </h3>
 
         <Link to={`/user/support-ticket`} className='     md:hidden  '>
@@ -41,7 +43,7 @@ export default function Listchat() {
                 <Icon name='arrowleft' />
               </i>
             </div>
-            <p className=' py-2 px-1 text-nowrap text-[14px]'>Quay lại</p>
+            <p className=' py-2 px-1 text-nowrap text-[14px]'>{t('header.backButton')}</p>
           </button>
         </Link>
       </div>
@@ -71,18 +73,24 @@ export default function Listchat() {
                     <div className='flex justify-between items-center'>
                       <h4 className='font-semibold text-gray-800 text-sm truncate'>{item.description}</h4>
                       <div className='text-xs text-gray-500 flex items-center'>
-                        Mức độ:
+                        {t('priority.label')}
                         {item.priority === 1 ? (
-                          <span className='text-xs text-red-500 bg-red-100  py-1 rounded-full'>Quan trọng</span>
+                          <span className='text-xs text-red-500 bg-red-100  py-1 rounded-full'>
+                            {t('priority.high')}
+                          </span>
                         ) : item.priority === 2 ? (
-                          <span className='text-xs text-yellow-500 bg-yellow-100   py-1 rounded-full'>Bình thường</span>
+                          <span className='text-xs text-yellow-500 bg-yellow-100   py-1 rounded-full'>
+                            {t('priority.normal')}
+                          </span>
                         ) : (
-                          <span className='text-xs text-green-500 bg-green-100   py-1 rounded-full'>Thấp</span>
+                          <span className='text-xs text-green-500 bg-green-100   py-1 rounded-full'>
+                            {t('priority.low')}
+                          </span>
                         )}
                       </div>
                     </div>
                     <div className='flex justify-between items-center mt-1 text-gray-600 text-sm'>
-                      <span className='truncate w-[75%] text-xs'>{lastMessage?.text || 'Chưa có tin nhắn'}</span>
+                      <span className='truncate w-[75%] text-xs'>{lastMessage?.text || t('messages.noMessages')}</span>
                       <span className='text-[11px] [#fff]space-nowrap'>
                         {lastMessage?.timestamp ? lastMessage.timestamp.split(' ')[0].slice(0, -3) : ''}
                       </span>
@@ -96,7 +104,7 @@ export default function Listchat() {
           <Link to={`/user/ticket/createnew`}>
             <li className='p-5 bg-gray-100 hover:bg-gray-200 transition rounded-xl text-gray-600 flex items-center justify-center mt-10'>
               <Icon name='plus' />
-              <span className='text-[16px]'>Thêm cuộc trò chuyện</span>
+              <span className='text-[16px]'>{t('messages.addNewChat')}</span>
             </li>
           </Link>
         )}

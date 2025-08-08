@@ -2,7 +2,10 @@ import { useParams } from 'react-router-dom'
 import Icon from '../../../../icons/Icon'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 export default function ChatSupport() {
+  const { t } = useTranslation('ChatSupport')
   const { id } = useParams<{ id: string }>()
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
@@ -19,7 +22,7 @@ export default function ChatSupport() {
   }, [messages])
 
   const handleSendMessage = () => {
-    if (!message.trim()) return alert('Vui lòng nhập tin nhắn')
+    if (!message.trim()) return alert(t('input.emptyMessage'))
     const newMessage = {
       id: 2,
       sender: 'user',
@@ -30,8 +33,7 @@ export default function ChatSupport() {
     const updatedChat = {
       ...chat[0],
       messages: [...chat[0].messages, newMessage],
-      lastMessage: message,
-      status: 1
+      lastMessage: message
     }
 
     const updatedChats = chats.map((item: any) => (item.id === chat[0].id ? updatedChat : item))
@@ -59,28 +61,30 @@ export default function ChatSupport() {
                 </i>
               </div>
 
-              <p className=' px-1  text-nowrap text-[10px]'>Quay lại</p>
+              <p className=' px-1  text-nowrap text-[10px]'>{t('header.backButton')}</p>
             </button>
           </Link>
 
           <h1 className=' text-[15px]   md:text-xl font-semibold text-green-700 truncate'>
-            {chat[0]?.description || 'Chat hỗ trợ'}
+            {chat[0]?.description || t('header.defaultTitle')}
           </h1>
         </div>
         <div>
           {chat.map((item: any, index: any) => (
             <div key={index} className='text-xs text-gray-500 flex items-center'>
-              Mức độ:
+              {t('header.priority.label')}
               {item.priority === 1 ? (
                 <span className='text-xs ml-1 text-green-500 bg-green-100 border px-2 py-1 rounded-full'>
-                  Quan trọng
+                  {t('header.priority.high')}
                 </span>
               ) : item.priority === 2 ? (
                 <span className='text-xs ml-1 text-green-500 bg-green-100 border px-2 py-1 rounded-full'>
-                  Bình thường
+                  {t('header.priority.normal')}
                 </span>
               ) : (
-                <span className='text-xs ml-1 text-green-500 bg-green-100 border px-2 py-1 rounded-full'>Thấp</span>
+                <span className='text-xs ml-1 text-green-500 bg-green-100 border px-2 py-1 rounded-full'>
+                  {t('header.priority.low')}
+                </span>
               )}
             </div>
           ))}
@@ -114,7 +118,7 @@ export default function ChatSupport() {
       <div className='border-t bg-[#fff] px-4 py-3 flex items-center gap-3 sticky bottom-0'>
         <input
           type='text'
-          placeholder='Nhập tin nhắn...'
+          placeholder={t('input.placeholder')}
           className='flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500'
           value={message}
           onChange={(e) => setMessage(e.target.value)}

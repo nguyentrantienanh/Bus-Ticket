@@ -1,0 +1,8 @@
+{
+  "title": "Bảng điều khiển",
+  "stats": {
+    "totalBookedTicket": "Tổng vé đã đặt",
+    "totalRejectedTicket": "Tổng vé bị từ chối", 
+    "totalPendingTicket": "Tổng vé đang chờ"
+  }
+}

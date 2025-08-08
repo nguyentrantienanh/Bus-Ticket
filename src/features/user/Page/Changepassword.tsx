@@ -1,12 +1,17 @@
 import Background from '../../../assets/background.jpg'
 import { useState, useEffect } from 'react'
+import Icon from '../../../icons/Icon'
+import { useTranslation } from 'react-i18next'
 
 export default function Changepassword() {
+  const { t } = useTranslation('Changepassword')
   const [password, setPassword] = useState('')
   const [confirmpassword, setConfirmPassword] = useState('')
   const [currentPassword, setCurrentPassword] = useState('')
   const [userInfo, setUserInfo] = useState<any>(null)
   const [userList, setUserList] = useState<any[]>([])
+  const [error, setError] = useState('') // error và success message
+  const [success, setSuccess] = useState('')
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userInfo') || 'null')
@@ -15,101 +20,130 @@ export default function Changepassword() {
     setUserList(list)
   }, [])
 
-  const handleSubmit = () => {
-    if (!userInfo) return alert('Không tìm thấy người dùng')
-
-    // Nếu người dùng đã có mật khẩu → kiểm tra mật khẩu cũ
-    if (userInfo.password) {
-      if (currentPassword !== userInfo.password) {
-        return alert('Mật khẩu hiện tại không đúng!')
-      }
+  const validateForm = () => {
+    if (!userInfo) return t('messages.userNotFound')
+    if (!password || !confirmpassword) {
+      return t('messages.fillAllFields')
     }
-
+    if (userInfo.password && currentPassword !== userInfo.password) {
+      return t('messages.currentPasswordIncorrect')
+    }
     if (password.length < 10) {
-      return alert('Mật khẩu mới phải có ít nhất 10 ký tự')
+      return t('messages.passwordMinLength')
     }
-
     if (password !== confirmpassword) {
-      return alert('Mật khẩu xác nhận không khớp')
+      return t('messages.passwordMismatch')
     }
 
-    // Cập nhật mật khẩu trong userList
-    const updatedList = userList.map((user) => (user.id === userInfo.id ? { ...user, password } : user))
-    localStorage.setItem('userList', JSON.stringify(updatedList))
+    return ''
+  }
+  // hàm delay 3s
+  const [delay, setDelay] = useState(false)
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    const errorMsg = validateForm()
+    if (errorMsg) {
+      setError(errorMsg)
+      return
+    }
+    setDelay(true)
+    setTimeout(() => {
+      // Cập nhật userList
+      const updatedList = userList.map((user) => (user.id === userInfo.id ? { ...user, password } : user))
+      localStorage.setItem('userList', JSON.stringify(updatedList))
 
-    // Cập nhật userInfo
-    const updatedUser = { ...userInfo, password }
-    localStorage.setItem('userInfo', JSON.stringify(updatedUser))
+      // Cập nhật userInfo
+      const updatedUser = { ...userInfo, password }
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser))
 
-    alert('Đổi mật khẩu thành công!')
-    setPassword('')
-    setConfirmPassword('')
-    setCurrentPassword('')
+      setError('')
+      setSuccess(t('messages.changePasswordSuccess'))
+
+      setPassword('')
+      setConfirmPassword('')
+      setCurrentPassword('')
+      setDelay(false)
+    }, 3000)
   }
 
   return (
     <>
+      {/* Banner */}
       <div
-        className=' w-full h-50 flex items-center justify-center'
-        style={{ backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        className='w-full h-48 flex items-center justify-center bg-cover bg-center relative'
+        style={{ backgroundImage: `url(${Background})` }}
       >
-        <div className='w-full h-full flex items-center justify-center bg-[#00000068]'>
-          <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#fff]'>Change Password</h1>
-        </div>
+        <div className='absolute inset-0 bg-black/50' />
+        <h1 className='relative z-10 text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fff]'>{t('title')}</h1>
       </div>
 
-      <div className=' sm:px-[5%] lg:px-[15%] xl:px-[30%] my-2 md:my-10'>
-        <form
-          onSubmit={handleSubmit}
-          className='rounded-2xl md:shadow-[0_5px_25px_rgba(0,0,0,0.25)] p-3 flex flex-col gap-8'
-        >
-          {/* Nếu có mật khẩu cũ mới hiện input Current Password */}
+      {/* Form */}
+      <div className='sm:px-[5%] lg:px-[15%] xl:px-[30%] my-6'>
+        <form onSubmit={handleSubmit} className='rounded-2xl md:shadow-lg p-6 flex flex-col gap-6 bg-[#fff]'>
+          {error && <div className='bg-red-100 text-red-600 p-3 rounded-lg text-sm'>{error}</div>}
+          {success && <div className='bg-green-100 text-green-600 p-3 rounded-lg text-sm'>{success}</div>}
+
           {userInfo?.password && (
             <div className='flex flex-col'>
-              <label>
-                Current Password <sup className='text-red-600'>*</sup>
+              <label className='font-medium'>
+                {t('form.currentPassword.label')}{' '}
+                <sup className='text-red-500'>{t('form.currentPassword.required')}</sup>
               </label>
               <input
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 type='password'
-                placeholder='Nhập mật khẩu hiện tại'
-                className='p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500'
+                placeholder={t('form.currentPassword.placeholder')}
+                className='mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400'
               />
             </div>
           )}
 
           <div className='flex flex-col'>
-            <label>
-              New Password <sup className='text-red-600'>*</sup>
+            <label className='font-medium'>
+              {t('form.newPassword.label')} <sup className='text-red-500'>{t('form.newPassword.required')}</sup>
             </label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type='password'
-              placeholder='Mật khẩu mới (trên 10 ký tự)'
-              className='p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500'
+              placeholder={t('form.newPassword.placeholder')}
+              className='mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400'
             />
           </div>
 
           <div className='flex flex-col'>
-            <label>
-              Confirm Password <sup className='text-red-600'>*</sup>
+            <label className='font-medium'>
+              {t('form.confirmPassword.label')} <sup className='text-red-500'>{t('form.confirmPassword.required')}</sup>
             </label>
             <input
               value={confirmpassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               type='password'
-              placeholder='Xác nhận mật khẩu mới'
-              className='p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:shadow-green-300 focus:border-green-500'
+              placeholder={t('form.confirmPassword.placeholder')}
+              className='mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400'
             />
           </div>
 
           <button
             type='submit'
-            className={`bg-[#23ff52] h-10 w-full text-black font-semibold rounded ${password && confirmpassword ? 'hover:bg-[#00ff37]' : 'opacity-50 cursor-not-allowed'}`}
+            disabled={delay}
+            className={`h-11 rounded-lg font-semibold transition ${
+              !delay
+                ? 'bg-green-500 hover:bg-green-600 text-[#fff] cursor-pointer'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
-            Xác nhận
+            {delay ? (
+              <>
+                <i className=' mr-2'>
+                  <Icon name='loading' />
+                </i>
+                {t('button.processing')}
+              </>
+            ) : (
+              t('button.submit')
+            )}
           </button>
         </form>
       </div>

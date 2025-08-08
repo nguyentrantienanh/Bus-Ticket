@@ -1,0 +1,8 @@
+{
+  "title": "Dashboard",
+  "stats": {
+    "totalBookedTicket": "Total Booked Tickets",
+    "totalRejectedTicket": "Total Rejected Tickets", 
+    "totalPendingTicket": "Total Pending Tickets"
+  }
+}

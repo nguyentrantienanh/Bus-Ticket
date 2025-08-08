@@ -1,0 +1,38 @@
+{
+  "title": "Lịch sử đặt vé",
+  "table": {
+    "headers": {
+      "id": "ID",
+      "acNonAc": "AC / Non-AC", 
+      "start": "Điểm đi",
+      "drop": "Điểm đến",
+      "date": "Ngày",
+      "time": "Giờ",
+      "seats": "Ghế",
+      "status": "Trạng thái",
+      "fare": "Giá vé",
+      "info": "Thông tin"
+    },
+    "noTickets": "Chưa có vé nào được đặt.",
+    "currency": "VNĐ"
+  },
+  "status": {
+    "confirmed": "Đã xác nhận",
+    "rejected": "Bị từ chối", 
+    "pending": "Đang chờ"
+  },
+  "ticketDetails": {
+    "title": "Lịch sử đặt vé",
+    "ticketCode": "Số vé/code",
+    "departureDate": "Ngày xuất phát",
+    "oneWay": "Chiều đi",
+    "seatLayout": "Sơ đồ ghế",
+    "departureTime": "Giờ khởi hành",
+    "arrivalTime": "Giờ đến nơi",
+    "travelTime": "giờ",
+    "minute": "phút",
+    "idNote": "CMND",
+    "note": "Ghi chú: Mang CMND/Hộ chiếu",
+    "seat": "Ghế"
+  }
+}

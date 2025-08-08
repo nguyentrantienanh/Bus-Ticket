@@ -115,7 +115,7 @@ export default function Signin() {
       setMessage('Vui lòng điền đầy đủ thông tin đăng nhập.')
       return
     }
-   
+
     setlogin(true)
     setTimeout(() => {
       try {
@@ -125,7 +125,7 @@ export default function Signin() {
         // Tìm người dùng có email và mật khẩu khớp
         const user = userList.find((u) => u.email === useremail && u.password === password)
         if (user) {
-          if( user.status === 0) {
+          if (user.status === 0) {
             setMessage('Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.')
             setlogin(false)
             return
@@ -190,18 +190,18 @@ export default function Signin() {
             <span className='mx-2 text-gray-500 text-sm'>OR</span>
             <div className='flex-grow border-t border-dashed border-gray-400'></div>
           </div>
-           {message && (
-          <div className='text-red-500 text-sm mb-4 md:mb-6 border border-red-50 p-1 rounded-lg bg-red-100 flex justify-between'>
-            <div>
-              <strong className='text-[13px] '>Chú ý: </strong>
-              <span className='text-[12px] text-nowrap'>{message}</span>
+          {message && (
+            <div className='text-red-500 text-sm mb-4 md:mb-6 border border-red-50 p-1 rounded-lg bg-red-100 flex justify-between'>
+              <div>
+                <strong className='text-[13px] '>Chú ý: </strong>
+                <span className='text-[12px] text-nowrap'>{message}</span>
+              </div>
+              <i className=' cursor-pointer text-[12px] text-red-500 hover:text-red-700' onClick={() => setMessage('')}>
+                {' '}
+                <Icon name='close' />
+              </i>
             </div>
-            <i className=' cursor-pointer text-[12px] text-red-500 hover:text-red-700' onClick={() => setMessage('')}>
-              {' '}
-              <Icon name='close' />
-            </i>
-          </div>
-        )}
+          )}
 
           <div className=''>
             <form className='flex flex-col gap-4'>

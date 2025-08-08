@@ -1,0 +1,40 @@
+{
+  "title": "Xác nhận thông tin",
+  "form": {
+    "fullName": {
+      "label": "Họ và tên",
+      "placeholder": "Nguyễn Văn A"
+    },
+    "phone": {
+      "label": "Số điện thoại",
+      "placeholder": "0901234567"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "example@gmail.com"
+    },
+    "cccd": {
+      "label": "CCCD/CMND",
+      "placeholder": "012345678901"
+    },
+    "birthday": {
+      "label": "Ngày sinh"
+    }
+  },
+  "button": {
+    "confirm": "Xác nhận thông tin",
+    "processing": "Đang xử lý..."
+  },
+  "validation": {
+    "notice": "Chú ý:",
+    "phoneAndCccdInvalid": "Số điện thoại và CCCD/CMND không hợp lệ",
+    "phoneMinLength": "Số điện thoại phải có ít nhất 10 ký tự",
+    "cccdMinLength": "CCCD/CMND phải có ít nhất 12 ký tự",
+    "phoneMaxLength": "Số điện thoại không được quá 10 ký tự",
+    "cccdMaxLength": "CCCD/CMND không được quá 12 ký tự"
+  },
+  "errors": {
+    "noData": "Không tìm thấy dữ liệu",
+    "userNotFound": "Không tìm thấy người dùng"
+  }
+}

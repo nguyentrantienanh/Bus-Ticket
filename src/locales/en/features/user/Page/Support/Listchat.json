@@ -1,0 +1,16 @@
+{
+  "header": {
+    "backButton": "Back",
+    "title": "Chat List"
+  },
+  "priority": {
+    "label": "Priority:",
+    "high": "High",
+    "normal": "Normal",
+    "low": "Low"
+  },
+  "messages": {
+    "noMessages": "No messages yet",
+    "addNewChat": "Add new conversation"
+  }
+}

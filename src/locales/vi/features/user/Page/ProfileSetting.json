@@ -1,0 +1,51 @@
+{
+  "title": "Cài đặt hồ sơ",
+  "personalInfo": "Thông tin cá nhân",
+  "upload": "Tải lên",
+  "form": {
+    "username": {
+      "label": "Tên người dùng",
+      "required": "*"
+    },
+    "country": {
+      "label": "Quốc gia",
+      "required": "*",
+      "options": {
+        "vietnam": "Việt Nam",
+        "usa": "Hoa Kỳ",
+        "japan": "Nhật Bản",
+        "korea": "Hàn Quốc"
+      }
+    },
+    "mobile": {
+      "label": "Số điện thoại",
+      "required": "*",
+      "placeholder": "Nhập số điện thoại...",
+      "validation": "Số điện thoại phải có đúng 10 chữ số."
+    },
+    "address": {
+      "label": "Địa chỉ",
+      "placeholder": "Nhập địa chỉ"
+    },
+    "email": {
+      "label": "Email"
+    },
+    "zipCode": {
+      "label": "Mã bưu điện",
+      "placeholder": "Nhập mã thành phố"
+    },
+    "city": {
+      "label": "Thành phố",
+      "placeholder": "Nhập thành phố"
+    }
+  },
+  "buttons": {
+    "update": "Cập nhật",
+    "logout": "Đăng xuất"
+  },
+  "messages": {
+    "error": "Vui lòng nhập đầy đủ thông tin!",
+    "successUpdate": "Thông tin đã được cập nhật!",
+    "successImage": "Ảnh đã được cập nhật!"
+  }
+}

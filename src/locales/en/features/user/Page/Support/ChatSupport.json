@@ -1,0 +1,16 @@
+{
+  "header": {
+    "backButton": "Back",
+    "defaultTitle": "Chat Support",
+    "priority": {
+      "label": "Priority:",
+      "high": "High",
+      "normal": "Normal", 
+      "low": "Low"
+    }
+  },
+  "input": {
+    "placeholder": "Enter message...",
+    "emptyMessage": "Please enter a message"
+  }
+}
