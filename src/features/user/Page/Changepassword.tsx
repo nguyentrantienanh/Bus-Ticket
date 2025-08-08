@@ -80,8 +80,23 @@ export default function Changepassword() {
       {/* Form */}
       <div className='sm:px-[5%] lg:px-[15%] xl:px-[30%] my-6'>
         <form onSubmit={handleSubmit} className='rounded-2xl md:shadow-lg p-6 flex flex-col gap-6 bg-[#fff]'>
-          {error && <div className='bg-red-100 text-red-600 p-3 rounded-lg text-sm'>{error}</div>}
-          {success && <div className='bg-green-100 text-green-600 p-3 rounded-lg text-sm'>{success}</div>}
+          {error && <div className='bg-red-100 text-red-600 p-3 rounded-lg text-sm'>{error}
+            <i
+              onClick={() => setError('')}
+              className='ml-2 cursor-pointer hover:text-red-800 transition duration-200'
+            >
+              <Icon name='close'/>
+            </i>
+            </div>}
+          {success && <div className='bg-green-100 text-green-600 p-3 rounded-lg text-sm'>{success}
+            
+            <i
+              onClick={() => setSuccess('')}
+              className='ml-2 cursor-pointer hover:text-green-800 transition duration-200'
+            >
+              <Icon name='close'/>
+            </i>
+            </div>}
 
           {userInfo?.password && (
             <div className='flex flex-col'>
