@@ -145,8 +145,22 @@ export default function ProfileSetting() {
         <div className='flex max-md:flex-col justify-between items-center mb-6'>
           <h2 className='text-xl sm:text-2xl font-bold  1'>{t('personalInfo')}</h2>
 
-          {error && <div className='bg-red-100 text-red-600 p-2 rounded-lg text-sm  '>{error}</div>}
-          {success && <div className='bg-green-100 text-green-600 p-2 rounded-lg text-sm  '>{success}</div>}
+          {error && <div className='bg-red-100 text-red-600 p-2 rounded-lg text-sm  '>{error}
+            <i 
+              onClick={() => setError('')}
+              className='cursor-pointer ml-2 text-red-500 hover:text-red-700 transition'
+            >
+              <Icon name='close' />
+            </i>
+          </div>}
+          {success && <div className='bg-green-100 text-green-600 p-2 rounded-lg text-sm  '>{success}
+             <i 
+              onClick={() => setError('')}
+              className='cursor-pointer ml-2 text-red-500 hover:text-red-700 transition'
+            >
+              <Icon name='close' />
+            </i>
+            </div>}
         </div>
 
         <div className='flex flex-col md:flex-row gap-8  '>
