@@ -13,7 +13,7 @@ export default function LayoutAdmin() {
   }, [location.pathname])
 
   return (
-    <div className='flex max-md:flex-col md:h-screen' >
+    <div className='flex max-md:flex-col md:h-screen'>
       <div className='sticky -top-0.5 z-20'>
         <HeaderAdmin />
       </div>

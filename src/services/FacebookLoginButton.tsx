@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Icon from '../icons/Icon'
- 
+
 declare global {
   interface Window {
     FB: any
@@ -18,7 +18,7 @@ function FacebookLoginButton({ onLogin }: FacebookLoginButtonProps) {
   useEffect(() => {
     window.fbAsyncInit = function () {
       window.FB.init({
-        appId:   ID,
+        appId: ID,
         cookie: true,
         xfbml: true,
         version: 'v19.0'

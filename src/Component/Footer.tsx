@@ -8,8 +8,10 @@ function Footer() {
   return (
     <footer className='   bg-gray-800 grid grid-cols-5 max-[900px]:grid-cols-2  max-[450px]:grid-cols-1 max-[900px]:items-center  max-[450px]:pr-0  max-[450px]:pl-5  px-5 text-[#f5f5f5] py-4'>
       <section className='   flex flex-col col-span-2 max-[900px]:col-span-1  max-[900px]:py-5  gap-4'>
-         
-        <span className='  pr-5  mt-[-30px]'><img src={logo} className='h-30 w-30 ' alt='' />{t('Footer_Info.text')}</span>
+        <span className='  pr-5  mt-[-30px]'>
+          <img src={logo} className='h-30 w-30 ' alt='' />
+          {t('Footer_Info.text')}
+        </span>
         <span className='flex gap-4 text-2xl'>
           <Icon name='facebook' />
           <Icon name='twitter' />

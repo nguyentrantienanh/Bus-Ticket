@@ -36,7 +36,11 @@ function Tickets() {
 
   // thongtinve
   const thongtinve = JSON.parse(localStorage.getItem('thongtinve') || '{}')
-  const test = UserList.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id) || GuestUser.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id)))
+  const test = UserList.find(
+    (user: any) =>
+      user.ticket?.some((t: any) => t.id === thongtinve[0]?.id) ||
+      GuestUser.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id))
+  )
   return (
     <>
       <div className='bg-[#fff]   px-0 md:px-10 py-6'>
@@ -136,7 +140,7 @@ function Tickets() {
             }}
           >
             {thongtinve.map((item: any) => (
-             <div className='  w-full rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
+              <div className='  w-full rounded-3xl py-4 flex flex-col gap-5 divide-y-2 divide-gray-200'>
                 <div
                   key={item.id}
                   className='bg-[#fff]   rounded-xl p-4 shadow space-y-2
@@ -151,7 +155,7 @@ function Tickets() {
                             return (
                               <span
                                 key={status.id}
-                                className={ `font-bold px-3 py-1 rounded-full text-[${status.colors}] bg-[${status.bg}] border-2`}
+                                className={`font-bold px-3 py-1 rounded-full text-[${status.colors}] bg-[${status.bg}] border-2`}
                               >
                                 {status.name}
                               </span>
@@ -159,7 +163,7 @@ function Tickets() {
                           }
                           return
                         })}
-                      </p> 
+                      </p>
                     </h1>
 
                     <div className='flex justify-between px-4'></div>
@@ -171,14 +175,16 @@ function Tickets() {
                   </div>
                   <div className='flex max-md:flex-col justify-between items-center'>
                     <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
-                     <div>
-                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
-                       <span className='pl-1'>{item.dateStart}</span>
-                    </span>
-                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                      Chiều đi
-                    </span>
-                     </div>
+                    <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
+                        {' '}
+                        <strong>Ngày xuất phát: </strong>
+                        <span className='pl-1'>{item.dateStart}</span>
+                      </span>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                        Chiều đi
+                      </span>
+                    </div>
                   </div>
 
                   <div className=' text-[13px] md:text-xl font-bold'>
@@ -212,9 +218,12 @@ function Tickets() {
                   <div className='bg-gray-100 p-3 rounded-lg text-sm'>
                     <div className='font-semibold max-md:text-[13px] '>{test?.fullName || test?.name}</div>
                     <div className='text-xs text-gray-600 '>
-                      CMND: <span className='font-normal max-md:text-[12px]'>{test?.cccd} </span> 
+                      CMND: <span className='font-normal max-md:text-[12px]'>{test?.cccd} </span>
                     </div>
-                    <div className='font-semibold text-sm text-gray-700 max-md:text-[10px] '> <strong>{test?.type === 1 ? 'Khách hàng' : 'Khách vãng lai'}</strong></div>
+                    <div className='font-semibold text-sm text-gray-700 max-md:text-[10px] '>
+                      {' '}
+                      <strong>{test?.type === 1 ? 'Khách hàng' : 'Khách vãng lai'}</strong>
+                    </div>
                     <div className='mt-2 border-t pt-2 flex justify-between'>
                       <div className=' '>
                         {' '}

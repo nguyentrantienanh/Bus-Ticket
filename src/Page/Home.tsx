@@ -183,7 +183,7 @@ function Home() {
         
               @keyframes busMove {
                 0% {
-                  right: -40px;
+                  right: -20px;
                   transform: translatey(0);
                 }
                 100% {

@@ -88,9 +88,15 @@ export default function Createnew() {
                 value={priority}
                 onChange={(e) => setPriority(Number(e.target.value))}
               >
-                <option className='text-[12px] md:text-[15px] font-semibold' value='1'>Hight</option>
-                <option className='text-[12px] md:text-[15px] font-semibold' value='2'>Medium</option>
-                <option className='text-[12px] md:text-[15px] font-semibold' value='3'>Low</option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='1'>
+                  Hight
+                </option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='2'>
+                  Medium
+                </option>
+                <option className='text-[12px] md:text-[15px] font-semibold' value='3'>
+                  Low
+                </option>
               </select>
             </div>
           </div>

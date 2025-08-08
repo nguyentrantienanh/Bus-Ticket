@@ -160,7 +160,9 @@ export default function ProfileSetting() {
         style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className='w-full h-full flex items-center justify-center bg-[#00000049]  '>
-          <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 max-sm:items-center  text-[#fff]  '>Profile Setting</h1>
+          <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 max-sm:items-center  text-[#fff]  '>
+            Profile Setting
+          </h1>
         </div>
       </div>
       <div className='flex flex-col  mx-10 rounded-2xl    bg-[#fff]  '>
@@ -179,13 +181,15 @@ export default function ProfileSetting() {
                 />
                 <button className='flex border items-center justify-center gap-2 bg-gray-200  rounded-sm px-1  '>
                   <input type='file' id='img' accept='image/*' onChange={handleImageupload} className='hidden' />
-                 
+
                   <label htmlFor={`img`} className=' flex items-center cursor-pointer text-[10px] md:text-[15px]'>
-                    upload  <i className='pl-1'><Icon name='download' /></i>
+                    upload{' '}
+                    <i className='pl-1'>
+                      <Icon name='download' />
+                    </i>
                   </label>
                 </button>
-            
-                 
+
                 <p className='text-nowrap font-medium'>
                   {userlist?.name || `${UserInfo.firstname} ${UserInfo.lastname}`}
                 </p>
@@ -214,7 +218,12 @@ export default function ProfileSetting() {
                     className=' text-[14px] sm:text-[18px] p-2 border-1 border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                   >
                     {countryOptions.map((option) => (
-                      <option key={option.id} value={option.value} id={option.id} className='  text-[10px] md:text-[18px]  hover'>
+                      <option
+                        key={option.id}
+                        value={option.value}
+                        id={option.id}
+                        className='  text-[10px] md:text-[18px]  hover'
+                      >
                         {option.label}
                       </option>
                     ))}
@@ -239,7 +248,6 @@ export default function ProfileSetting() {
                                    ${phoneValue.length > 0 && phoneValue.length !== 10 ? 'border-red-500' : ''}
                                       `}
                         placeholder='Nhập số điện thoại...'
-                    
                       />
                     </div>
 
@@ -258,8 +266,6 @@ export default function ProfileSetting() {
                     onChange={handleAddressChange}
                     className='p-2 border-1 text-[14px] sm:text-[18px] border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                     placeholder='Nhập  địa chỉ'
-                  
-                    
                   />
                 </div>
                 <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>
@@ -270,7 +276,7 @@ export default function ProfileSetting() {
                     onChange={handleEmailChange}
                     className='p-2 border-1 text-[14px] sm:text-[18px] cursor-no-drop bg-gray-200  border-gray-300 rounded-md shadow-sm focus:outline-none  focus:ring-green-500 focus:shadow-green-300 focus:border-green-500  '
                     placeholder={` ${UserInfo.email}`}
-                     disabled
+                    disabled
                   />
                 </div>
                 <div className='flex flex-col text-[15px] sm:text-[18px] md:gap-2'>

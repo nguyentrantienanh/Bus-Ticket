@@ -142,7 +142,7 @@ export function Booking() {
                           }
                           return
                         })}
-                      </p> 
+                      </p>
                     </h1>
 
                     <div className='flex justify-between px-4'></div>
@@ -154,14 +154,16 @@ export function Booking() {
                   </div>
                   <div className='flex max-md:flex-col justify-between items-center'>
                     <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
-                     <div>
-                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '> <strong  >Ngày xuất phát: </strong>
-                       <span className='pl-1'>{item.dateStart}</span>
-                    </span>
-                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                      Chiều đi
-                    </span>
-                     </div>
+                    <div>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
+                        {' '}
+                        <strong>Ngày xuất phát: </strong>
+                        <span className='pl-1'>{item.dateStart}</span>
+                      </span>
+                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
+                        Chiều đi
+                      </span>
+                    </div>
                   </div>
 
                   <div className=' text-[13px] md:text-xl font-bold'>
@@ -171,7 +173,7 @@ export function Booking() {
 
                   <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                     <div>
-                        <div className='text-[14px] font-medium '>Giờ khởi hành</div>
+                      <div className='text-[14px] font-medium '>Giờ khởi hành</div>
                       <div className='text-[13px] md:text-xl font-bold'>{item.starttime}</div>
                       <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDi)}</div>
                     </div>
@@ -186,7 +188,7 @@ export function Booking() {
                     </div>
 
                     <div>
-                        <div className='text-[14px] font-medium '>Giờ  đến nơi</div>
+                      <div className='text-[14px] font-medium '>Giờ đến nơi</div>
                       <div className='text-[13px] md:text-xl font-bold'>{item.endtime}</div>
                       <div className='text-[13px] md:text-sm font-medium'>{t(item.diemDen)}</div>
                     </div>

@@ -15,4 +15,3 @@ export interface UserInfo {
   chats: any[]
   type: number
 }
- 

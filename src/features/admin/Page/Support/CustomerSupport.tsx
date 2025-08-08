@@ -58,8 +58,8 @@ export default function CustomerSupport() {
       <div className='flex flex-col  md:px-2 w-full py-4  pt-2 '>
         <div className='py-3 flex justify-between px-3 items-center text-center w-full shadow-md bg-[#fff] md:rounded-lg  '>
           <h1 className='text-1xl sm:text-3xl font-bold text-gray-700'>Hỗ trợ</h1>
-           
-           <div className='   flex justify-between px-2 items-center  w-10  sm:w-30 h-full rounded-lg bg-gradient-to-r to-green-400 from-green-600 shadow-md'>
+
+          <div className='   flex justify-between px-2 items-center  w-10  sm:w-30 h-full rounded-lg bg-gradient-to-r to-green-400 from-green-600 shadow-md'>
             <i className='   text-[10px] sm:text-4xl text-[#fff]/20'>
               <Icon name='ticket' />
             </i>

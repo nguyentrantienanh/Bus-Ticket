@@ -9,7 +9,7 @@ const root = createRoot(container)
 
 root.render(
   <StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || ''} >
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || ''}>
       <App />
     </GoogleOAuthProvider>
   </StrictMode>

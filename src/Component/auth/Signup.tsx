@@ -54,22 +54,22 @@ export default function Signin() {
     }
     setisSignup(true)
     setTimeout(() => {
-    // Lưu thông tin người dùng mới vào localStorage
-    const newUser = {
-      ...fromData,
-      id: Date.now(),
-      status: 1,
-      type: 1,
-      name: `${fromData.firstname} ${fromData.lastname}`,
-      imageUrl: '',
-      chats: [],
-      ticket: []
-    }
-    Userlist.push(newUser)
-    localStorage.setItem('userList', JSON.stringify(Userlist))
-    alert('tạo tài khoảng thành công mời bạn đăng nhập')
-    window.location.href = '/signin'
-    setisSignup(false)
+      // Lưu thông tin người dùng mới vào localStorage
+      const newUser = {
+        ...fromData,
+        id: Date.now(),
+        status: 1,
+        type: 1,
+        name: `${fromData.firstname} ${fromData.lastname}`,
+        imageUrl: '',
+        chats: [],
+        ticket: []
+      }
+      Userlist.push(newUser)
+      localStorage.setItem('userList', JSON.stringify(Userlist))
+      alert('tạo tài khoảng thành công mời bạn đăng nhập')
+      window.location.href = '/signin'
+      setisSignup(false)
     }, 3000)
   }
   // hàm kiểm tra confirmpassword
@@ -80,13 +80,14 @@ export default function Signin() {
         <img src={background} alt='Background' className=' object-cover object-left h-full w-full ' />
       </div>
       <div className='  flex flex-col items-center justify-start w-full md:w-2/4 max-h-screen bg-[#fff] py-4 px-4 overflow-y-auto'>
-      <div
+        <div
           onClick={() => navigate('/')}
-         className=' cursor-pointer mr-auto ml-0 md:ml-4  text-gray-500 font-semibold  '>
+          className=' cursor-pointer mr-auto ml-0 md:ml-4  text-gray-500 font-semibold  '
+        >
           <i className='text-[12px]'>
-             <Icon name='arrowleft' />
+            <Icon name='arrowleft' />
           </i>
-           <span className='text-[12px] font-bold'> Quay lại</span>
+          <span className='text-[12px] font-bold'> Quay lại</span>
         </div>
         <img src={logo} alt='Bus Ticket Logo' className='w-32 h-32 object-contain md:mb-6' />
 
@@ -168,7 +169,7 @@ export default function Signin() {
             </div>
             <div className=' flex mt-1  col-span-2'>
               <ReCAPTCHA
-               sitekey={import.meta.env.VITE_RECAPTCHA_KEY} // Thay bằng site key của bạn
+                sitekey={import.meta.env.VITE_RECAPTCHA_KEY} // Thay bằng site key của bạn
                 onChange={handleCaptchaChange}
               />
             </div>

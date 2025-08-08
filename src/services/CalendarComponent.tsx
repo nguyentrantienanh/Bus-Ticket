@@ -28,7 +28,6 @@ const calendarComponent = () => {
 
   useEffect(() => {
     document.addEventListener('click', anKhiNhanbenNgoai, true)
-
     window.addEventListener('keydown', anKhiNhanESC)
   }, [])
 
@@ -44,18 +43,13 @@ const calendarComponent = () => {
     }
   }, [])
 
-  // xử lý qua ngày tự động cập nhật
+  // xử lý làm mới ngày theo mặc định
   useEffect(() => {
-    const interval = setInterval(() => {
-      const currentDate = new Date()
-      const formattedDate = format(currentDate, 'dd/MM/yyyy')
-      if (isBefore(new Date(calendar.split('/').reverse().join('-')), currentDate)) {
-        setCalendar(formattedDate)
-        localStorage.setItem('DayData', formattedDate)
-      }
-    }, 60000) // kiểm tra mỗi phút
-
-    return () => clearInterval(interval)
+    const today = format(new Date(), 'dd/MM/yyyy')
+    if (isBefore(new Date(calendar.split('/').reverse().join('-')), new Date())) {
+      setCalendar(today)
+      localStorage.setItem('DayData', today)
+    }
   }, [calendar])
 
   return (

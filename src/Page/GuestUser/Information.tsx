@@ -10,8 +10,8 @@ export default function InformationGuestUser() {
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
   const navigate = useNavigate()
-  // LẤY NĂM HIỆN TẠI
-  const currentYear = new Date().getFullYear()
+  // LẤY NĂM HIỆN TẠI - 18
+  const currentYear = new Date().getFullYear() - 18
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -20,57 +20,71 @@ export default function InformationGuestUser() {
     cccd: '',
     birthday: `${currentYear}-01-01`
   })
-const [ishandlesumit, setishandlesubmit] = useState(false)
+  const [message, setMessage] = useState('')
+  const [ishandlesumit, setishandlesubmit] = useState(false)
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setishandlesubmit(true)
     setTimeout(() => {
-    // phone trên 10 ký tự
-    if (formData.phone.length < 10) {
-      return alert('Số điện thoại phải có ít nhất 10 ký tự')
-    }
-    if (formData.cccd.length < 12) {
-      return alert('CCCD/CMND phải có ít nhất 12 ký tự')
-    }
+      setishandlesubmit(false)
+      if (
+        (formData.phone.length < 10 && formData.cccd.length < 12) ||
+        (formData.phone.length > 10 && formData.cccd.length > 12)
+      ) {
+        return setMessage('Số điện thoại và CCCD/CMND không hợp lệ')
+      }
+      // phone trên 10 ký tự
+      if (formData.phone.length < 10) {
+        return setMessage('Số điện thoại phải có ít nhất 10 ký tự')
+      }
+      if (formData.cccd.length < 12) {
+        return setMessage('CCCD/CMND phải có ít nhất 12 ký tự')
+      }
+      if (formData.phone.length > 10) {
+        setMessage('Số điện thoại không được quá 10 ký tự')
+      }
+      if (formData.cccd.length > 12) {
+        setMessage('CCCD/CMND không được quá 12 ký tự')
+      }
 
-    e.preventDefault()
-    const raw = localStorage.getItem('guestUserInfo')
-    if (!raw) return alert('Không tìm thấy dữ liệu')
+      const raw = localStorage.getItem('guestUserInfo')
+      if (!raw) return alert('Không tìm thấy dữ liệu')
 
-    let guestList: any[] = []
+      let guestList: any[] = []
 
-    try {
-      const parsed = JSON.parse(raw)
-      guestList = Array.isArray(parsed) ? parsed : []
-    } catch (err) {
-      console.error('Lỗi parse guestUserInfo:', err)
-      return alert('Dữ liệu không hợp lệ')
-    }
+      try {
+        const parsed = JSON.parse(raw)
+        guestList = Array.isArray(parsed) ? parsed : []
+      } catch (err) {
+        console.error('Lỗi parse guestUserInfo:', err)
+        return alert('Dữ liệu không hợp lệ')
+      }
 
-    // Tìm index khách có id khớp
-    const index = guestList.findIndex((guest) => String(guest.id) === String(name))
-    if (index === -1) return alert('Không tìm thấy khách')
+      // Tìm index khách có id khớp
+      const index = guestList.findIndex((guest) => String(guest.id) === String(name))
+      if (index === -1) return alert('Không tìm thấy khách')
 
-    // Cập nhật thông tin khách
-    guestList[index] = {
-      ...guestList[index],
-      ...formData,
-      ticket: guestList[index].ticket, // giữ nguyên vé
-      id: guestList[index].id // giữ nguyên id
-    }
+      // Cập nhật thông tin khách
+      guestList[index] = {
+        ...guestList[index],
+        ...formData,
+        ticket: guestList[index].ticket, // giữ nguyên vé
+        id: guestList[index].id // giữ nguyên id
+      }
 
-    // Lưu lại vào localStorage dạng mảng []
-    localStorage.setItem('guestUserInfo', JSON.stringify(guestList))
+      // Lưu lại vào localStorage dạng mảng []
+      localStorage.setItem('guestUserInfo', JSON.stringify(guestList))
 
-    // Điều hướng đến trang thanh toán
-    navigate(`/user/payment/${id}`)
-    setishandlesubmit(false)
+      // Điều hướng đến trang thanh toán
+      navigate(`/user/payment/${id}`)
     }, 3000)
   }
 
   // repository
   const isMobile = useMediaQuery('(max-width: 768px)')
-
+  // chặn ngày tương lai
+  const today = new Date()
+  const minAgedate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()).toISOString().split('T')[0]
   return (
     <div className='w-full min-h-screen flex items-center justify-center relative   bg-gray-400 bg-center '>
       <div
@@ -82,12 +96,23 @@ const [ishandlesumit, setishandlesubmit] = useState(false)
 
       <Box
         component='form'
-        sx={{ '& > :not(style)': { width: '100%' } }}
         autoComplete='off'
         onSubmit={handleSubmit}
-        className='bg-[#fff] my-[10%] mx-[10%] p-6 rounded-lg shadow-lg w-full max-w-md z-10 relative'
+        className='bg-[#fff] my-[10%] mx-[5%] p-6 rounded-lg shadow-lg w-full max-w-lg z-10 relative '
       >
         <h1 className='text-sm md:text-2xl font-bold mb-3 md:mb-6 text-center'>Thông Tin Khách Vãng Lai</h1>
+        {message && (
+          <div className='text-red-500 text-sm mb-4 md:mb-6 border border-red-500 p-3 rounded-lg bg-red-100 flex justify-between'>
+            <div>
+              <strong className='text-[13px] '>Chú ý: </strong>
+              <span className='text-[12px] text-nowrap'>{message}</span>
+            </div>
+            <i className=' cursor-pointer text-red-500 hover:text-red-700' onClick={() => setMessage('')}>
+              {' '}
+              <Icon name='close' />
+            </i>
+          </div>
+        )}
         <div className=' mb-1 md:mb-4'>
           <TextField
             margin={isMobile ? 'dense' : 'none'}
@@ -159,17 +184,29 @@ const [ishandlesumit, setishandlesubmit] = useState(false)
             onChange={(e) => setFormData((prev) => ({ ...prev, birthday: e.target.value }))}
             required
             className='w-full'
+            inputProps={{ max: minAgedate }} // Chặn ngày sinh không được quá 18 tuổi
           />
         </div>
 
         <button
           type='submit'
-          className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg  w-full text-sm md:text-2xl 
-            ${ishandlesumit ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'hover:bg-green-600 bg-green-500'}
-            `}
-            disabled={ishandlesumit}
+          disabled={ishandlesumit}
+          className={`w-full font-bold rounded-lg transition-all duration-300 
+    ${
+      ishandlesumit
+        ? 'bg-gray-400 cursor-not-allowed'
+        : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 cursor-pointer hover:to-green-700'
+    } 
+    ${isMobile ? 'py-2 text-base' : 'py-3 text-lg'} 
+    text-[#fff] flex items-center justify-center gap-2`}
         >
-          {ishandlesumit ?  <><Icon name='loading'/> Đang xử lý...</> : 'Xác nhận thông tin'}
+          {ishandlesumit ? (
+            <>
+              <Icon name='loading' /> Đang xử lý...
+            </>
+          ) : (
+            'Xác nhận thông tin'
+          )}
         </button>
       </Box>
     </div>

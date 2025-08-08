@@ -192,7 +192,7 @@ function BuyticketLayout() {
       compareTimeWithDate(item.starttime, calendar)
     )
   })
- const link =  location.pathname.startsWith('/user/')  
+  const link = location.pathname.startsWith('/user/')
   return (
     <>
       <div className='bg-[#fff]  '>
@@ -495,7 +495,10 @@ function BuyticketLayout() {
                                   {item.offday}
                                 </span>
                               </p>
-                              <Link to={ link ? `/user/buytickets/${item.id}/${name}` : `/buytickets/${item.id}/${name}` } className='w-full md:w-auto'>
+                              <Link
+                                to={link ? `/user/buytickets/${item.id}/${name}` : `/buytickets/${item.id}/${name}`}
+                                className='w-full md:w-auto'
+                              >
                                 <button className='bg-green-600 text-[#fff] text-sm px-4 py-2 rounded-md w-full md:w-auto cursor-pointer'>
                                   {t('Buyticket:select_seat')}
                                 </button>

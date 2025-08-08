@@ -148,7 +148,6 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'arrowleft') {
     // Mũi tên bên nhọn trái
     return <i className='fa-solid fa-arrow-left'></i>
- 
   } else if (props.name == 'logout') {
     // Đăng xuất
     return <i className='fa-solid fa-right-from-bracket'></i>
@@ -211,6 +210,9 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'loading') {
     // Biểu tượng đang tải
     return <i className='fa-solid fa-spinner animate-spin'></i>
+  } else if (props.name == 'Dashboard') {
+    // Biểu tượng bảng điều khiển
+    return <i className='fa-solid fa-tachometer-alt'></i>
   }
 }
 

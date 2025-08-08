@@ -2,60 +2,58 @@ import React, { useState } from 'react'
 import { Box, TextField } from '@mui/material'
 import Icon from '../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
-export default  function ForgotPassword() {
+export default function ForgotPassword() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
- const [isSearch, setIsSearch] = useState(false)
- const Userlist =  JSON.parse(localStorage.getItem('userList') || '[]')
- const ktremail = Userlist.map((u: any) => u.email === email)
+  const [isSearch, setIsSearch] = useState(false)
+  const Userlist = JSON.parse(localStorage.getItem('userList') || '[]')
+  const ktremail = Userlist.map((u: any) => u.email === email)
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSearch(true)
 
-
-    if(!ktremail){
+    if (!ktremail) {
       alert('email chưa có tài khoảng nào')
       return
-    } else{
- 
-    
-    try {
-       
-      await new Promise((resolve) => setTimeout(resolve, 2000)) // Giả lập delay 2 giây
-      setMessage('Đã gửi email hướng dẫn đặt lại mật khẩu. Vui lòng kiểm tra hộp thư của bạn.')
-      setIsSearch(false)
-    } catch (error) {
-      setMessage('Đã xảy ra lỗi khi gửi email. Vui lòng thử lại sau.')
-      setIsSearch(false)
+    } else {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000)) // Giả lập delay 2 giây
+        setMessage('Đã gửi email hướng dẫn đặt lại mật khẩu. Vui lòng kiểm tra hộp thư của bạn.')
+        setIsSearch(false)
+      } catch (error) {
+        setMessage('Đã xảy ra lỗi khi gửi email. Vui lòng thử lại sau.')
+        setIsSearch(false)
+      }
     }
-  } }
+  }
 
   return (
     <div>
-      <div className='flex items-center justify-start gap-2 cursor-pointer text-gray-500 hover:text-green-600 duration-300 px-5 py-3'
-        onClick={() => navigate('/signin')}>
+      <div
+        className='flex items-center justify-start gap-2 cursor-pointer text-gray-500 hover:text-green-600 duration-300 px-5 py-3'
+        onClick={() => navigate('/signin')}
+      >
         <i className='text-[12px]'>
           <Icon name='arrowleft' />
         </i>
         <span className='text-[12px] font-bold'> Quay lại</span>
       </div>
-<div className=' w-full    flex flex-col  justify-center  '>
-       
-      <h1 className='  text-2xl font-bold mb-4 flex flex-col items-center '> Quên mật khẩu</h1>
-       <Box
+      <div className=' w-full    flex flex-col  justify-center  '>
+        <h1 className='  text-2xl font-bold mb-4 flex flex-col items-center '> Quên mật khẩu</h1>
+        <Box
           component='form'
           sx={{ '& > :not(style)': { width: '100%' } }}
           autoComplete='off'
           className='bg-[#fff]  '
-          onSubmit={ handleForgotPassword }
+          onSubmit={handleForgotPassword}
         >
           <div className='  bg-[#fff]    w-full items-center justify-center px-5 md:px-10   mt-10   border-gray-400'>
             <div className=' mb-4'>
               <TextField
                 label='Nhập email của bạn'
                 variant='outlined'
-                value={ email }
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
                 }}
@@ -107,16 +105,11 @@ export default  function ForgotPassword() {
             </div>
           </div>
         </Box>
-      {message && <p className='mt-4 text-center text-gray-700'>{message}</p>}
+        {message && <p className='mt-4 text-center text-gray-700'>{message}</p>}
+      </div>
     </div>
-    </div>
-     
   )
 }
-
-
-
-
 
 // import React, { useState } from 'react'
 // import {  TextField, MenuItem, FormControl, InputLabel, Select } from '@mui/material'
@@ -166,7 +159,7 @@ export default  function ForgotPassword() {
 //     try {
 //       const now = new Date()
 //       const userBrowser = `${navigator.userAgent.split('(')[0]}${navigator.platform ? ` - ${navigator.platform}` : ''}`
-      
+
 //       const templateParams = {
 //         customer_name: formData.customerName,
 //         customer_email: formData.customerEmail,
@@ -189,7 +182,7 @@ export default  function ForgotPassword() {
 
 //       console.log('✅ Support email sent:', result)
 //       return { success: true, message: 'Yêu cầu hỗ trợ đã được gửi thành công!' }
-      
+
 //     } catch (error) {
 //       console.error('❌ Failed to send support email:', error)
 //       return { success: false, message: 'Không thể gửi yêu cầu. Vui lòng thử lại sau.' }
@@ -198,7 +191,7 @@ export default  function ForgotPassword() {
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault()
-    
+
 //     // Validation
 //     if (!formData.customerName.trim()) {
 //       setMessage('Vui lòng nhập họ và tên')
@@ -248,11 +241,11 @@ export default  function ForgotPassword() {
 
 //     try {
 //       const result = await sendSupportEmail()
-      
+
 //       if (result.success) {
 //         setMessage('✅ Yêu cầu hỗ trợ đã được gửi thành công! Chúng tôi sẽ phản hồi trong vòng 2-3 ngày làm việc.')
 //         setMessageType('success')
-        
+
 //         // Reset form
 //         setFormData({
 //           customerName: '',
@@ -266,7 +259,7 @@ export default  function ForgotPassword() {
 //         setMessage(result.message)
 //         setMessageType('error')
 //       }
-      
+
 //     } catch (error) {
 //       setMessage('Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.')
 //       setMessageType('error')
@@ -281,7 +274,7 @@ export default  function ForgotPassword() {
 //         {/* Header */}
 //         <div className='bg-[#fff] rounded-lg shadow-sm p-6 mb-6'>
 //           <div className='flex items-center justify-between mb-4'>
-//             <div 
+//             <div
 //               className='flex items-center gap-2 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors'
 //               onClick={() => navigate(-1)}
 //             >
@@ -289,7 +282,7 @@ export default  function ForgotPassword() {
 //               <span className='text-sm font-medium'>Quay lại</span>
 //             </div>
 //           </div>
-          
+
 //           <div className='text-center'>
 //             <h1 className='text-3xl font-bold text-gray-900 mb-2'>🎧 Hỗ trợ khách hàng</h1>
 //             <p className='text-gray-600'>Chúng tôi luôn sẵn sàng hỗ trợ bạn!</p>
@@ -315,7 +308,7 @@ export default  function ForgotPassword() {
 //         {/* Support Form */}
 //         <div className='bg-[#fff] rounded-lg shadow-sm p-6'>
 //           <h2 className='text-xl font-semibold text-gray-900 mb-6'>📝 Thông tin yêu cầu hỗ trợ</h2>
-          
+
 //           <form onSubmit={handleSubmit} className='space-y-6'>
 //             {/* Personal Info */}
 //             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
@@ -329,7 +322,7 @@ export default  function ForgotPassword() {
 //                 placeholder="Nhập họ và tên của bạn"
 //                 inputProps={{ maxLength: 100 }}
 //               />
-              
+
 //               <TextField
 //                 label="Email"
 //                 type="email"
@@ -370,7 +363,7 @@ export default  function ForgotPassword() {
 //                   ))}
 //                 </Select>
 //               </FormControl>
-              
+
 //               <FormControl fullWidth required>
 //                 <InputLabel>Mức độ ưu tiên</InputLabel>
 //                 <Select
@@ -431,8 +424,8 @@ export default  function ForgotPassword() {
 //           {/* Message */}
 //           {message && (
 //             <div className={`mt-6 p-4 rounded-lg text-center ${
-//               messageType === 'success' 
-//                 ? 'bg-green-100 text-green-800 border border-green-300' 
+//               messageType === 'success'
+//                 ? 'bg-green-100 text-green-800 border border-green-300'
 //                 : 'bg-red-100 text-red-800 border border-red-300'
 //             }`}>
 //               <div className='flex items-center justify-center gap-2'>
