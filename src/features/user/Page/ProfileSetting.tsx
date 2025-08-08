@@ -155,8 +155,8 @@ export default function ProfileSetting() {
           </div>}
           {success && <div className='bg-green-100 text-green-600 p-2 rounded-lg text-sm  '>{success}
              <i 
-              onClick={() => setError('')}
-              className='cursor-pointer ml-2 text-red-500 hover:text-red-700 transition'
+            onClick={() => setSuccess('')}
+              className='cursor-pointer ml-2 text-green-500 hover:text-green-700 transition'
             >
               <Icon name='close' />
             </i>
