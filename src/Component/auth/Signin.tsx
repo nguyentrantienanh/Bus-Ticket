@@ -11,13 +11,16 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 // Signin.tsx - import với relative path
 import type { UserInfo } from '../../types/userInfo'
-
+const AdminInfo = JSON.parse(localStorage.getItem('adminInfo') || '{}')
 export default function Signin() {
   const { t } = useTranslation('Signin')
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const navigate = useNavigate()
   const handleGoogleLogin = async (response: any) => {
     try {
+      if (AdminInfo) {
+        localStorage.removeItem('adminInfo')
+      }
       const { data } = await axios.get(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`
       )
@@ -109,6 +112,9 @@ export default function Signin() {
   const [islogin, setlogin] = useState(false)
   const handleLogin = (e: any) => {
     e.preventDefault()
+    if (AdminInfo) {
+      localStorage.removeItem('adminInfo')
+    }
     if (!captchaValue) {
       setMessage(t('messages.captchaRequired'))
       return
@@ -209,7 +215,8 @@ export default function Signin() {
             <form className='flex flex-col gap-4'>
               <div>
                 <label htmlFor='username' className='block text-sm font-medium text-gray-700'>
-                  {t('form.email.label')}<sup className='text-red-600'>*</sup>
+                  {t('form.email.label')}
+                  <sup className='text-red-600'>*</sup>
                 </label>
                 <input
                   type='username'
@@ -223,7 +230,8 @@ export default function Signin() {
               </div>
               <div>
                 <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                  {t('form.password.label')}<sup className='text-red-600'>*</sup>
+                  {t('form.password.label')}
+                  <sup className='text-red-600'>*</sup>
                 </label>
                 <input
                   type='password'

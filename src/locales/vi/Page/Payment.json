@@ -11,7 +11,10 @@
     "idCard": "CMND",
     "note": "Ghi chú: Mang CMND/Hộ chiếu",
     "seats": "Ghế",
-    "price": "Giá"
+    "price": "Giá",
+    "hour": "Giờ",
+    "minute": "Phút"
+    
   },
   "actions": {
     "confirm": "Xác nhận",

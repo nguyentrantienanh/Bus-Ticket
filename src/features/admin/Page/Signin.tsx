@@ -7,9 +7,13 @@ const ADMIN_PASSWORD = 'admin123456'
 const Signin: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    if (UserInfo) {
+      localStorage.removeItem('userInfo')
+    }
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       localStorage.setItem('adminInfo', JSON.stringify({ adminId: 'admin123456' }))
 

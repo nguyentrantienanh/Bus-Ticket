@@ -1,17 +1,20 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import Background from '../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useMediaQuery } from '@mui/material'
 import Icon from '../../icons/Icon'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 export default function InformationGuestUser() {
   const { t } = useTranslation('InformationGuestUser')
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
   const navigate = useNavigate()
+  const GuestUserInfo = JSON.parse(localStorage.getItem('guestUserInfo') || '{}')
+
   // LẤY NĂM HIỆN TẠI - 18
   const currentYear = new Date().getFullYear() - 18
 
@@ -24,8 +27,10 @@ export default function InformationGuestUser() {
   })
   const [message, setMessage] = useState('')
   const [ishandlesumit, setishandlesubmit] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const handleSubmit = (e: any) => {
     e.preventDefault()
+
     setishandlesubmit(true)
     setTimeout(() => {
       setishandlesubmit(false)
@@ -70,12 +75,27 @@ export default function InformationGuestUser() {
         ticket: guestList[index].ticket,
         id: guestList[index].id
       }
-
+      setIsSubmitted(true)
       localStorage.setItem('guestUserInfo', JSON.stringify(guestList))
       navigate(`/user/payment/${id}`)
     }, 3000)
   }
 
+  // Kiểm tra xem người dùng đã submit form hay chưa
+  useEffect(() => {
+    const handleUnload = () => {
+      if (!isSubmitted) {
+        const updatedGuestList = GuestUserInfo.map((u: any) => {
+          const filteredTickets = u.ticket?.filter((t: any) => t.id !== parseInt(id || '0'))
+          return { ...u, ticket: filteredTickets }
+        })
+        localStorage.setItem('guestUserInfo', JSON.stringify(updatedGuestList))
+      }
+    }
+
+    window.addEventListener('beforeunload', handleUnload)
+    return () => window.removeEventListener('beforeunload', handleUnload)
+  }, [isSubmitted, name])
   // repository
   const isMobile = useMediaQuery('(max-width: 768px)')
   // chặn ngày tương lai
@@ -201,4 +221,3 @@ export default function InformationGuestUser() {
     </div>
   )
 }
-  

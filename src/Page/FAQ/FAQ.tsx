@@ -63,9 +63,9 @@ function FAQ() {
           <p className='text-[14px]  sm:text-[15px] lg:text-[16px]'>{t('description')}</p>
         </div>
 
-        <section className='grid grid-cols-1 md:grid-cols-2 gap-5 px-10  py-5 bg-[#f9f9f9]  '>
+        <section className='grid grid-cols-1 md:grid-cols-2 gap-5 px-10  py-5 bg-[#ffffff]  '>
           <div className=' '>
-            <div className={`flex flex-col gap-5  md:h-80  `}>
+            <div className={`flex flex-col gap-5  md:h-full  `}>
               {faqsleft.map((faq) => (
                 <div key={faq.id} className=' '>
                   <h2
@@ -97,7 +97,7 @@ function FAQ() {
             </div>
           </div>
           <div className=' '>
-            <div className='flex flex-col gap-5 md:h-80'>
+            <div className='flex flex-col gap-5 md:h-full'>
               {faqsright.map((faq) => (
                 <div key={faq.id} className=' '>
                   <h2

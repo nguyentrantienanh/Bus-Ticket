@@ -41,9 +41,24 @@ function Tickets() {
       user.ticket?.some((t: any) => t.id === thongtinve[0]?.id) ||
       GuestUser.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id))
   )
+  const [searchve, setSearchve] = useState('')
+  // const filteredTickets = ve.filter((ticket: any) => {
+  //  const id = ticket.id === searchve
+  // })
+
   return (
     <>
       <div className='bg-[#fff]   px-0 md:px-10 py-6'>
+        {/* tiềm kiếm vé */}
+        <div>
+          <input
+            type='text'
+            placeholder='Tìm kiếm'
+            className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 mb-4'
+            onChange={(e) => setSearchve(e.target.value)}
+            value={searchve}
+          />
+        </div>
         <div className='overflow-x-auto'>
           <table className='min-w-full bg-[#1ba000] md:rounded-t-2xl text-[13px]'>
             <thead>
@@ -344,6 +359,7 @@ export default function BookedTickets() {
             </div>
           </div>
         </div>
+
         <div>
           <Tickets />
         </div>

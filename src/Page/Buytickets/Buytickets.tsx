@@ -4,7 +4,7 @@ import Icon from '../../icons/Icon'
 import { useState, useEffect, useRef } from 'react'
 import { ticket } from '../../Data/Ticket'
 import { Link } from 'react-router-dom'
-import { useLocation } from '../../Data/Location'
+import { useLocation } from '../../Data/location'
 
 import { format } from 'date-fns'
 import { parse, isAfter } from 'date-fns'
@@ -118,7 +118,7 @@ function BuyticketLayout() {
     }
   }, [])
 
-  // Lọc ticket dựa trên điểm đi và điểm đến đã chọn
+  // Lọc ticket
   const filteredTickets = ticket().filter((item: any) => {
     const idDiemDi = diemDi.find((d) => d.name === selectedDiemDi)?.id || 0
     const idDiemDen = diemDen.find((d) => d.name === selectedDiemDen)?.id || 0
@@ -352,7 +352,7 @@ function BuyticketLayout() {
             </div>
             <div className='flex flex-col md:flex-row mt-5 w-full  '>
               {/* Filter (ẩn trên mobile) */}
-              <div className='hidden lg:block  w-2/5   rounded-[10px] bg-[#fff] sticky z-10 top-20 h-fit shadow-lg border-gray-300 p-3'>
+              <div className='hidden lg:block  2xl:w-1/6   lg:w-2/7  rounded-[10px] bg-[#fff] sticky z-10 top-20 h-fit shadow-lg border-gray-300 p-3'>
                 <div className='flex justify-between items-center mb-3'>
                   <h1 className='text-lg font-medium'>{t('Buyticket:filter')}</h1>
                   <button

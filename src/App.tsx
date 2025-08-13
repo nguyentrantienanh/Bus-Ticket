@@ -47,6 +47,7 @@ import UserAccountLocked from './features/admin/Page/Account/Locked'
 import CustomerSupport from './features/admin/Page/Support/CustomerSupport'
 import ChatSupport from './features/admin/Page/Support/ChatSupport'
 import Page404admin from './features/admin/Page/Page404'
+import PaymentResult from './Page/Payment/PaymentResult'
 
 // services
 import ScrollToTop from './services/ScrollToTop'
@@ -75,7 +76,8 @@ function AppRoutes() {
     '/user/information-guest-user/',
     '/user/information-user/',
     '/user/support/chat',
-    '/forgot-password'
+    '/forgot-password',
+    '/paymentresult'
   ]
   // loading mỗi khi chuyển trang
   // const [loading, setLoading] = useState(true)
@@ -119,6 +121,8 @@ function AppRoutes() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/ticket-search' element={<Ticketsearch />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/paymentresult/:ticketid' element={<PaymentResult />} />
+
         <Route
           path='/user/dashboard'
           element={

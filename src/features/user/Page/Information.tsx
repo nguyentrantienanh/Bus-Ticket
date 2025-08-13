@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Background from '../../../assets/background.jpg'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -26,6 +26,7 @@ export default function InformationUser() {
   })
   const [message, setMessage] = useState('')
   const [ishandlesumit, setishandlesubmit] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   // Hàm xử lý submit form lưu thông tin người dùng mới up vào push thêm userList
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -67,12 +68,26 @@ export default function InformationUser() {
       }
 
       // Lưu lại vào localStorage dạng mảng []
+      setIsSubmitted(true)
       localStorage.setItem('userList', JSON.stringify(UserList))
       // Điều hướng đến trang thanh toán
       navigate(`/user/payment/${id}`)
     }, 3000)
   }
-
+  // Kiểm tra xem người dùng đã submit form hay chưa
+  useEffect(() => {
+    const handleUnload = () => {
+      if (!isSubmitted) {
+        const updatedList = UserList.map((user: any) => {
+          const filteredTickets = user.ticket?.filter((t: any) => t.id !== parseInt(id || '0'))
+          return { ...user, ticket: filteredTickets }
+        })
+        localStorage.setItem('userList', JSON.stringify(updatedList))
+      }
+    }
+    window.addEventListener('beforeunload', handleUnload)
+    return () => window.removeEventListener('beforeunload', handleUnload)
+  }, [isSubmitted, id, UserList])
   // repository
   const isMobile = useMediaQuery('(max-width: 768px)')
   // chặn ngày tương lai

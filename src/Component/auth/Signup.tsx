@@ -8,7 +8,7 @@ import Icon from '../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
 
 export default function Signin() {
-  const { t } = useTranslation('Signup' )
+  const { t } = useTranslation('Signup')
   const navigate = useNavigate()
   // // Hàm xử lý captcha
   const [captchaValue, setCaptchaValue] = useState(false)
@@ -96,7 +96,8 @@ export default function Signin() {
           <form className='grid grid-cols-2 gap-4 md:my-4'>
             <div>
               <label htmlFor='lastname' className='block text-sm font-medium text-gray-700'>
-                {t('form.lastName.label')}<sup className='text-red-600'>*</sup>
+                {t('form.lastName.label')}
+                <sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='lastname'
@@ -110,7 +111,8 @@ export default function Signin() {
             </div>
             <div>
               <label htmlFor='firstname' className='block text-sm font-medium text-gray-700'>
-                {t('form.firstName.label')}<sup className='text-red-600'>*</sup>
+                {t('form.firstName.label')}
+                <sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='firstname'
@@ -125,7 +127,8 @@ export default function Signin() {
 
             <div className='col-span-2'>
               <label htmlFor='e-mailaddress' className='block text-sm font-medium text-gray-700'>
-                {t('form.email.label')}<sup className='text-red-600'>*</sup>
+                {t('form.email.label')}
+                <sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='e-mailaddress'
@@ -140,7 +143,8 @@ export default function Signin() {
 
             <div>
               <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                {t('form.password.label')}<sup className='text-red-600'>*</sup>
+                {t('form.password.label')}
+                <sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='password'
@@ -154,7 +158,8 @@ export default function Signin() {
             </div>
             <div>
               <label htmlFor='confirmpassword' className='block text-sm font-medium text-gray-700'>
-                {t('form.confirmPassword.label')}<sup className='text-red-600'>*</sup>
+                {t('form.confirmPassword.label')}
+                <sup className='text-red-600'>*</sup>
               </label>
               <input
                 type='password'
