@@ -4,7 +4,7 @@ import Icon from '../../icons/Icon'
 import { useState, useEffect, useRef } from 'react'
 import { ticket } from '../../Data/Ticket'
 import { Link } from 'react-router-dom'
-import { useLocation } from '../../Data/location'
+import { useLocation } from '../../Data/Location'
 
 
 import { format } from 'date-fns'
