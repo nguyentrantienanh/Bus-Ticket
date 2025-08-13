@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { UserInfo } from '../../types/userInfo'
 
 export default function Signin() {
-  const { t } = useTranslation('auth', { keyPrefix: 'Signin' })
+  const { t } = useTranslation('Signin')
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const navigate = useNavigate()
   const handleGoogleLogin = async (response: any) => {

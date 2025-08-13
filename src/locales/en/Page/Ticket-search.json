@@ -1,0 +1,36 @@
+{
+  "title": "Ticket Lookup",
+  "form": {
+    "label": "Ticket Code",
+    "placeholder": "Enter ticket code",
+    "search": "Search",
+    "searching": "Searching for ticket..."
+  },
+  "alerts": {
+    "enterCode": "Please enter a code to search",
+    "notFound": "No ticket found with the entered code",
+    "found": "Ticket found"
+  },
+  "note": {
+    "title": "Note:",
+    "content": "Tickets that departed more than 15 days ago will not appear in search results."
+  },
+  "details": {
+    "collapse": "Collapse",
+    "expand": "Details",
+    "facilities": "Facilities:",
+    "ticketNumber": "Ticket number/code",
+    "departureDate": "Departure date",
+    "direction": "Outbound",
+    "seatLayout": "Seat layout",
+    "departureTime": "Departure time",
+    "arrivalTime": "Arrival time",
+    "idCard": "ID Card: ***",
+    "note": "Note: Bring ID card/passport",
+    "seats": "Seats",
+    "price": "Price"
+  },
+  "empty": {
+    "notFound": "No ticket found, please try again"
+  }
+}

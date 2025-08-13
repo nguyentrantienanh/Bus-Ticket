@@ -8,7 +8,7 @@ import Icon from '../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
 
 export default function Signin() {
-  const { t } = useTranslation('auth', { keyPrefix: 'Signup' })
+  const { t } = useTranslation('Signup' )
   const navigate = useNavigate()
   // // Hàm xử lý captcha
   const [captchaValue, setCaptchaValue] = useState(false)

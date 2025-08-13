@@ -1,0 +1,36 @@
+{
+  "title": "Tra cứu vé",
+  "form": {
+    "label": "Mã vé",
+    "placeholder": "Nhập mã vé",
+    "search": "Tra cứu",
+    "searching": "Đang tra cứu vé..."
+  },
+  "alerts": {
+    "enterCode": "Vui lòng nhập mã để tìm kiếm",
+    "notFound": "Không tìm thấy vé với mã đã nhập",
+    "found": "Đã tìm thấy vé"
+  },
+  "note": {
+    "title": "Chú ý:",
+    "content": "Các vé đã xuất phát được 15 ngày sẽ không hiển thị trong kết quả tìm kiếm."
+  },
+  "details": {
+    "collapse": "Rút gọn",
+    "expand": "Chi tiết",
+    "facilities": "Tiện nghi:",
+    "ticketNumber": "Số vé/mã code",
+    "departureDate": "Ngày xuất phát",
+    "direction": "Chiều đi",
+    "seatLayout": "Sơ đồ ghế",
+    "departureTime": "Giờ khởi hành",
+    "arrivalTime": "Giờ đến nơi",
+    "idCard": "CMND: ***",
+    "note": "Ghi chú: Mang CMND/Hộ chiếu",
+    "seats": "Ghế",
+    "price": "Giá"
+  },
+  "empty": {
+    "notFound": "Không tìm thấy vé, vui lòng thử lại"
+  }
+}

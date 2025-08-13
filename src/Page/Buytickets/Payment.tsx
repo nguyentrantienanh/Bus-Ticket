@@ -9,7 +9,7 @@ import Icon from '../../icons/Icon'
 import { useState } from 'react'
 
 export default function Payment() {
-  const { t } = useTranslation('Home')
+  const { t } = useTranslation('Payment')
   const { id } = useParams<{ id: string }>()
   const userinfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
@@ -69,7 +69,7 @@ export default function Payment() {
     const price = guestUserTicket[0]?.price || ticket[0]?.price
     const id = guestUserTicket[0]?.id || ticket[0]?.id
     if (price < 1000) {
-      alert('Giá vé phải lớn hơn 1000đ để thanh toán qua ZaloPay.')
+      alert(t('alerts.zaloPayMin'))
       return
     }
     setIsPaymentLoading(true)
@@ -79,7 +79,7 @@ export default function Payment() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: price,
-          description: `Thanh toán vé xe code: ${id} - họ và tên: ${USERID.fullName} - SĐT: ${USERID.phone}`,
+          description: `${t('zaloPay.instruction')} ${id} - ${t('zaloPay.username')}: ${USERID.fullName} - ${t('zaloPay.phone')}: ${USERID.phone}`,
           app_user: USERID.email
         })
       })
@@ -88,11 +88,11 @@ export default function Payment() {
       if (data.order_url) {
         window.open(data.order_url, '_blank') // mở trang ZaloPay trong tab mới
       } else {
-        alert('Không thể tạo đơn hàng ZaloPay. Vui lòng thử lại.')
+        alert(t('alerts.zaloPayOrderError'))
       }
     } catch (error) {
       console.error('ZaloPay Error:', error)
-      alert('Lỗi khi kết nối với ZaloPay.')
+      alert(t('alerts.zaloPayConnectError'))
     } finally {
       setIsPaymentLoading(false)
     }
@@ -134,11 +134,11 @@ export default function Payment() {
       )
 
       console.log('Email sent successfully:', result.text)
-      alert('Thanh toán thành công! Vé của bạn đã được gửi qua email.')
+      alert(t('alerts.paymentSuccess'))
       window.location.href = '/buytickets'
     } catch (error) {
       console.error('Error sending email:', error)
-      alert('Lỗi khi gửi vé qua email. Vui lòng thử lại sau.')
+      alert(t('alerts.paymentEmailError'))
     }
   }
 
@@ -151,7 +151,7 @@ export default function Payment() {
       <div className='absolute inset-0 backdrop-blur-md bg-black/20'></div>
       <div className='max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#fff] relative z-10'>
         <div className='bg-green-500 py-4 px-6'>
-          <h2 className='text-2xl md:text-3xl font-bold text-[#fff] text-center'>Payment Page</h2>
+          <h2 className='text-2xl md:text-3xl font-bold text-[#fff] text-center'>{t('title')}</h2>
         </div>
 
         <div className='flex flex-col md:flex-row   '>
@@ -161,7 +161,7 @@ export default function Payment() {
               <img src={bus} alt='Bus' className='w-20 h-20 object-contain' />
             </div>
 
-            <strong className='text-gray-800 text-lg md:text-xl block'>Thông tin hành trình</strong>
+            <strong className='text-gray-800 text-lg md:text-xl block'>{t('journeyInfo')}</strong>
             {userinfo.name
               ? ticket.map((item: any) => {
                   const seatsticket = item.seats.map((s: any) => s.name)
@@ -169,15 +169,14 @@ export default function Payment() {
                   return (
                     <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
                       <div className='flex max-md:flex-col justify-between items-center'>
-                        <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                        <span className='  text-[11px] md:text-sm text-gray-500'>{t('ticket.code')}: {item.id}</span>
                         <div>
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
-                            {' '}
-                            <strong>Ngày xuất phát: </strong>
+                            <strong>{t('ticket.departureDate')}: </strong>
                             <span className='pl-1'>{item.dateStart}</span>
                           </span>
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                            Chiều đi
+                            {t('ticket.direction')}
                           </span>
                         </div>
                       </div>
@@ -185,11 +184,11 @@ export default function Payment() {
                       <div className='text-xl font-bold'>
                         {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
                       </div>
-                      <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {item.seatLayout}</p>
+                      <p className='text-[11px] text-gray-500'>{t('ticket.seatLayout')}: {item.seatLayout}</p>
 
                       <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                         <div>
-                          <div className='text-[14px] font-medium '>Giờ khởi hành</div>
+                          <div className='text-[14px] font-medium '>{t('ticket.departureTime')}</div>
                           <div className='text-xl font-bold'>{item.starttime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDi)}</div>
                         </div>
@@ -199,13 +198,13 @@ export default function Payment() {
                             <Icon name='bus-go' />
                           </i>
                           <div className='text-xs text-gray-500'>
-                            {item.timetogo.slice(0, 2)} giờ {item.timetogo.slice(3, 5)} phút
+                            {item.timetogo.slice(0, 2)} {t('ticket.departureTime')} {item.timetogo.slice(3, 5)} phút
                             <br />{' '}
                           </div>
                         </div>
 
                         <div>
-                          <div className='text-[14px] font-medium '>Giờ đến nơi</div>
+                          <div className='text-[14px] font-medium '>{t('ticket.arrivalTime')}</div>
                           <div className='text-xl font-bold'>{item.endtime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDen)}</div>
                         </div>
@@ -213,10 +212,10 @@ export default function Payment() {
 
                       <div className='bg-gray-100 p-3 rounded-lg text-sm'>
                         <div className='font-semibold  '>{USERID.fullName}</div>
-                        <div className='text-xs text-gray-600'>CMND: {USERID.cccd}</div>
-                        <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
+                        <div className='text-xs text-gray-600'>{t('ticket.idCard')}: {USERID.cccd}</div>
+                        <div className='text-xs text-gray-600'>{t('ticket.note')}</div>
                         <div className='mt-2 border-t pt-2 flex justify-between'>
-                          <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
+                          <div className='text-green-500'>{t('ticket.seats')}: {seatsticket.join(', ')} </div>
                           <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
                         </div>
                       </div>
@@ -228,15 +227,14 @@ export default function Payment() {
                   return (
                     <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
                       <div className='flex max-md:flex-col justify-between items-center'>
-                        <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {item.id}</span>
+                        <span className='  text-[11px] md:text-sm text-gray-500'>{t('ticket.code')}: {item.id}</span>
                         <div>
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
-                            {' '}
-                            <strong>Ngày xuất phát: </strong>
+                            <strong>{t('ticket.departureDate')}: </strong>
                             <span className='pl-1'>{item.dateStart}</span>
                           </span>
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                            Chiều đi
+                            {t('ticket.direction')}
                           </span>
                         </div>
                       </div>
@@ -244,15 +242,14 @@ export default function Payment() {
                       <div className='text-xl font-bold'>
                         {item.type} - {t(item.diemDi)} - {t(item.diemDen)}{' '}
                       </div>
-                      <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {item.seatLayout}</p>
+                      <p className='text-[11px] text-gray-500'>{t('ticket.seatLayout')}: {item.seatLayout}</p>
 
                       <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                         <div>
-                          <div className='text-[14px] font-medium '>Giờ khởi hành</div>
+                          <div className='text-[14px] font-medium '>{t('ticket.departureTime')}</div>
                           <div className='text-xl font-bold'>{item.starttime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDi)}</div>
-
-                          <p className='text-[11px] text-gray-500'>Giờ khởi hành</p>
+                          <p className='text-[11px] text-gray-500'>{t('ticket.departureTime')}</p>
                         </div>
                         <div>
                           <i className='text-green-600 border-b pl-4 pr-1'>
@@ -260,26 +257,26 @@ export default function Payment() {
                             <Icon name='bus-go' />
                           </i>
                           <div className='text-xs text-gray-500'>
-                            {item.timetogo.slice(0, 2)} giờ {item.timetogo.slice(3, 5)} phút
+                            {item.timetogo.slice(0, 2)} {t('ticket.departureTime')} {item.timetogo.slice(3, 5)} phút
                             <br />{' '}
                           </div>
                         </div>
 
                         <div>
-                          <div className='text-[14px] font-medium '>Giờ đến nơi</div>
+                          <div className='text-[14px] font-medium '>{t('ticket.arrivalTime')}</div>
                           <div className='text-xl font-bold'>{item.endtime}</div>
                           <div className='text-sm font-medium'>{t(item.diemDen)}</div>
-                          <p className='text-[11px] text-gray-500'>Giờ đến nơi</p>
+                          <p className='text-[11px] text-gray-500'>{t('ticket.arrivalTime')}</p>
                         </div>
                       </div>
 
                       <div className='bg-gray-100 p-3 rounded-lg text-sm'>
                         <div className='font-semibold  '>{USERID.fullName}</div>
-                        <div className='text-xs text-gray-600'>CMND: {USERID.cccd}</div>
-                        <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
+                        <div className='text-xs text-gray-600'>{t('ticket.idCard')}: {USERID.cccd}</div>
+                        <div className='text-xs text-gray-600'>{t('ticket.note')}</div>
                         <div className='mt-2 border-t pt-2 flex justify-between'>
                           <div className=''>
-                            <strong>Ghế:</strong>{' '}
+                            <strong>{t('ticket.seats')}:</strong>{' '}
                             <span className='text-gray-600 font-medium '> {seatsticket.join(', ')} </span>
                           </div>
                           <div className='font-bold text-green-600'>{item.price.toLocaleString()} VNĐ</div>
@@ -295,30 +292,27 @@ export default function Payment() {
               ) : (
                 <button
                   className={`bg-green-500 text-[#fff] px-6 py-2 rounded-lg shadow hover:bg-green-600 transition
-               
                   `}
                   onClick={handlePayNow}
                 >
-                  Xác nhận
+                  {t('actions.confirm')}
                 </button>
               )}
               {selectePaymen === 1 ? (
                 <button
                   className={`bg-red-500 text-[#fff]    px-12 py-2 rounded-lg shadow hover:bg-red-600 transition
-               
                   `}
                   onClick={handleExit}
                 >
-                  Hủy
+                  {t('actions.cancel')}
                 </button>
               ) : (
                 <button
                   className={`bg-red-500 text-[#fff]   px-6 py-2 rounded-lg shadow hover:bg-red-600 transition
-               
                   `}
                   onClick={handleExit}
                 >
-                  Hủy
+                  {t('actions.cancel')}
                 </button>
               )}
             </div>
@@ -329,7 +323,7 @@ export default function Payment() {
               <div className=' gap-2'>
                 <div className='flex justify-between items-center mb-1'>
                   <span className='text-base font-semibold text-gray-800'>
-                    Lựa chọn thanh toán <i className='text-gray-500 text-sm'>(bắt buộc)</i>
+                    {t('paymentOptions.title')} <i className='text-gray-500 text-sm'>{t('paymentOptions.required')}</i>
                   </span>
                 </div>
                 <div className='mb-3 border-b-2 border-gray-400 border-dashed pb-3'>
@@ -346,7 +340,9 @@ export default function Payment() {
                       <span
                         className={` transition-all duration-700 ${selectePaymen === option.id ? 'text-black opacity-100' : 'text-gray-500 opacity-70'}`}
                       >
-                        {option.label}
+                        {option.id === 1 && t('paymentOptions.zaloPay')}
+                        {option.id === 2 && t('paymentOptions.atm')}
+                        {option.id === 3 && t('paymentOptions.qr')}
                       </span>
                     </label>
                   ))}
@@ -361,17 +357,17 @@ export default function Payment() {
                   {selectePaymen === 1 && (
                     <div className='flex flex-col gap-3   pb-5  '>
                       <div className='text-lg font-medium'>
-                        Thông tin thanh toán qua <span className='text-[#0068ff] font-bold'>Zalo</span>{' '}
+                        {t('zaloPay.info')} <span className='text-[#0068ff] font-bold'>Zalo</span>{' '}
                         <span className='  px-1 py-0.5 rounded-md bg-green-500 text-[#fff] '>Pay</span>
                       </div>
-                      <p className='font-medium text-gray-800'>Tên người dùng: {USERID.fullName}</p>
-                      <p className='font-medium text-gray-800'>Email: {USERID.email}</p>
-                      <p className='font-medium text-gray-800'>Số điện thoại: {USERID.phone}</p>
+                      <p className='font-medium text-gray-800'>{t('zaloPay.username')}: {USERID.fullName}</p>
+                      <p className='font-medium text-gray-800'>{t('zaloPay.email')}: {USERID.email}</p>
+                      <p className='font-medium text-gray-800'>{t('zaloPay.phone')}: {USERID.phone}</p>
                       <p className='text-sm text-gray-600'>
-                        Vui lòng thanh toán số tiền dưới đây để hoàn tất giao dịch:
+                        {t('zaloPay.instruction')}
                       </p>
                       <p className='font-medium text-gray-800  '>
-                        Số tiền cần thanh toán:{' '}
+                        {t('zaloPay.amount')}: 
                         <span className='font-bold text-red-600'>
                           {' '}
                           {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} VNĐ
@@ -391,15 +387,14 @@ export default function Payment() {
                             <i>
                               <Icon name='loading' />
                             </i>
-                            Đang xử lý...
+                            {t('zaloPay.processing')}
                           </>
                         ) : (
-                          'Thanh toán qua ZaloPay'
+                          t('paymentOptions.zaloPay')
                         )}
                       </button>
                       <p className='mt-3 w-full text-gray-600 text-center text-sm border-t-2 border-gray-400 border-dashed pt-5 leading-5 '>
-                        <strong>Chú ý:</strong> Thanh toán qua ZaloPay sẽ được xử lý ngay lập tức. Vui lòng đảm bảo
-                        thông tin vé là chính xác trước khi thanh toán.
+                        <strong>{t('zaloPay.note')}</strong>
                       </p>
                     </div>
                   )}
@@ -409,34 +404,33 @@ export default function Payment() {
                 >
                   {selectePaymen === 2 && (
                     <div className='flex flex-col gap-3 pb-5'>
-                      <h2 className='text-xl font-semibold text-gray-800'>Thông tin chuyển khoản ngân hàng</h2>
+                      <h2 className='text-xl font-semibold text-gray-800'>{t('atm.info')}</h2>
 
-                      <p className='text-sm text-gray-600'>Vui lòng chuyển khoản đến tài khoản ngân hàng sau:</p>
+                      <p className='text-sm text-gray-600'>{t('atm.instruction')}</p>
 
                       <div className='bg-gray-50 rounded-lg p-4 border border-gray-300'>
                         <p className='font-medium text-gray-800 mb-1'>
-                          Ngân hàng: <span className='font-semibold'>VCB Bank</span>
+                          {t('atm.bank')}: <span className='font-semibold'>{t('atm.bankName')}</span>
                         </p>
                         <p className='font-medium text-gray-800 mb-1'>
-                          Số tài khoản: <span className='font-semibold'>1234567890</span>
+                          {t('atm.accountNumber')}: <span className='font-semibold'>1234567890</span>
                         </p>
                         <p className='font-medium text-gray-800  '>
-                          Số tiền cần thanh toán:{' '}
+                          {t('atm.amount')}: 
                           <span className='font-bold text-red-600'>
                             {' '}
                             {(guestUserTicket[0]?.price || ticket[0]?.price).toLocaleString()} VNĐ
                           </span>
                         </p>
                         <p className='text-sm text-gray-700 mt-1'>
-                          <span className='font-medium'>Nội dung chuyển khoản:</span> <br />
+                          <span className='font-medium'>{t('atm.transferContent')}:</span> <br />
                           Số Code - Tên người mua <br />
-                          <span className='text-gray-600 italic'>Ví dụ: 12345 - Nguyễn Văn A</span>
+                          <span className='text-gray-600 italic'>{t('atm.transferExample')}</span>
                         </p>
                       </div>
 
                       <div className='border-t border-dashed border-gray-400 pt-4 text-sm text-center text-gray-600 leading-5'>
-                        <strong>Chú ý:</strong> Sau khi chuyển khoản, vui lòng xác nhận lại thông tin vé xe buýt của
-                        bạn. Hãy đảm bảo mọi thông tin đều chính xác trước khi thanh toán.
+                        <strong>{t('atm.note')}</strong>
                       </div>
                     </div>
                   )}
@@ -448,8 +442,7 @@ export default function Payment() {
                     <div className='flex flex-col items-center'>
                       <img src={QR} alt='QR Code' className='w-64 h-64 object-contain mb-4 rounded-lg shadow-lg' />
                       <p className='mt-3 border-t border-dashed border-gray-400 text-gray-600 text-center text-sm   pt-5  leading-5  '>
-                        <strong>Chú ý:</strong> Quét mã QR để thanh toán. Vui lòng đảm bảo thông tin vé là chính xác
-                        trước khi thanh toán.
+                        <strong>{t('qr.note')}</strong>
                       </p>
                     </div>
                   )}

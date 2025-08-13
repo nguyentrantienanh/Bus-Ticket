@@ -1,0 +1,37 @@
+{
+  "title": "Guest User Information",
+  "form": {
+    "fullName": {
+      "label": "Full Name",
+      "placeholder": "John Doe"
+    },
+    "phone": {
+      "label": "Phone Number",
+      "placeholder": "0901234567"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "example@gmail.com"
+    },
+    "cccd": {
+      "label": "ID Card/Passport",
+      "placeholder": "012345678901"
+    },
+    "birthday": {
+      "label": "Date of Birth"
+    },
+    "submit": "Confirm Information",
+    "submitting": "Processing..."
+  },
+  "messages": {
+    "note": "Note:",
+    "invalid": "Phone number and ID Card/Passport are invalid",
+    "phoneMin": "Phone number must be at least 10 digits",
+    "cccdMin": "ID Card/Passport must be at least 12 digits",
+    "phoneMax": "Phone number must not exceed 10 digits",
+    "cccdMax": "ID Card/Passport must not exceed 12 digits",
+    "notFound": "Data not found",
+    "parseError": "Invalid data",
+    "guestNotFound": "Guest not found"
+  }
+}

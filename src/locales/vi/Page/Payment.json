@@ -1,0 +1,58 @@
+{
+  "title": "Trang thanh toán",
+  "journeyInfo": "Thông tin hành trình",
+  "ticket": {
+    "code": "Số vé/mã code",
+    "departureDate": "Ngày xuất phát",
+    "direction": "Chiều đi",
+    "seatLayout": "Sơ đồ ghế",
+    "departureTime": "Giờ khởi hành",
+    "arrivalTime": "Giờ đến nơi",
+    "idCard": "CMND",
+    "note": "Ghi chú: Mang CMND/Hộ chiếu",
+    "seats": "Ghế",
+    "price": "Giá"
+  },
+  "actions": {
+    "confirm": "Xác nhận",
+    "cancel": "Hủy"
+  },
+  "paymentOptions": {
+    "title": "Lựa chọn thanh toán",
+    "required": "(bắt buộc)",
+    "zaloPay": "Thanh toán qua ZaloPay",
+    "atm": "Thẻ ATM",
+    "qr": "Quét mã QR"
+  },
+  "zaloPay": {
+    "info": "Thông tin thanh toán qua ZaloPay",
+    "username": "Tên người dùng",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "instruction": "Vui lòng thanh toán số tiền dưới đây để hoàn tất giao dịch:",
+    "amount": "Số tiền cần thanh toán",
+    "processing": "Đang xử lý...",
+    "note": "Chú ý: Thanh toán qua ZaloPay sẽ được xử lý ngay lập tức. Vui lòng đảm bảo thông tin vé là chính xác trước khi thanh toán."
+  },
+  "atm": {
+    "info": "Thông tin chuyển khoản ngân hàng",
+    "instruction": "Vui lòng chuyển khoản đến tài khoản ngân hàng sau:",
+    "bank": "Ngân hàng",
+    "bankName": "VCB Bank",
+    "accountNumber": "Số tài khoản",
+    "amount": "Số tiền cần thanh toán",
+    "transferContent": "Nội dung chuyển khoản",
+    "transferExample": "Ví dụ: 12345 - Nguyễn Văn A",
+    "note": "Chú ý: Sau khi chuyển khoản, vui lòng xác nhận lại thông tin vé xe buýt của bạn. Hãy đảm bảo mọi thông tin đều chính xác trước khi thanh toán."
+  },
+  "qr": {
+    "note": "Chú ý: Quét mã QR để thanh toán. Vui lòng đảm bảo thông tin vé là chính xác trước khi thanh toán."
+  },
+  "alerts": {
+    "zaloPayMin": "Giá vé phải lớn hơn 1000 VND để thanh toán qua ZaloPay.",
+    "zaloPayOrderError": "Không thể tạo đơn hàng ZaloPay. Vui lòng thử lại.",
+    "zaloPayConnectError": "Lỗi khi kết nối với ZaloPay.",
+    "paymentSuccess": "Thanh toán thành công! Vé của bạn đã được gửi qua email.",
+    "paymentEmailError": "Lỗi khi gửi vé qua email. Vui lòng thử lại sau."
+  }
+}

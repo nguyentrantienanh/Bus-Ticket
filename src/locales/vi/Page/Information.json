@@ -1,0 +1,37 @@
+{
+  "title": "Thông tin khách vãng lai",
+  "form": {
+    "fullName": {
+      "label": "Họ và tên",
+      "placeholder": "Nguyễn Văn A"
+    },
+    "phone": {
+      "label": "Số điện thoại",
+      "placeholder": "0901234567"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "example@gmail.com"
+    },
+    "cccd": {
+      "label": "CCCD/CMND",
+      "placeholder": "012345678901"
+    },
+    "birthday": {
+      "label": "Ngày sinh"
+    },
+    "submit": "Xác nhận thông tin",
+    "submitting": "Đang xử lý..."
+  },
+  "messages": {
+    "note": "Chú ý:",
+    "invalid": "Số điện thoại và CCCD/CMND không hợp lệ",
+    "phoneMin": "Số điện thoại phải có ít nhất 10 ký tự",
+    "cccdMin": "CCCD/CMND phải có ít nhất 12 ký tự",
+    "phoneMax": "Số điện thoại không được quá 10 ký tự",
+    "cccdMax": "CCCD/CMND không được quá 12 ký tự",
+    "notFound": "Không tìm thấy dữ liệu",
+    "parseError": "Dữ liệu không hợp lệ",
+    "guestNotFound": "Không tìm thấy khách"
+  }
+}

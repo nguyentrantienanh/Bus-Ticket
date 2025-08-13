@@ -1,0 +1,58 @@
+{
+  "title": "Payment Page",
+  "journeyInfo": "Journey Information",
+  "ticket": {
+    "code": "Ticket number/code",
+    "departureDate": "Departure date",
+    "direction": "Outbound",
+    "seatLayout": "Seat layout",
+    "departureTime": "Departure time",
+    "arrivalTime": "Arrival time",
+    "idCard": "ID Card",
+    "note": "Note: Bring ID card/passport",
+    "seats": "Seats",
+    "price": "Price"
+  },
+  "actions": {
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+  "paymentOptions": {
+    "title": "Payment Options",
+    "required": "(required)",
+    "zaloPay": "Pay with ZaloPay",
+    "atm": "ATM Card",
+    "qr": "Scan QR Code"
+  },
+  "zaloPay": {
+    "info": "Payment information via ZaloPay",
+    "username": "User name",
+    "email": "Email",
+    "phone": "Phone number",
+    "instruction": "Please pay the amount below to complete the transaction:",
+    "amount": "Amount to pay",
+    "processing": "Processing...",
+    "note": "Note: Payment via ZaloPay will be processed immediately. Please make sure your ticket information is correct before paying."
+  },
+  "atm": {
+    "info": "Bank transfer information",
+    "instruction": "Please transfer to the following bank account:",
+    "bank": "Bank",
+    "bankName": "VCB Bank",
+    "accountNumber": "Account number",
+    "amount": "Amount to pay",
+    "transferContent": "Transfer content",
+    "transferExample": "Example: 12345 - Nguyen Van A",
+    "note": "Note: After transferring, please confirm your bus ticket information. Make sure all information is correct before paying."
+  },
+  "qr": {
+    "note": "Note: Scan the QR code to pay. Please make sure your ticket information is correct before paying."
+  },
+  "alerts": {
+    "zaloPayMin": "Ticket price must be greater than 1000 VND to pay via ZaloPay.",
+    "zaloPayOrderError": "Unable to create ZaloPay order. Please try again.",
+    "zaloPayConnectError": "Error connecting to ZaloPay.",
+    "paymentSuccess": "Payment successful! Your ticket has been sent via email.",
+    "paymentEmailError": "Error sending ticket via email. Please try again later."
+  }
+}

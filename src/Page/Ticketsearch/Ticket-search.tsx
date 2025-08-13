@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 export default function Ticketsearch() {
   const [searchTerm, setSearchTerm] = useState('')
   const [ticketseach, setTicketsearch] = useState<any>(null)
-  const { t } = useTranslation(['Buyticket', 'Home'])
+  const { t } = useTranslation('TicketSearch')
   const [ticketDetail, setTicketDetail] = useState(false)
   const handleticketDetail = () => {
     setTicketDetail(!ticketDetail)
@@ -27,7 +27,7 @@ export default function Ticketsearch() {
     if (e) e.preventDefault()
 
     if (!searchTerm) {
-      alert('Vui lòng nhập mã để tìm kiếm')
+      alert(t('alerts.enterCode'))
       return
     }
     setisSearch(true)
@@ -35,11 +35,11 @@ export default function Ticketsearch() {
       const ticketseachs = ve.filter((item: any) => item.id === Number(searchTerm))
       if (ticketseachs.length === 0) {
         setTicketsearch(null)
-        alert('Không tìm thấy vé nào với mã đã nhập')
+        alert(t('alerts.notFound'))
       } else {
         const ticket = ticketseachs[0] // Lấy vé đầu tiên
         setTicketsearch(ticket)
-        alert('Tìm thấy vé')
+        alert(t('alerts.found'))
       }
 
       setisSearch(false)
@@ -63,7 +63,9 @@ export default function Ticketsearch() {
         style={{ backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className='w-full h-full flex items-center justify-center bg-[#00000068]  '>
-          <h1 className=' font-bold mb-4 text-[#fff] text-[20px] sm:text-2xl lg:text-4xl   '> Tra cứu vé </h1>
+          <h1 className=' font-bold mb-4 text-[#fff] text-[20px] sm:text-2xl lg:text-4xl   '>
+            {t('title')}
+          </h1>
         </div>
       </div>
       <div className='h-[100%]'>
@@ -77,14 +79,14 @@ export default function Ticketsearch() {
           <div className='  bg-[#fff]   w-full items-center justify-center px-5 md:px-10 xl:px-30 mt-10 border-b-2 border-dashed border-gray-400'>
             <div className=' mb-4'>
               <TextField
-                label='Mã vé'
+                label={t('form.label')}
                 variant='outlined'
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value)
                 }}
                 className='w-full'
-                placeholder='Nhập mã vé'
+                placeholder={t('form.placeholder')}
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     '&:hover fieldset': {
@@ -116,18 +118,18 @@ export default function Ticketsearch() {
                     <i className='px-2'>
                       <Icon name='loading' />
                     </i>
-                    Đang tra cứu vé...
+                    {t('form.searching')}
                   </div>
                 ) : (
-                  ' Tra cứu'
+                  t('form.search')
                 )}
               </button>
             </div>
           </div>
         </Box>
         <div className='text-center text-gray-500 text-sm mt-2'>
-          <strong>Chú ý:</strong>
-          <span>Các vé đã xuất phát đc 15 ngày sẽ không hiển thị trong kết quả tìm kiếm.</span>
+          <strong>{t('note.title')}</strong>
+          <span>{t('note.content')}</span>
         </div>
 
         <div className=' bg-[#fff] mx-10 my-10 flex   justify-center items-center'>
@@ -141,7 +143,7 @@ export default function Ticketsearch() {
                   {/* Trái: Tuyến */}
                   <div className='flex-1'>
                     <h1 className='text-lg font-semibold text-gray-800 line-clamp-1'>{name}</h1>
-                    <p className='text-xs text-gray-500'>Sơ đồ ghế: {ticketseach?.seatLayout}</p>
+                    <p className='text-xs text-gray-500'>{t('details.seatLayout')}: {ticketseach?.seatLayout}</p>
                     <p className='text-sm text-amber-500 flex items-center gap-1 mt-1'>
                       <Icon name='bus' /> {ticketseach?.type}
                     </p>
@@ -191,8 +193,7 @@ export default function Ticketsearch() {
                       </span>
                       <span className='absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full bg-green-600 rounded-md group-hover:translate-x-0' />
                       <span className='relative w-full text-left  text-[#fff] transition-colors duration-200 ease-in-out font-medium group-hover:text-[#fff]'>
-                        {' '}
-                        {ticketDetail ? 'Rút gọn' : 'Chi tiết'}
+                        {ticketDetail ? t('details.collapse') : t('details.expand')}
                       </span>
                     </button>
                   </div>
@@ -200,7 +201,7 @@ export default function Ticketsearch() {
 
                 {/* Tiện nghi */}
                 <div className='border-t border-dashed border-gray-500 bg-[#fff] px-5 py-3 text-sm flex flex-wrap gap-2'>
-                  <p className='text-gray-600'>Tiện nghi:</p>
+                  <p className='text-gray-600'>{t('details.facilities')}</p>
                   {ticketseach?.facilities?.map((facility: any, index: number) => (
                     <span key={index} className='bg-gray-100 px-3 py-1 rounded-full text-gray-700 text-xs'>
                       {facility}
@@ -215,25 +216,24 @@ export default function Ticketsearch() {
                 } bg-[#fff] border-b-1 border-r-1 border-l-1 border-dashed rounded-b-2xl p-4 shadow space-y-2`}
               >
                 <div className='flex max-md:flex-col justify-between items-center'>
-                  <span className='  text-[11px] md:text-sm text-gray-500'>Số vé/code: {ticketseach.id}</span>
+                  <span className='  text-[11px] md:text-sm text-gray-500'>{t('details.ticketNumber')}: {ticketseach.id}</span>
                   <div>
                     <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
-                      {' '}
-                      <strong>Ngày xuất phát: </strong>
+                      <strong>{t('details.departureDate')}: </strong>
                       <span className='pl-1'>{ticketseach.dateStart}</span>
                     </span>
                     <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                      Chiều đi
+                      {t('details.direction')}
                     </span>
                   </div>
                 </div>
 
                 <div className='text-xl font-bold'>{name}</div>
-                <p className='text-[11px] text-gray-500'>Sơ đồ ghế: {ticketseach.seatLayout}</p>
+                <p className='text-[11px] text-gray-500'>{t('details.seatLayout')}: {ticketseach.seatLayout}</p>
 
                 <div className='flex justify-between items-center text-center border-t border-b py-2 border-dashed'>
                   <div>
-                    <div className='text-[14px] font-medium '>Giờ khởi hành</div>
+                    <div className='text-[14px] font-medium '>{t('details.departureTime')}</div>
                     <div className='text-xl font-bold'>{ticketseach.starttime}</div>
                     <div className='text-sm font-medium'>
                       {t(`Home:${ticketseach.diemDi}`, { defaultValue: ticketseach.diemDi })}
@@ -245,13 +245,13 @@ export default function Ticketsearch() {
                       <Icon name='bus-go' />
                     </i>
                     <div className='text-xs text-gray-500'>
-                      {ticketseach.timetogo.slice(0, 2)} giờ {ticketseach.timetogo.slice(3, 5)} phút
+                      {ticketseach.timetogo.slice(0, 2)} {t('details.departureTime')} {ticketseach.timetogo.slice(3, 5)} phút
                       <br />{' '}
                     </div>
                   </div>
 
                   <div>
-                    <div className='text-[14px] font-medium '>Giờ đến nơi</div>
+                    <div className='text-[14px] font-medium '>{t('details.arrivalTime')}</div>
                     <div className='text-xl font-bold'> {ticketseach.endtime}</div>
                     <div className='text-sm font-medium'>
                       {t(`Home:${ticketseach.diemDen}`, { defaultValue: ticketseach.diemDen })}
@@ -262,10 +262,10 @@ export default function Ticketsearch() {
                 <div className='bg-gray-100 p-3 rounded-lg text-sm'>
                   <div className='font-semibold  '>{USERID?.fullName || USERID?.name}</div>
 
-                  <div className='text-xs text-gray-600'>CMND: ***</div>
-                  <div className='text-xs text-gray-600'>Ghi chú: Mang CMND/Hộ chiếu</div>
+                  <div className='text-xs text-gray-600'>{t('details.idCard')}</div>
+                  <div className='text-xs text-gray-600'>{t('details.note')}</div>
                   <div className='mt-2 border-t pt-2 flex justify-between'>
-                    <div className='text-green-500'>Ghế: {seatsticket.join(', ')} </div>
+                    <div className='text-green-500'>{t('details.seats')}: {seatsticket.join(', ')} </div>
                     <div className='font-bold text-green-600'>{ticketseach.price.toLocaleString()}đ</div>
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export default function Ticketsearch() {
           ) : (
             <div className='text-center text-gray-500 py-10'>
               <Icon name='ticket' />
-              <p className='text-lg'>Không tìm thấy vé nào với mời nhập lại</p>
+              <p className='text-lg'>{t('empty.notFound')}</p>
             </div>
           )}
         </div>

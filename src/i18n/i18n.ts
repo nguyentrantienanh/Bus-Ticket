@@ -12,6 +12,10 @@ import POLICIES_EN from '../locales/en/Page/Policies.json'
 import BUYTICKET_EN from '../locales/en/Page/Buytickets.json'
 import SIGNIN_EN from '../locales/en/auth/Signin.json'
 import SIGNUP_EN from '../locales/en/auth/Signup.json'
+import TICKET_SEARCH_EN from '../locales/en/Page/Ticket-search.json'
+import INFORMATION_GUEST_USER_EN from '../locales/en/Page/Information.json'
+import PAYMENT_EN from '../locales/en/Page/Payment.json'
+
 // user
 import USER_DASHBOARD_EN from '../locales/en/features/user/Dashboard.json'
 import USER_INFORMATION_EN from '../locales/en/features/user/Page/Information.json'
@@ -35,6 +39,9 @@ import POLICIES_VI from '../locales/vi/Page/Policies.json'
 import BUYTICKET_VI from '../locales/vi/Page/Buytickets.json'
 import SIGNIN_VI from '../locales/vi/auth/Signin.json'
 import SIGNUP_VI from '../locales/vi/auth/Signup.json'
+import TICKET_SEARCH_VI from '../locales/vi/Page/Ticket-search.json'
+import INFORMATION_GUEST_USER_VI from '../locales/vi/Page/Information.json'
+import PAYMENT_VI from '../locales/vi/Page/Payment.json'
 // user
 import USER_DASHBOARD_VI from '../locales/vi/features/user/Dashboard.json'
 import USER_INFORMATION_VI from '../locales/vi/features/user/Page/Information.json'
@@ -65,6 +72,9 @@ export const resources = {
     Buyticket: BUYTICKET_EN,
     Signin: SIGNIN_EN,
     Signup: SIGNUP_EN,
+    TicketSearch: TICKET_SEARCH_EN,
+    InformationGuestUser: INFORMATION_GUEST_USER_EN,
+    Payment: PAYMENT_EN,
     // user
     Dashboard: USER_DASHBOARD_EN,
     Information: USER_INFORMATION_EN,
@@ -89,6 +99,9 @@ export const resources = {
     Buyticket: BUYTICKET_VI,
     Signin: SIGNIN_VI,
     Signup: SIGNUP_VI,
+    TicketSearch: TICKET_SEARCH_VI,
+    InformationGuestUser: INFORMATION_GUEST_USER_VI,
+    Payment: PAYMENT_VI,
     // user
     Dashboard: USER_DASHBOARD_VI,
     Information: USER_INFORMATION_VI,
