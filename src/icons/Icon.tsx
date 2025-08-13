@@ -213,6 +213,9 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'Dashboard') {
     // Biểu tượng bảng điều khiển
     return <i className='fa-solid fa-tachometer-alt'></i>
+  } else if (props.name == 'messages') {
+    // Biểu tượng tin nhắn
+    return <i className="fa-regular fa-message"></i>
   }
 }
 

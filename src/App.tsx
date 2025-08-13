@@ -52,6 +52,7 @@ import PaymentResult from './Page/Payment/PaymentResult'
 // services
 import ScrollToTop from './services/ScrollToTop'
 import ScrollToShow from './services/ScrollToShow'
+import Messages from './services/messages'
 import { ExpiredTickets } from './services/Expiredtickets'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -90,7 +91,7 @@ function AppRoutes() {
   //   return () => clearTimeout(timer)
   // }, [location.pathname])
   // Kiểm tra xem đường dẫn hiện tại có nằm trong danh sách cần ẩn header và footer không
-  const shouldHideHeaderFooter = hideHeaderFooter.some(
+  const shouldHide = hideHeaderFooter.some(
     (path) => location.pathname === path || location.pathname.startsWith(path)
   )
 
@@ -102,9 +103,10 @@ function AppRoutes() {
           <LoadingPage />
         </div>
       )} */}
-      {!shouldHideHeaderFooter && <Header />}
+      {!shouldHide && <Header />}
       <ScrollToTop />
-      <ScrollToShow/>
+      {!shouldHide &&  <Messages/>}
+      
       <Routes>
         <Route path='/call-api-ticket' element={<CallApiTicket />} />
 
@@ -222,7 +224,7 @@ function AppRoutes() {
         <Route path='/user/payment/:id' element={<Payment />} />
         <Route path='*' element={<Page404 />} />
       </Routes>
-      {!shouldHideHeaderFooter && <Footer />}
+      {!shouldHide && <Footer />}
       {/* <ScrollToShow/> */}
     </>
   )

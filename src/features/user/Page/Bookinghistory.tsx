@@ -18,11 +18,7 @@ export function Booking() {
       return item.map((seat: any) => seat.name)
     })
   // hàm xử lý trạng thái ghế Total Booked Ticket, Total Rejected Ticket, Total Pending Ticket
-  const Status = [
-    { id: 1, name: tBooking('status.confirmed'), colors: '#00d40e', bg: '#00ff2636' },
-    { id: 2, name: tBooking('status.rejected'), colors: '#f00', bg: '#ff000036' },
-    { id: 3, name: tBooking('status.pending'), colors: '#eeea00', bg: '#d5fb2b2d' }
-  ]
+ 
   // click thông tin vé
   const [informationticket, setinformationticket] = useState(false)
   const isclick = () => {
@@ -35,8 +31,8 @@ export function Booking() {
   return (
     <>
       <div className='bg-[#fff]  px-0 md:px-10 py-6 '>
-        <div className='overflow-x-400'>
-          <table className='min-w-full text-sm md:text-[13px]'>
+        <div className='overflow-x-auto'>
+          <table className='min-w-full text-sm md:text-[13px]  overflow-x-400'>
             <thead>
               <tr className='bg-[#1ba000] text-[#fff] text-nowrap'>
                 <th className='py-2 px-2 text-left w-[60px]  '>{tBooking('table.headers.id')}</th>
@@ -48,7 +44,7 @@ export function Booking() {
                 <th className='py-2 px-2 text-left w-[120px]'>{tBooking('table.headers.seats')}</th>
                 <th className='py-2 px-2 text-left w-[100px]'>{tBooking('table.headers.status')}</th>
                 <th className='py-2 px-2 text-left w-[100px] hidden md:table-cell'>{tBooking('table.headers.fare')}</th>
-                <th className='py-2 px-2 text-center'>{tBooking('table.headers.info')}</th>
+                <th className='py-2 px-2 text-center hidden md:table-cell'>{tBooking('table.headers.info')}</th>
               </tr>
             </thead>
 
@@ -62,24 +58,32 @@ export function Booking() {
                     <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDi}`, { defaultValue: item.diemden })}</td>
                     <td className='py-2 px-2 text-[#4c4c4c] font-medium'>{item.dateStart}</td>
                     <td className='py-2 px-2 text-[#7337ff] font-mono'>{item.starttime}</td>
-                    <td className='py-2 px-2 text-[#04b925] '>{seats[index].join(', ')} </td>
+                    <td className='py-2 px-2 text-[#04b925]  '>{seats[index].join(', ')} </td>
                     <td className='py-2 px-2'>
-                      {Status.map(
-                        (status) =>
-                          item.status === status.id && (
+                      {item.status === 1 ? (
                             <span
-                              key={status.id}
-                              className={`px-2 py-1 rounded-full text-[${status.colors}] bg-[${status.bg}] border text-xs`}
+                              className={`px-2 py-1 rounded-full font-bold text-[#00d40e] bg-[#00ff2636] border text-xs`}
                             >
-                              {status.name}
+                             {tBooking('status.confirmed')}
                             </span>
-                          )
-                      )}
+                          ) : item.status === 2 ? (
+                            <span
+                              className={`px-2 py-1 rounded-full font-bold text-[#f00] bg-[#ff000036] border text-xs`}
+                            >
+                             {tBooking('status.rejected')}
+                            </span>
+                          ) : (
+                            <span
+                              className={`px-2 py-1 rounded-full font-bold text-yellow-500 bg-[#d5fb2b2d] border text-xs`}
+                            >
+                              {tBooking('status.pending')}
+                            </span>
+                          )}
                     </td>
                     <td className='py-2 px-2 text-[#1645ff] hidden md:table-cell'>
                       {item.price.toLocaleString()} <span className='text-xs'> {tBooking('table.currency')}</span>
                     </td>
-                    <td className='py-2 px-2 text-center  '>
+                    <td className='py-2 px-2 text-center hidden md:table-cell '>
                       <button
                         onClick={() => {
                           setinformationticket(true)
@@ -130,19 +134,27 @@ export function Booking() {
                     <h1 className='font-extrabold text-gray-600 text-nowrap text-[13px] md:text-[17px] flex max-md:flex-col items-center'>
                       {tBooking('ticketDetails.title')}{' '}
                       <p className='font-mono px-2 text-gray-600 text-[10px] max-md:mr-auto max-md:px-0 max-md:py-1 md:text[14px] '>
-                        {Status.map((status) => {
-                          if (item.status === status.id) {
-                            return (
-                              <span
-                                key={status.id}
-                                className={`px-3 py-1 rounded-full text-[${status.colors}] bg-[${status.bg}] border-2`}
-                              >
-                                {status.name}
-                              </span>
-                            )
-                          }
-                          return
-                        })}
+                        {item.status === 1 ? (
+                            <span
+                              className={`px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2`}
+                            >
+                             {tBooking('status.confirmed')} 
+                            </span>
+                          ) : item.status === 2 ? (
+                            <span
+                              className={`px-3 py-1 rounded-full text-[#f00] bg-[#ff000036] border-2`}
+                            >
+                             {tBooking('status.rejected')}
+                            </span>
+                          ) : (
+                            <span
+                              className={`px-3 py-1 rounded-full text-yellow-500 bg-[#d5fb2b2d] border-2`}
+                            >
+                              {tBooking('status.pending')} 
+                            </span>
+                          )}
+                        
+                        
                       </p>
                     </h1>
 
@@ -162,9 +174,6 @@ export function Booking() {
                         {' '}
                         <strong>{tBooking('ticketDetails.departureDate')}: </strong>
                         <span className='pl-1'>{item.dateStart}</span>
-                      </span>
-                      <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                        {tBooking('ticketDetails.oneWay')}
                       </span>
                     </div>
                   </div>

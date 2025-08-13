@@ -106,8 +106,7 @@ function Header() {
       icon: 'support',
       sub: [
         { id: '1', name: t('Header_DROPDOWN.CreateNew'), path: '/user/ticket/createnew' },
-        { id: '2', name: t('Header_DROPDOWN.Tickets'), path: '/user/support-ticket' },
-        { id: '3', name: t('Header_DROPDOWN.Chat'), path: '/user/support/chat' }
+        { id: '2', name: t('Header_DROPDOWN.Tickets'), path: '/user/support-ticket' }
       ]
     },
     {

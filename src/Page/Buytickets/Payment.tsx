@@ -179,7 +179,7 @@ export default function Payment() {
         style={{ backgroundImage: `url(${backgroundPayment})` }}
       ></div>
       <div className='absolute inset-0 backdrop-blur-md bg-black/20'></div>
-      <div className='max-w-5xl border-2 mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#fff] relative z-10'>
+      <div className='max-w-5xl   mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#fff] relative z-10'>
         <div className='bg-green-500 py-4 px-6'>
           <h2 className='text-2xl md:text-3xl font-bold text-[#fff] text-center'>{tPayment('title')}</h2>
         </div>
