@@ -34,10 +34,7 @@ export const ExpiredTickets = () => {
     // Lưu CẢ HAI
     localStorage.setItem('userList', JSON.stringify(updatedUserList))
     localStorage.setItem('guestUserInfo', JSON.stringify(updatedGuestList))
-
-    console.log('✅ Vé hết hạn đã được xóa:', expiredTickets)
   } else {
-    console.log('Không có vé hết hạn.')
   }
 
   return expiredTickets

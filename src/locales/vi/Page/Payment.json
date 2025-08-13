@@ -4,7 +4,7 @@
   "ticket": {
     "code": "Số vé/mã code",
     "departureDate": "Ngày xuất phát",
-    "direction": "Chiều đi",
+ 
     "seatLayout": "Sơ đồ ghế",
     "departureTime": "Giờ khởi hành",
     "arrivalTime": "Giờ đến nơi",
@@ -23,7 +23,7 @@
   "paymentOptions": {
     "title": "Lựa chọn thanh toán",
     "required": "(bắt buộc)",
-    "zaloPay": "Thanh toán qua ZaloPay",
+    "zaloPay": "Thanh toán qua ",
     "atm": "Thẻ ATM",
     "qr": "Quét mã QR"
   },

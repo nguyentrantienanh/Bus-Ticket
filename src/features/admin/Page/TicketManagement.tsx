@@ -24,8 +24,8 @@ export default function TicketManagement() {
 
   // xóa vé
   const handleDeleteTicket = (id: number) => {
-    const updatedTickets = tickets.filter((ticket) => ticket.id !== id)
-    console.log('1', updatedTickets)
+    // const updatedTickets = tickets.filter((ticket) => ticket.id !== id)
+    // console.log('1', updatedTickets)
     console.log('xóa', id)
   }
   const [startTime, setStartTime] = useState<Date | null>(null)

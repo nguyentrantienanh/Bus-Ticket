@@ -54,8 +54,6 @@ export default function InformationUser() {
       const raw = localStorage.getItem('userList')
       if (!raw) return alert(t('errors.noData'))
 
-      console.log('userList', UserList)
-
       // Tìm index người dùng có id khớp
       const index = UserList.findIndex((user: any) => user.id === parseInt(name || '0'))
       if (index === -1) return alert(t('errors.userNotFound'))

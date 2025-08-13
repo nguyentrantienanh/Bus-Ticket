@@ -28,7 +28,9 @@
     "idCard": "ID Card: ***",
     "note": "Note: Bring ID card/passport",
     "seats": "Seats",
-    "price": "Price"
+    "price": "Price",
+    "hour": "Hour",
+    "minute": "Minute"
   },
   "empty": {
     "notFound": "No ticket found, please try again"

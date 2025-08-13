@@ -154,7 +154,6 @@ function Header() {
   const navigate = useNavigate()
 
   const clickhome = location.pathname.startsWith('/user/')
-  console.log('pathname', location.pathname)
 
   const handleclickhome = () => {
     if (clickhome) {

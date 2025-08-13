@@ -4,7 +4,7 @@
   "ticket": {
     "code": "Ticket number/code",
     "departureDate": "Departure date",
-    "direction": "Outbound",
+ 
     "seatLayout": "Seat layout",
     "departureTime": "Departure time",
     "arrivalTime": "Arrival time",
@@ -22,7 +22,7 @@
   "paymentOptions": {
     "title": "Payment Options",
     "required": "(required)",
-    "zaloPay": "Pay with ZaloPay",
+    "zaloPay": "Pay with  ",
     "atm": "ATM Card",
     "qr": "Scan QR Code"
   },

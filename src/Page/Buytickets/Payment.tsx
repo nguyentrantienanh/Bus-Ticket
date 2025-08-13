@@ -1,9 +1,9 @@
 import backgroundPayment from '../../assets/background.jpg'
 import { useParams } from 'react-router-dom'
 import QR from '../../assets/QR.jpg'
-import bus from '../../assets/bus.png'
-import logo from '../../assets/logo/Bus_Ticket_Header.png'
-import emailjs from 'emailjs-com'
+// import bus from '../../assets/bus.png'
+// import logo from '../../assets/logo/Bus_Ticket_Header.png'
+// import emailjs from 'emailjs-com'
 import { useTranslation } from 'react-i18next'
 import Icon from '../../icons/Icon'
 import { useState, useEffect } from 'react'
@@ -130,38 +130,38 @@ export default function Payment() {
   const handlePayNow = async () => {
     try {
       setIsConfirmed(true)
-      const currentTicket = ticket[0] || guestUserTicket[0]
+      // const currentTicket = ticket[0] || guestUserTicket[0]
 
-      const templateParams = {
-        order_id: ticket[0]?.id || guestUserTicket[0]?.id,
-        start_time: ticket[0]?.starttime || guestUserTicket[0]?.starttime,
-        departure_location: tHome(currentTicket?.diemDi) || currentTicket?.diemDi,
-        travel_time: ticket[0]?.timetogo || guestUserTicket[0]?.timetogo,
-        end_time: ticket[0]?.endtime || guestUserTicket[0]?.endtime,
-        destination_location: tHome(currentTicket?.diemDen) || guestUserTicket[0]?.diemDen,
-        ticket_id: ticket[0]?.id || guestUserTicket[0]?.id,
-        departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
-        bus_type: ticket[0]?.type || guestUserTicket[0]?.type,
-        seat_layout: ticket[0]?.seatLayout || guestUserTicket[0]?.seatLayout,
-        seat_numbers: (ticket[0]?.seats || guestUserTicket[0]?.seats).map((s: any) => s.name).join(', '),
-        ticket_quantity: (ticket[0]?.seats || guestUserTicket[0]?.seats).length,
-        passenger_name: USERID.fullName,
-        passenger_email: USERID.email,
-        passenger_phone: USERID.phone,
-        passenger_id: USERID.cccd,
-        total_amount: (ticket[0]?.price || guestUserTicket[0]?.price).toLocaleString() + ' VNĐ',
-        payment_status: 'Đã thanh toán',
-        support_phone: import.meta.env.VITE_SUPPORT_PHONE,
-        support_email: import.meta.env.VITE_SUPPORT_EMAIL,
-        website_url: import.meta.env.VITE_WEBSITE_URL,
-        email: `${USERID.email}, ${import.meta.env.VITE_SUPPORT_EMAIL}`
-      }
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_TICKET_ID,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
+      // const templateParams = {
+      //   order_id: ticket[0]?.id || guestUserTicket[0]?.id,
+      //   start_time: ticket[0]?.starttime || guestUserTicket[0]?.starttime,
+      //   departure_location: tHome(currentTicket?.diemDi) || currentTicket?.diemDi,
+      //   travel_time: ticket[0]?.timetogo || guestUserTicket[0]?.timetogo,
+      //   end_time: ticket[0]?.endtime || guestUserTicket[0]?.endtime,
+      //   destination_location: tHome(currentTicket?.diemDen) || guestUserTicket[0]?.diemDen,
+      //   ticket_id: ticket[0]?.id || guestUserTicket[0]?.id,
+      //   departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
+      //   bus_type: ticket[0]?.type || guestUserTicket[0]?.type,
+      //   seat_layout: ticket[0]?.seatLayout || guestUserTicket[0]?.seatLayout,
+      //   seat_numbers: (ticket[0]?.seats || guestUserTicket[0]?.seats).map((s: any) => s.name).join(', '),
+      //   ticket_quantity: (ticket[0]?.seats || guestUserTicket[0]?.seats).length,
+      //   passenger_name: USERID.fullName,
+      //   passenger_email: USERID.email,
+      //   passenger_phone: USERID.phone,
+      //   passenger_id: USERID.cccd,
+      //   total_amount: (ticket[0]?.price || guestUserTicket[0]?.price).toLocaleString() + ' VNĐ',
+      //   payment_status: 'Đã thanh toán',
+      //   support_phone: import.meta.env.VITE_SUPPORT_PHONE,
+      //   support_email: import.meta.env.VITE_SUPPORT_EMAIL,
+      //   website_url: import.meta.env.VITE_WEBSITE_URL,
+      //   email: `${USERID.email}, ${import.meta.env.VITE_SUPPORT_EMAIL}`
+      // }
+      // await emailjs.send(
+      //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      //   import.meta.env.VITE_EMAILJS_TEMPLATE_TICKET_ID,
+      //   templateParams,
+      //   import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      // )
 
       alert(tPayment('alerts.paymentSuccess'))
       navigate(`/buytickets`)
@@ -179,18 +179,13 @@ export default function Payment() {
         style={{ backgroundImage: `url(${backgroundPayment})` }}
       ></div>
       <div className='absolute inset-0 backdrop-blur-md bg-black/20'></div>
-      <div className='max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#fff] relative z-10'>
+      <div className='max-w-5xl border-2 mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#fff] relative z-10'>
         <div className='bg-green-500 py-4 px-6'>
           <h2 className='text-2xl md:text-3xl font-bold text-[#fff] text-center'>{tPayment('title')}</h2>
         </div>
 
         <div className='flex flex-col md:flex-row   '>
           <div className='w-full md:w-[600px] p-6 space-y-4  '>
-            <div className='flex justify-between items-center mb-4'>
-              <img src={logo} alt='Logo' className='w-20 h-20 object-contain' />
-              <img src={bus} alt='Bus' className='w-20 h-20 object-contain' />
-            </div>
-
             <strong className='text-gray-800 text-lg md:text-xl block'>{tPayment('journeyInfo')}</strong>
             {userinfo.name
               ? ticket.map((item: any) => {
@@ -206,9 +201,6 @@ export default function Payment() {
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
                             <strong>{tPayment('ticket.departureDate')}: </strong>
                             <span className='pl-1'>{item.dateStart}</span>
-                          </span>
-                          <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                            {tPayment('ticket.direction')}
                           </span>
                         </div>
                       </div>
@@ -273,9 +265,6 @@ export default function Payment() {
                           <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>
                             <strong>{tPayment('ticket.departureDate')}: </strong>
                             <span className='pl-1'>{item.dateStart}</span>
-                          </span>
-                          <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                            {tPayment('ticket.direction')}
                           </span>
                         </div>
                       </div>
@@ -387,7 +376,13 @@ export default function Payment() {
                       <span
                         className={` transition-all duration-700 ${selectePaymen === option.id ? 'text-black opacity-100' : 'text-gray-500 opacity-70'}`}
                       >
-                        {option.id === 1 && tPayment('paymentOptions.zaloPay')}
+                        {option.id === 1 && (
+                          <>
+                            {tPayment('paymentOptions.zaloPay')}
+                            <span className='text-[#0068ff] font-semibold'>Zalo</span>
+                            <span className='bg-green-500 font-medium text-[#fff] px-1 py-0.5 ml-1 rounded'>Pay</span>
+                          </>
+                        )}
                         {option.id === 2 && tPayment('paymentOptions.atm')}
                         {option.id === 3 && tPayment('paymentOptions.qr')}
                       </span>
@@ -402,7 +397,7 @@ export default function Payment() {
                   className={`transition-all duration-700 ${selectePaymen === 1 ? 'opacity-100   translate-y-0' : 'opacity-0   translate-y-4 '}`}
                 >
                   {selectePaymen === 1 && (
-                    <div className='flex flex-col gap-3   pb-5  '>
+                    <div className='flex flex-col gap-3   pb-2  '>
                       <div className='text-lg font-medium'>
                         {tPayment('zaloPay.info')} <span className='text-[#0068ff] font-bold'>Zalo</span>{' '}
                         <span className='  px-1 py-0.5 rounded-md bg-green-500 text-[#fff] '>Pay</span>

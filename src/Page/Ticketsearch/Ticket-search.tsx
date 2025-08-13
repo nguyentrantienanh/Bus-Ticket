@@ -242,9 +242,6 @@ export default function Ticketsearch() {
                       <strong>{t('details.departureDate')}: </strong>
                       <span className='pl-1'>{ticketseach.dateStart}</span>
                     </span>
-                    <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold'>
-                      {t('details.direction')}
-                    </span>
                   </div>
                 </div>
 
@@ -267,8 +264,8 @@ export default function Ticketsearch() {
                       <Icon name='bus-go' />
                     </i>
                     <div className='text-xs text-gray-500'>
-                      {ticketseach.timetogo.slice(0, 2)} {t('details.departureTime')} {ticketseach.timetogo.slice(3, 5)}{' '}
-                      phút
+                      {ticketseach.timetogo.slice(0, 2)} {t('details.hour')} {ticketseach.timetogo.slice(3, 5)}
+                      {t('details.minute')}
                       <br />{' '}
                     </div>
                   </div>

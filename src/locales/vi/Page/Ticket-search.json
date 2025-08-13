@@ -28,7 +28,9 @@
     "idCard": "CMND: ***",
     "note": "Ghi chú: Mang CMND/Hộ chiếu",
     "seats": "Ghế",
-    "price": "Giá"
+    "price": "Giá",
+    "hour": "Giờ",
+    "minute": "Phút"
   },
   "empty": {
     "notFound": "Không tìm thấy vé, vui lòng thử lại"
