@@ -120,8 +120,8 @@ function BuyticketLayout() {
 
   // Lọc ticket
   const filteredTickets = ticket().filter((item: any) => {
-    const idDiemDi = diemDi.find((d) => d.name === selectedDiemDi)?.id || 0
-    const idDiemDen = diemDen.find((d) => d.name === selectedDiemDen)?.id || 0
+    const idDiemDi = diemDi.find((d: any) => d.name === selectedDiemDi)?.id || 0
+    const idDiemDen = diemDen.find((d: any) => d.name === selectedDiemDen)?.id || 0
     const diemDiMatch = idDiemDi === 0 || t(`Home:${item.diemdi}`, { defaultValue: item.diemdi }) === selectedDiemDi
     const diemDenMatch =
       idDiemDen === 0 || t(`Home:${item.diemden}`, { defaultValue: item.diemden }) === selectedDiemDen

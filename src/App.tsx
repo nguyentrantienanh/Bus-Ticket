@@ -51,7 +51,7 @@ import PaymentResult from './Page/Payment/PaymentResult'
 
 // services
 import ScrollToTop from './services/ScrollToTop'
-// import ScrollToShow from './services/ScrollToShow'
+import ScrollToShow from './services/ScrollToShow'
 import { ExpiredTickets } from './services/Expiredtickets'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -104,6 +104,7 @@ function AppRoutes() {
       )} */}
       {!shouldHideHeaderFooter && <Header />}
       <ScrollToTop />
+      <ScrollToShow/>
       <Routes>
         <Route path='/call-api-ticket' element={<CallApiTicket />} />
 

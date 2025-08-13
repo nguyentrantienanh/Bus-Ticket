@@ -34,8 +34,8 @@ export function Booking() {
   const test = UserList.find((user: any) => user.ticket?.some((t: any) => t.id === thongtinve[0]?.id))
   return (
     <>
-      <div className='bg-[#fff]  px-0 md:px-10 py-6'>
-        <div className='overflow-x-auto'>
+      <div className='bg-[#fff]  px-0 md:px-10 py-6 '>
+        <div className='overflow-x-400'>
           <table className='min-w-full text-sm md:text-[13px]'>
             <thead>
               <tr className='bg-[#1ba000] text-[#fff] text-nowrap'>

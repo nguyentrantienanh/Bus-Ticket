@@ -81,7 +81,7 @@ export default function Buyticket() {
     // Tạo danh sách ghế
     const seats = selectedSeats.map((seatId) => {
       const seat = ticket()
-        .find((item) => item.id === ticketId)
+        .find((item: any) => item.id === ticketId)
         ?.seat?.find((s) => s.id === seatId)
 
       return {
@@ -97,16 +97,16 @@ export default function Buyticket() {
     const bookingDetails = {
       id: newId,
       ticketId: ticketId,
-      type: ticket().find((item) => item.id === ticketId)?.type,
+      type: ticket().find((item: any) => item.id === ticketId)?.type,
       dateStart: calendar,
-      diemDi: ticket().find((item) => item.id === ticketId)?.diemdi,
-      diemDen: ticket().find((item) => item.id === ticketId)?.diemden,
-      starttime: ticket().find((item) => item.id === ticketId)?.starttime,
-      endtime: ticket().find((item) => item.id === ticketId)?.endtime,
-      timetogo: ticket().find((item) => item.id === ticketId)?.timetogo,
-      seatLayout: ticket().find((item) => item.id === ticketId)?.seatLayout,
-      offday: ticket().find((item) => item.id === ticketId)?.offday,
-      facilities: [...(ticket().find((item) => item.id === ticketId)?.facilities || [])],
+      diemDi: ticket().find((item: any) => item.id === ticketId)?.diemdi,
+      diemDen: ticket().find((item: any) => item.id === ticketId)?.diemden,
+      starttime: ticket().find((item: any) => item.id === ticketId)?.starttime,
+      endtime: ticket().find((item: any) => item.id === ticketId)?.endtime,
+      timetogo: ticket().find((item: any) => item.id === ticketId)?.timetogo,
+      seatLayout: ticket().find((item: any) => item.id === ticketId)?.seatLayout,
+      offday: ticket().find((item: any) => item.id === ticketId)?.offday,
+      facilities: [...(ticket().find((item: any) => item.id === ticketId)?.facilities || [])],
       seats: seats,
       price: tongtien,
       status: 3,
@@ -269,7 +269,7 @@ export default function Buyticket() {
       >
         <div className='w-full h-full flex items-center justify-center bg-[#00000068]  '>
           {ticket()
-            .filter((item) => item.id === parseInt(id || '0'))
+            .filter((item: any) => item.id === parseInt(id || '0'))
             .map((item: any) => {
               const diemdi = t(item.diemdi)
               const diemden = t(item.diemden)
@@ -326,7 +326,7 @@ export default function Buyticket() {
             </div>
 
             {ticket()
-              .filter((item) => item.id === parseInt(id || '0'))
+              .filter((item: any) => item.id === parseInt(id || '0'))
               .map((item: any) => {
                 const diemdi = t(item.diemdi)
                 return (
@@ -341,7 +341,7 @@ export default function Buyticket() {
                 )
               })}
             {ticket()
-              .filter((item) => item.id === parseInt(id || '0'))
+              .filter((item: any) => item.id === parseInt(id || '0'))
               .map((item: any) => {
                 const diemden = t(item.diemden)
 
@@ -370,7 +370,7 @@ export default function Buyticket() {
                   <div className='bg-[#fff]  '>
                     {selectedSeats.map((seatId) => {
                       const seat = ticket()
-                        .find((item) => item.id === parseInt(id || '0'))
+                        .find((item: any) => item.id === parseInt(id || '0'))
                         ?.seat?.find((s) => s.id === seatId)
                       const tien = seat?.price || 0
 
@@ -406,7 +406,7 @@ export default function Buyticket() {
           <div>
             <h1 className='text-[15px] text-gray-500 font-medium'> {t('Buyticket:click_seat_guide')}</h1>
             {ticket()
-              .filter((item) => item.id === parseInt(id || '0'))
+              .filter((item: any) => item.id === parseInt(id || '0'))
               .map((item) => (
                 <div key={item.id} className=' text-[14px] pb-5 pt-2'>
                   <p className='text-gray-600 text-[10px]'>
