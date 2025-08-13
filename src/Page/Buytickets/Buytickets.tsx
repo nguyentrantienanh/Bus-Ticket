@@ -43,8 +43,8 @@ function BuyticketLayout() {
     const searchData = {
       diemDi: selectedDiemDi,
       diemDen: selectedDiemDen,
-      idDiemDi: diemDi.find((item) => item.name === selectedDiemDi)?.id,
-      idDiemDen: diemDen.find((item) => item.name === selectedDiemDen)?.id
+      idDiemDi: diemDi.find((item: any) => item.name === selectedDiemDi)?.id,
+      idDiemDen: diemDen.find((item: any) => item.name === selectedDiemDen)?.id
     }
     localStorage.setItem('searchData', JSON.stringify(searchData))
   }
@@ -245,7 +245,7 @@ function BuyticketLayout() {
                   </div>
                   {showDiemDiDropdown && (
                     <div className='absolute left-0 top-full mt-1 bg-[#fff] border rounded shadow z-11 divide-y divide-gray-300 w-full'>
-                      {diemDi.map((item) => (
+                      {diemDi.map((item: any) => (
                         <div
                           key={item.id}
                           className='px-3 py-1 hover:bg-[#e6ffe6]  cursor-pointer text-[14px]'
@@ -285,7 +285,7 @@ function BuyticketLayout() {
                   </div>
                   {showDiemDenDropdown && (
                     <div className='absolute   left-0 top-full mt-1 bg-[#fff] border rounded shadow z-11 divide-y divide-gray-300 w-full'>
-                      {diemDen.map((item) => (
+                      {diemDen.map((item: any) => (
                         <div
                           key={item.id}
                           className='px-3 py-1  hover:bg-[#e6ffe6]  cursor-pointer text-[14px]'
