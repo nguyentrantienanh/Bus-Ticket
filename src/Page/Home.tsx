@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useLocation } from '../Data/location'
+import { useLocation } from '../Data/location.tsx'
 import CalendarComponent from '../services/CalendarComponent'
 
 function Home() {
