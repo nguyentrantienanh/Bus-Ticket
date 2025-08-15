@@ -202,7 +202,7 @@ console.log('api ai',res.data);
                   <input
                     type='text'
                     placeholder='Nhập tin nhắn của bạn...'
-                    className=' text-[10px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
+                    className='text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
                     value={istext}
                     onChange={(e) => setistext(e.target.value)}
                   />
