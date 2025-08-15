@@ -18,7 +18,7 @@ export function Booking() {
       return item.map((seat: any) => seat.name)
     })
   // hàm xử lý trạng thái ghế Total Booked Ticket, Total Rejected Ticket, Total Pending Ticket
- 
+
   // click thông tin vé
   const [informationticket, setinformationticket] = useState(false)
   const isclick = () => {
@@ -61,24 +61,22 @@ export function Booking() {
                     <td className='py-2 px-2 text-[#04b925]  '>{seats[index].join(', ')} </td>
                     <td className='py-2 px-2'>
                       {item.status === 1 ? (
-                            <span
-                              className={`px-2 py-1 rounded-full font-bold text-[#00d40e] bg-[#00ff2636] border text-xs`}
-                            >
-                             {tBooking('status.confirmed')}
-                            </span>
-                          ) : item.status === 2 ? (
-                            <span
-                              className={`px-2 py-1 rounded-full font-bold text-[#f00] bg-[#ff000036] border text-xs`}
-                            >
-                             {tBooking('status.rejected')}
-                            </span>
-                          ) : (
-                            <span
-                              className={`px-2 py-1 rounded-full font-bold text-yellow-500 bg-[#d5fb2b2d] border text-xs`}
-                            >
-                              {tBooking('status.pending')}
-                            </span>
-                          )}
+                        <span
+                          className={`px-2 py-1 rounded-full font-bold text-[#00d40e] bg-[#00ff2636] border text-xs`}
+                        >
+                          {tBooking('status.confirmed')}
+                        </span>
+                      ) : item.status === 2 ? (
+                        <span className={`px-2 py-1 rounded-full font-bold text-[#f00] bg-[#ff000036] border text-xs`}>
+                          {tBooking('status.rejected')}
+                        </span>
+                      ) : (
+                        <span
+                          className={`px-2 py-1 rounded-full font-bold text-yellow-500 bg-[#d5fb2b2d] border text-xs`}
+                        >
+                          {tBooking('status.pending')}
+                        </span>
+                      )}
                     </td>
                     <td className='py-2 px-2 text-[#1645ff] hidden md:table-cell'>
                       {item.price.toLocaleString()} <span className='text-xs'> {tBooking('table.currency')}</span>
@@ -135,26 +133,18 @@ export function Booking() {
                       {tBooking('ticketDetails.title')}{' '}
                       <p className='font-mono px-2 text-gray-600 text-[10px] max-md:mr-auto max-md:px-0 max-md:py-1 md:text[14px] '>
                         {item.status === 1 ? (
-                            <span
-                              className={`px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2`}
-                            >
-                             {tBooking('status.confirmed')} 
-                            </span>
-                          ) : item.status === 2 ? (
-                            <span
-                              className={`px-3 py-1 rounded-full text-[#f00] bg-[#ff000036] border-2`}
-                            >
-                             {tBooking('status.rejected')}
-                            </span>
-                          ) : (
-                            <span
-                              className={`px-3 py-1 rounded-full text-yellow-500 bg-[#d5fb2b2d] border-2`}
-                            >
-                              {tBooking('status.pending')} 
-                            </span>
-                          )}
-                        
-                        
+                          <span className={`px-3 py-1 rounded-full text-[#00d40e] bg-[#00ff2636] border-2`}>
+                            {tBooking('status.confirmed')}
+                          </span>
+                        ) : item.status === 2 ? (
+                          <span className={`px-3 py-1 rounded-full text-[#f00] bg-[#ff000036] border-2`}>
+                            {tBooking('status.rejected')}
+                          </span>
+                        ) : (
+                          <span className={`px-3 py-1 rounded-full text-yellow-500 bg-[#d5fb2b2d] border-2`}>
+                            {tBooking('status.pending')}
+                          </span>
+                        )}
                       </p>
                     </h1>
 

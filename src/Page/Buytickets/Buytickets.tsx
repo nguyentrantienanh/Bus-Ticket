@@ -6,7 +6,6 @@ import { ticket } from '../../Data/Ticket'
 import { Link } from 'react-router-dom'
 import { useLocation } from '../../Data/Location'
 
-
 import { format } from 'date-fns'
 import { parse, isAfter } from 'date-fns'
 import { Calendar } from 'react-date-range'

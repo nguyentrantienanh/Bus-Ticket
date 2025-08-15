@@ -215,7 +215,7 @@ function Icon(props: { name: string }) {
     return <i className='fa-solid fa-tachometer-alt'></i>
   } else if (props.name == 'messages') {
     // Biểu tượng tin nhắn
-    return <i className="fa-regular fa-message"></i>
+    return <i className='fa-regular fa-message'></i>
   }
 }
 

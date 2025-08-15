@@ -91,9 +91,7 @@ function AppRoutes() {
   //   return () => clearTimeout(timer)
   // }, [location.pathname])
   // Kiểm tra xem đường dẫn hiện tại có nằm trong danh sách cần ẩn header và footer không
-  const shouldHide = hideHeaderFooter.some(
-    (path) => location.pathname === path || location.pathname.startsWith(path)
-  )
+  const shouldHide = hideHeaderFooter.some((path) => location.pathname === path || location.pathname.startsWith(path))
 
   const isMdUp = useMediaQuery({ minWidth: 768 })
   return (
@@ -105,8 +103,8 @@ function AppRoutes() {
       )} */}
       {!shouldHide && <Header />}
       <ScrollToTop />
-      {!shouldHide &&  <Messages/>}
-      
+      {!shouldHide && <Messages />}
+
       <Routes>
         <Route path='/call-api-ticket' element={<CallApiTicket />} />
 

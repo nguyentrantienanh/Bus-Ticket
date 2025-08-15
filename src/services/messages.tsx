@@ -1,66 +1,219 @@
-import { useState, useEffect } from 'react';
-import Icon from '../icons/Icon'; // icon mes
-import { useNavigate } from 'react-router-dom';
- 
+import { useState, useEffect, useRef } from 'react'
+import Icon from '../icons/Icon'
+import axios from 'axios'
 
 export default function Messages() {
-  const [open, setOpen] = useState(false); // Trạng thái mở khung
-  const [scrolled, setScrolled] = useState(false); // Trạng thái đã cuộn
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [show, setShow] = useState(true)
+  const [showMessage, setShowMessage] = useState(false)
+  const [Datamessage, setDatamessage] = useState([
+    {
+      id: 1,
+      sender: 'Bot',
+      text: 'Xin chào! Bạn cần hỗ trợ gì?',
+      timestamp: new Date().toLocaleString()
+    }
+  ])
+  const [istext, setistext] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50 && !open) {
-        setScrolled(true); // Nếu cuộn và chưa mở => thu vào
-        setOpen(true); // ẩn icon mes
+        setScrolled(true)
+        setOpen(true)
       } else if (window.scrollY <= 50) {
-        setOpen(false);
-        setScrolled(false); // Lên top => hiện lại icon mes
+        setOpen(false)
+        setScrolled(false)
       }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [open]);
-   console.log('open', open);
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [open])
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!open && !scrolled) {
+        setShow(true)
+      }
+    }, 5000) // Hiển thị sau 5 giây
 
-  
+    return () => clearTimeout(timer)
+  }, [open, scrolled])
+  const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
+  async function callGeminiFlash(usermessage: string) {
+    try {
+      const web = `Đây là website về Bus Ticket: ${import.meta.env.VITE_WEBSITE_URL} 
+      bạn chỉ trả lời những thứ liên quan đến webssite này thôi 
+       gồm:
+- Thông tin về vé xe, lịch trình, giá vé, địa điểm đi và đến, thời gian khởi hành
+- Và các thông tin liên quan khác.
+và hỗ trợ nếu cần giúp đề yêu cầu liện hệ với 0972364028 hoặc email:nttanh0412gamil.com để được hỗ trợ.
+và hoặt với trang theo đừng link ${supportUrl}
+      Bạn không được trả lời những thông tin khác ngoài những thông tin trên không liên quan tới bus.
+      không liên quan tới website này. thì rep là "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe."
+      Bạn chỉ trả lời bằng tiếng Việt thôi nhé.`
+      const res = await axios.post(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+        {
+          contents: [
+            {
+              parts: [{ text: `${web}\n  Người dùng hỏi${usermessage} ` }]
+            }
+          ]
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-goog-api-key': import.meta.env.VITE_GEMINI_API_KEY
+          }
+        }
+      )
+      const botReply = res.data.candidates[0].content.parts[0].text
+
+      setDatamessage((prev) => [
+        ...prev,
+        {
+          id: 1,
+          sender: 'Bot',
+          text: botReply,
+          timestamp: new Date().toLocaleString()
+        }
+      ])
+    } catch (err) {
+      setDatamessage((prev) => [
+        ...prev,
+        {
+          id: 1,
+          sender: 'Bot',
+          text: 'Xin lỗi, hiện tại tôi không thể trả lời.',
+          timestamp: new Date().toLocaleString()
+        }
+      ])
+    }
+  }
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    if (istext.trim() !== '') {
+      setDatamessage([
+        ...Datamessage,
+        {
+          id: 2,
+          sender: 'User',
+          text: istext,
+          timestamp: new Date().toLocaleString()
+        }
+      ])
+      await callGeminiFlash(istext)
+    }
+    setistext('')
+  }
+
+  const handleClick = () => {
+    setShowMessage(!showMessage)
+    setShow(!show)
+  }
+
+  // Hàm cuộn xuống cuối cùng của tin nhắn
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (showMessage) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [Datamessage, showMessage])
 
   return (
     <div>
       <div
-        className={`fixed    bottom-10 transition-all duration-300 z-[301] flex   justify-center shadow-xl
+        className={`fixed    bottom-10 transition-all duration-300 z-[301] flex   justify-center  
             
-          ${scrolled ? 'right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : ' rounded-full right-5 '}`}
+          ${scrolled ? 'right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : '    rounded-full right-5 '}`}
       >
-      {open ? (
-  <div 
-  onClick={
-    () => {
-      setOpen(false); 
-      setScrolled(false);  
-    }
-  }
-  className="relative flex items-center justify-center  w-10 h-10 bg-green-500 rounded-xl shadow-xl   ">
-    <div className="absolute left-[-10px] flex items-center justify-center w-10 h-10 bg-green-500 text-[#fff] rounded-lg shadow hover:bg-green-600 transition">
-      <Icon name="arrowleft" />
-    </div>
-  </div>
-) : (
-  // Khi đóng
-  <div
-  onClick={
-    () => {
-      navigate('/user/support/chat')
-    }
-  }
-  className=" cursor-pointer flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg hover:scale-105 hover:bg-green-600 transition">
-    <i className='text-[#fff] text-2xl scale-x-[-1] '>
-      <Icon name="messages"  />
-    </i>
-  </div>
-)}
+        {open ? (
+          <div
+            onClick={() => {
+              setOpen(false)
+              setScrolled(false)
+            }}
+            className='relative flex items-center justify-center  w-10 h-10 bg-green-500 rounded-xl shadow-xl   '
+          >
+            <div className='absolute left-[-10px] flex items-center justify-center w-10 h-10 bg-green-500 text-[#fff] rounded-lg shadow hover:bg-green-600 transition'>
+              <Icon name='arrowleft' />
+            </div>
+          </div>
+        ) : (
+          // Khi đóng
+          <div className='flex flex-col  '>
+            {show && (
+              <div className='absolute w-40  right-1 bottom-full mb-2 px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
+                Xin chào, bạn cần giúp đỡ gì không?
+                <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
+              </div>
+            )}
+            {showMessage && (
+              <div className='absolute right-1 bottom-full mb-2   w-60 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-50'>
+                <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
+                  <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
+                  <i
+                    onClick={() => {
+                      setShowMessage(false)
+                      setShow(true)
+                    }}
+                    className='text-[#fff]   ml-2'
+                  >
+                    <Icon name='close' />
+                  </i>
+                </div>
+                {/* nội dung chat */}
+                <div className='p-4 h-50 md:h-70 overflow-y-auto text-gray-800 text-sm'>
+                  {Datamessage.map((message: any, index: number) => (
+                    <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
+                      <div
+                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg ${message.id === 2 ? 'bg-green-500 text-[#fff]' : 'bg-gray-200 text-gray-800'}`}
+                      >
+                        {message.text}
+                      </div>
+                      <div className=' text-[8px] md:text-xs text-gray-500 mt-1'>
+                        {message.timestamp.slice(0, -3).slice(0, 8)}
+                      </div>
+                    </div>
+                  ))}
+                  <div ref={messagesEndRef} />
+                </div>
+                <form className='flex items-center w-full' onSubmit={handleSubmit}>
+                  <input
+                    type='text'
+                    placeholder='Nhập tin nhắn của bạn...'
+                    className=' text-[10px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
+                    value={istext}
+                    onChange={(e) => setistext(e.target.value)}
+                  />
 
+                  <button
+                    type='submit'
+                    className='px-4 text-[10px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
+                  >
+                    Gửi
+                  </button>
+                </form>
+                <div>
+                  <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
+                </div>
+              </div>
+            )}
+            <div
+              onClick={() => {
+                handleClick()
+              }}
+              className='  ml-auto cursor-pointer flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg hover:scale-105 hover:bg-green-600 transition'
+            >
+              <i className='text-[#fff] text-2xl scale-x-[-1] '>
+                <Icon name='messages' />
+              </i>
+            </div>
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }

@@ -426,9 +426,7 @@ function Header() {
                         </div>
                       </Link>
 
-                      <div className='flex items-center gap-3 px-2'
-                       onClick={() => setIsMenuOpen(false)}
-                      >
+                      <div className='flex items-center gap-3 px-2' onClick={() => setIsMenuOpen(false)}>
                         {clickhome ? (
                           <Link to={'/'} className='flex items-center gap-2'>
                             <span className='text-[#1ba000] text-lg'>
@@ -494,9 +492,7 @@ function Header() {
                           >
                             <div className='flex items-center justify-between gap-2 py-2 hover:bg-gray-100 rounded w-full'>
                               <Link to={item.path}>
-                                <div className='flex items-center gap-2'
-                                onClick={() => setIsMenuOpen(false)}
-                                >
+                                <div className='flex items-center gap-2' onClick={() => setIsMenuOpen(false)}>
                                   <span className='text-[#1ba000]'>
                                     <Icon name={item.icon} />
                                   </span>
@@ -521,7 +517,7 @@ function Header() {
                                   <li key={subItem.id}>
                                     <Link
                                       to={subItem.path}
-                                       onClick={() => setIsMenuOpen(false)}
+                                      onClick={() => setIsMenuOpen(false)}
                                       className={`min-w-max block text-[15px] px-4 py-2 text-sm hover:bg-[#1ba000] hover:text-[#fff] transition-all duration-300 ease-in ${
                                         location.pathname === subItem.path ? 'text-[#1ba000]' : 'text-gray-700'
                                       }`}
@@ -552,7 +548,7 @@ function Header() {
                         <Link
                           key={index}
                           to={item.path}
-                           onClick={() => setIsMenuOpen(false)}
+                          onClick={() => setIsMenuOpen(false)}
                           className={`text-[16px] font-semibold hover:text-[#1ba000] transition-all duration-300 ${
                             item.path === '/'
                               ? location.pathname === '/'
