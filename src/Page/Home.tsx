@@ -121,7 +121,7 @@ function Home() {
                     </div>
                   </div>
                       <div className='items-center  max-md:hidden flex   text-[#49ef27]'>
-                    <svg _ngcontent-ng-c827709370="" xmlns="http://www.w3.org/2000/svg" width="18" height="23" viewBox="0 0 18 23" fill="none" className="hover:scale-110 transition-transform">
+                    <svg _ngcontent-ng-c827709370="" xmlns="http://www.w3.org/2000/svg" width="18" height="23" viewBox="0 0 18 23" fill="none"  >
                                         <path _ngcontent-ng-c827709370="" d="M18 18.4L13.2 13.8L13.2 17.25L4.8 17.25C3.48 17.25 2.4 16.215 2.4 14.95C2.4 13.685 3.48 12.65 4.8 12.65L13.2 12.65C15.852 12.65 18 10.5915 18 8.05C18 5.5085 15.852 3.45 13.2 3.45L4.8 3.45L4.8 -5.7699e-07L1.70628e-06 4.6L4.8 9.2L4.8 5.75L13.2 5.75C14.52 5.75 15.6 6.785 15.6 8.05C15.6 9.315 14.52 10.35 13.2 10.35L4.8 10.35C2.148 10.35 1.36496e-06 12.4085 1.25386e-06 14.95C1.14277e-06 17.4915 2.148 19.55 4.8 19.55L13.2 19.55L13.2 23L18 18.4Z" fill="currentColor"></path>
                                     </svg>
                   </div>
@@ -178,7 +178,7 @@ function Home() {
             </div>
           </div>
           {/* <div className='flex flex-col items-center justify-start h-60   '>
-            <p className='text-3xl  font-bold py-4 '>
+            <p className='text-3xl my-5 font-bold py-4 '>
                 {t('Home_SEARCH.GetTicket')}
               </p>
 
@@ -196,7 +196,7 @@ function Home() {
                         className='cursor-pointer px-2 py-2 bg-[#fff] rounded'
                         onClick={() => setShowDiemDiDropdown(!showDiemDiDropdown)}
                       >
-                        <p className='text-green-400'>Điểm đi</p>
+                        <p className='text-green-400 text-[12px]'>Điểm đi</p>
                         {selectedDiemDi || t('Home_location.All')}
                       </div>
                       {showDiemDiDropdown && (
@@ -235,7 +235,7 @@ function Home() {
                         className='cursor-pointer px-2 py-2 bg-[#fff] rounded'
                         onClick={() => setShowDiemDenDropdown(!showDiemDenDropdown)}
                       >
-                        <p className='text-green-400'>Điểm đi</p>
+                        <p className='text-green-400 text-[12px]'>Điểm đi</p>
                         {selectedDiemDen || t('Home_location.All')}
                       </div>
                       {showDiemDenDropdown && (
@@ -262,7 +262,8 @@ function Home() {
                     <Icon name='calendar' />
                   </i>
 
-                  <div className='relative w-50 py-5'>
+                  <div className='relative w-50 py-2'>
+                     <p className='text-green-400 text-[12px]'>Ngày xuất phát</p>
                     <CalendarComponent />
                   </div>
                 </div>
