@@ -68,6 +68,8 @@ và hoặt với trang theo đừng link ${supportUrl}
           }
         }
       )
+      // In toàn bộ JSON trả về
+console.log('api ai',res.data);
       const botReply = res.data.candidates[0].content.parts[0].text
 
       setDatamessage((prev) => [

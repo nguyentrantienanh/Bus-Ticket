@@ -48,7 +48,7 @@ import CustomerSupport from './features/admin/Page/Support/CustomerSupport'
 import ChatSupport from './features/admin/Page/Support/ChatSupport'
 import Page404admin from './features/admin/Page/Page404'
 import PaymentResult from './Page/Payment/PaymentResult'
-
+import './assets/fontawesome-free-7.0.0-web/css/all.min.css'
 // services
 import ScrollToTop from './services/ScrollToTop'
 // import ScrollToShow from './services/ScrollToShow'
