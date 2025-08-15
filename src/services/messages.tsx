@@ -30,15 +30,7 @@ export default function Messages() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [open])
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!open && !scrolled) {
-        setShow(true)
-      }
-    }, 5000) // Hiển thị sau 5 giây
-
-    return () => clearTimeout(timer)
-  }, [open, scrolled])
+  
   const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
   async function callGeminiFlash(usermessage: string) {
     try {
@@ -113,7 +105,18 @@ console.log('api ai',res.data);
   const handleClick = () => {
     setShowMessage(!showMessage)
     setShow(!show)
+    
   }
+  // hàm  show
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => {
+        setShow(false)
+      }, 4000)
+      return () => clearTimeout(timer)
+    }
+  }, [show])
+  console.log('open', open)
 
   // Hàm cuộn xuống cuối cùng của tin nhắn
   const messagesEndRef = useRef<HTMLDivElement>(null)
