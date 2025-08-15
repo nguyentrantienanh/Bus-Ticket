@@ -121,7 +121,7 @@ console.log('api ai',res.data);
   const handleClick = () => {
     setShowMessage(!showMessage)
     setShow(!show)
-    
+    setManualOpen(!manualOpen)
   }
   // hàm  show
   useEffect(() => {
@@ -153,7 +153,7 @@ console.log('api ai',res.data);
         {open ? (
           <div
             onClick={() => {
-              setManualOpen(true); 
+              // setManualOpen(true); 
               setOpen(false)
               setScrolled(false)
             }}
@@ -163,17 +163,16 @@ console.log('api ai',res.data);
               <Icon name='arrowleft' />
             </div>
           </div>
-        ) : (<div className='flex justify-center items-center gap-1'>
-          
+        ) : ( 
           <div className='flex flex-col  '>
             {show && !showMessage && (
-              <div className='absolute w-40  right-1 bottom-full mb-2 mr-11  px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
+              <div className='absolute w-40  right-1 bottom-full mb-2  px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
                 Xin chào, bạn cần giúp đỡ gì không?
                 <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
               </div>
             )}
             {showMessage   && (
-              <div className='absolute right-1 bottom-full mb-2  mr-11 w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
+              <div className='absolute right-1 bottom-full mb-2  w-60 sm:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
                 <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
                   <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
                   <i
@@ -187,7 +186,7 @@ console.log('api ai',res.data);
                   </i>
                 </div>
                 {/* nội dung chat */}
-                <div className='p-4 h-50 md:h-70 overflow-y-auto text-gray-800 text-sm'>
+                <div className='p-4 h-60 sm:h-80 overflow-y-auto text-gray-800 text-sm'>
                   {Datamessage.map((message: any, index: number) => (
                     <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
                       <div
@@ -236,17 +235,8 @@ console.log('api ai',res.data);
             </div>
             
  
-            </div>
-              <div 
-              onClick={() => {
-                setOpen(true)
-                setScrolled(true)
-                 setManualOpen(false);
-              }}
-              className={`   flex items-center justify-center w-10 h-10 bg-green-500 text-[#fff] rounded-lg shadow hover:bg-green-600 transition ${scrolled ? 'opacity-0' : ''}`}>
-              <Icon name='arrowright' />
-            </div>
-          </div>
+            </div> 
+         
         )}
       </div>
     </div>
