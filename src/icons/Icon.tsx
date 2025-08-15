@@ -148,6 +148,9 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'arrowleft') {
     // Mũi tên bên nhọn trái
     return <i className='fa-solid fa-arrow-left'></i>
+  } else if (props.name == 'arrowright') {
+    // Mũi tên bên nhọn phải
+    return <i className='fa-solid fa-arrow-right'></i>
   } else if (props.name == 'logout') {
     // Đăng xuất
     return <i className='fa-solid fa-right-from-bracket'></i>

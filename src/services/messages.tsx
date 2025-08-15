@@ -16,21 +16,24 @@ export default function Messages() {
     }
   ])
   const [istext, setistext] = useState('')
+  const [manualOpen, setManualOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50 && !open) {
+       if (manualOpen) return;
+      if (window.scrollY > 50 && !open) { // Kiểm tra nếu cuộn xuống dưới 50px và không mở
         setScrolled(true)
         setOpen(true)
-      } else if (window.scrollY <= 50) {
+      } else if (window.scrollY <= 50) { // Kiểm tra nếu cuộn lên trên 50px
         setOpen(false)
         setScrolled(false)
       }
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [open])
-  
+  }, [open, manualOpen] )
+  console.log('scrolled', scrolled)
+  console.log('open', open)
   const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
   async function callGeminiFlash(usermessage: string) {
     try {
@@ -129,7 +132,7 @@ console.log('api ai',res.data);
       return () => clearTimeout(timer)
     }
   }, [show])
-  console.log('open', open)
+
 
   // Hàm cuộn xuống cuối cùng của tin nhắn
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -145,11 +148,12 @@ console.log('api ai',res.data);
       <div
         className={`fixed    bottom-10 transition-all duration-300 z-[301] flex   justify-center  
             
-          ${scrolled ? 'right-[-15px]  md:right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : '    rounded-full right-5 '}`}
+          ${scrolled ? 'right-[-15px]  md:right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : '    rounded-full right-3  '}`}
       >
         {open ? (
           <div
             onClick={() => {
+              setManualOpen(true); 
               setOpen(false)
               setScrolled(false)
             }}
@@ -159,85 +163,88 @@ console.log('api ai',res.data);
               <Icon name='arrowleft' />
             </div>
           </div>
-        ) : (
-          // Khi đóng
+        ) : (<div className='flex justify-center items-center gap-1'>
+          
           <div className='flex flex-col  '>
-            {show && (
-              <div className='absolute w-40  right-1 bottom-full mb-2 px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
+            {show && !showMessage && (
+              <div className='absolute w-40  right-1 bottom-full mb-2 mr-11  px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
                 Xin chào, bạn cần giúp đỡ gì không?
                 <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
               </div>
             )}
-           {/*
-Chat box */}
-<div
-  className={`chat-box fixed right-4 bottom-20 mb-6 mr-2 w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-[500] transition-all duration-300
-  ${showMessage ? 'block' : 'hidden'}`}
->
-  <div className="px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold flex items-center justify-between">
-    <span className="text-sm md:text-lg">Hỗ trợ trực tuyến</span>
-    <i
-      onClick={() => {
-        setShowMessage(false)
-        setShow(true)
-      }}
-      className="text-[#fff] ml-2 cursor-pointer"
-    >
-      <Icon name="close" />
-    </i>
-  </div>
+            {showMessage   && (
+              <div className='absolute right-1 bottom-full mb-2  mr-11 w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
+                <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
+                  <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
+                  <i
+                    onClick={() => {
+                      setShowMessage(false)
+                      setShow(true)
+                    }}
+                    className='text-[#fff]   ml-2'
+                  >
+                    <Icon name='close' />
+                  </i>
+                </div>
+                {/* nội dung chat */}
+                <div className='p-4 h-50 md:h-70 overflow-y-auto text-gray-800 text-sm'>
+                  {Datamessage.map((message: any, index: number) => (
+                    <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
+                      <div
+                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg t ${message.id === 2 ? 'bg-green-500  text-[#fff]  ' : 'bg-gray-200 text-gray-800'}`}
+                      >
+                        {message.text}
+                      </div>
+                      <div className=' text-[8px] md:text-xs text-gray-500 mt-1'>
+                        {message.timestamp.slice(0, -3).slice(0, 8)}
+                      </div>
+                    </div>
+                  ))}
+                  <div ref={messagesEndRef} />
+                </div>
+                <form className='flex items-center w-full' onSubmit={handleSubmit}>
+                  <input
+                    type='text'
+                    placeholder='Nhập tin nhắn của bạn...'
+                    className='text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
+                    value={istext}
+                    onChange={(e) => setistext(e.target.value)}
+                  />
 
-  {/* Nội dung chat */}
-  <div className="p-4 h-52 md:h-72 overflow-y-auto text-gray-800 text-sm">
-    {Datamessage.map((message: any, index: number) => (
-      <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
-        <div
-          className={`inline-block text-[12px] md:text-[14px] px-3 py-2 rounded-lg ${
-            message.id === 2
-              ? 'bg-green-500 text-[#fff]'
-              : 'bg-gray-200 text-gray-800'
-          }`}
-        >
-          {message.text}
-        </div>
-        <div className="text-[10px] md:text-xs text-gray-500 mt-1">
-          {message.timestamp.slice(0, -3).slice(0, 8)}
-        </div>
-      </div>
-    ))}
-    <div ref={messagesEndRef} />
-  </div>
-
-  {/* Form nhập */}
-  <form className="flex items-center w-full" onSubmit={handleSubmit}>
-    <input
-      type="text"
-      placeholder="Nhập tin nhắn của bạn..."
-      className="text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-green-500"
-      value={istext}
-      onChange={(e) => setistext(e.target.value)}
-      onFocus={() => document.body.classList.add('keyboard-open')}
-      onBlur={() => document.body.classList.remove('keyboard-open')}
-    />
-    <button
-      type="submit"
-      className="px-4 text-[16px] md:text-[14px] py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition"
-    >
-      Gửi
-    </button>
-  </form>
-  <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
-</div>
-
+                  <button
+                    type='submit'
+                    className='px-4 text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
+                  >
+                    Gửi
+                  </button>
+                </form>
+                <div>
+                  <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
+                </div>
+              </div>
+            )}
             <div
               onClick={() => {
                 handleClick()
+                setShow(true)
               }}
               className='  ml-auto cursor-pointer flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg hover:scale-105 hover:bg-green-600 transition'
             >
               <i className='text-[#fff] text-2xl scale-x-[-1] '>
                 <Icon name='messages' />
               </i>
+            </div>
+            
+ 
+            </div>
+              <div 
+              onClick={() => {
+                setOpen(true)
+                setScrolled(true)
+                 setManualOpen(false);
+              }}
+              className={`   flex items-center justify-center w-10 h-10 bg-green-500 text-[#fff] rounded-lg shadow hover:bg-green-600 transition ${scrolled ? 'opacity-0' : ''}`}>
+              <Icon name='arrowright' />
             </div>
           </div>
         )}
