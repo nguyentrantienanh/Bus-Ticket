@@ -172,9 +172,9 @@ console.log('api ai',res.data);
               </div>
             )}
             {showMessage   && (
-              <div className='absolute right-1 bottom-full mb-2  w-60 sm:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
+              <div className='absolute right-1 bottom-full mb-2  max-[350px]:w-60 w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
                 <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
-                  <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
+                  <span className=' max-[350px]:text-[14px] text-[16px] md:text-[14PX]'> Hỗ trợ trực tuyến </span>
                   <i
                     onClick={() => {
                       setShowMessage(false)
@@ -186,15 +186,15 @@ console.log('api ai',res.data);
                   </i>
                 </div>
                 {/* nội dung chat */}
-                <div className='p-4 h-60 sm:h-80 overflow-y-auto text-gray-800 text-sm'>
+                <div className='p-4 max-[350px]:h-60 h-90 overflow-y-auto text-gray-800 text-sm'>
                   {Datamessage.map((message: any, index: number) => (
                     <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
                       <div
-                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg t ${message.id === 2 ? 'bg-green-500  text-[#fff]  ' : 'bg-gray-200 text-gray-800'}`}
+                        className={`inline-block max-[350px]:text-[13px] text-[16px] md:text-[14px] px-3 py-2 rounded-lg t ${message.id === 2 ? 'bg-green-500  text-[#fff]  ' : 'bg-gray-200 text-gray-800'}`}
                       >
                         {message.text}
                       </div>
-                      <div className=' text-[8px] md:text-xs text-gray-500 mt-1'>
+                      <div className=' text-[10px] md:text-xs text-gray-500 mt-1'>
                         {message.timestamp.slice(0, -3).slice(0, 8)}
                       </div>
                     </div>
@@ -205,14 +205,14 @@ console.log('api ai',res.data);
                   <input
                     type='text'
                     placeholder='Nhập tin nhắn của bạn...'
-                    className='text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
+                    className='max-[350px]:text-[13px] text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
                     value={istext}
                     onChange={(e) => setistext(e.target.value)}
                   />
 
                   <button
                     type='submit'
-                    className='px-4 text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
+                    className='px-4 max-[350px]:text-[13px] text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
                   >
                     Gửi
                   </button>
