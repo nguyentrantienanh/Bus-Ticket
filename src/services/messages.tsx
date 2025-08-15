@@ -140,20 +140,6 @@ console.log('api ai',res.data);
     }
   }, [Datamessage, showMessage])
 
-
-  useEffect(() => {
-  const handleFocus = () => document.body.classList.add("keyboard-open");
-  const handleBlur = () => document.body.classList.remove("keyboard-open");
-
-  window.addEventListener("focusin", handleFocus);
-  window.addEventListener("focusout", handleBlur);
-
-  return () => {
-    window.removeEventListener("focusin", handleFocus);
-    window.removeEventListener("focusout", handleBlur);
-  };
-}, []);
-
   return (
     <div>
       <div
@@ -182,64 +168,67 @@ console.log('api ai',res.data);
                 <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
               </div>
             )}
-            {showMessage && (
-             <div
-  className="fixed right-1 bottom-20 mb-2 w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-[500]"
+           {/*
+Chat box */}
+<div
+  className={`chat-box fixed right-4 bottom-20 mb-6 mr-2 w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-[500] transition-all duration-300
+  ${showMessage ? 'block' : 'hidden'}`}
 >
-                <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
-                  <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
-                  <i
-                    onClick={() => {
-                      setShowMessage(false)
-                      setShow(true)
-                    }}
-                    className='text-[#fff]   ml-2'
-                  >
-                    <Icon name='close' />
-                  </i>
-                </div>
-                {/* nội dung chat */}
-                <div className='p-4 h-50 md:h-70 overflow-y-auto text-gray-800 text-sm'>
-                  {Datamessage.map((message: any, index: number) => (
-                    <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
-                      <div
-                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg t ${message.id === 2 ? 'bg-green-500  text-[#fff]  ' : 'bg-gray-200 text-gray-800'}`}
-                      >
-                        {message.text}
-                      </div>
-                      <div className=' text-[8px] md:text-xs text-gray-500 mt-1'>
-                        {message.timestamp.slice(0, -3).slice(0, 8)}
-                      </div>
-                    </div>
-                  ))}
-                  <div ref={messagesEndRef} />
-                </div>
-                <form className='flex items-center w-full' onSubmit={handleSubmit}>
-                  <input
-                   onFocus={() => setShowMessage(true)}
-                     onBlur={(e) => {
-    // Nếu blur do click ra ngoài hẳn mới tắt
-    if (!e.relatedTarget) setShowMessage(false)
-  }}
-                    type='text'
-                    placeholder='Nhập tin nhắn của bạn...'
-                    className='text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2  border border-gray-300   focus:outline-none focus:border-green-500'
-                    value={istext}
-                    onChange={(e) => setistext(e.target.value)}
-                  />
+  <div className="px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold flex items-center justify-between">
+    <span className="text-sm md:text-lg">Hỗ trợ trực tuyến</span>
+    <i
+      onClick={() => {
+        setShowMessage(false)
+        setShow(true)
+      }}
+      className="text-[#fff] ml-2 cursor-pointer"
+    >
+      <Icon name="close" />
+    </i>
+  </div>
 
-                  <button
-                    type='submit'
-                    className='px-4 text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
-                  >
-                    Gửi
-                  </button>
-                </form>
-                <div>
-                  <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
-                </div>
-              </div>
-            )}
+  {/* Nội dung chat */}
+  <div className="p-4 h-52 md:h-72 overflow-y-auto text-gray-800 text-sm">
+    {Datamessage.map((message: any, index: number) => (
+      <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
+        <div
+          className={`inline-block text-[12px] md:text-[14px] px-3 py-2 rounded-lg ${
+            message.id === 2
+              ? 'bg-green-500 text-[#fff]'
+              : 'bg-gray-200 text-gray-800'
+          }`}
+        >
+          {message.text}
+        </div>
+        <div className="text-[10px] md:text-xs text-gray-500 mt-1">
+          {message.timestamp.slice(0, -3).slice(0, 8)}
+        </div>
+      </div>
+    ))}
+    <div ref={messagesEndRef} />
+  </div>
+
+  {/* Form nhập */}
+  <form className="flex items-center w-full" onSubmit={handleSubmit}>
+    <input
+      type="text"
+      placeholder="Nhập tin nhắn của bạn..."
+      className="text-[16px] md:text-[14px] rounded-bl-xl w-full px-3 py-2 border border-gray-300 focus:outline-none focus:border-green-500"
+      value={istext}
+      onChange={(e) => setistext(e.target.value)}
+      onFocus={() => document.body.classList.add('keyboard-open')}
+      onBlur={() => document.body.classList.remove('keyboard-open')}
+    />
+    <button
+      type="submit"
+      className="px-4 text-[16px] md:text-[14px] py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition"
+    >
+      Gửi
+    </button>
+  </form>
+  <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
+</div>
+
             <div
               onClick={() => {
                 handleClick()
