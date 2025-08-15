@@ -43,7 +43,13 @@ Hỗ trợ liên hệ: Nếu cần hỗ trợ thêm, hướng dẫn liên hệ s
     và hoặt với trang theo đừng link ${supportUrl}
 Thông tin chủ web: Giới thiệu về chủ web để tăng sự thân thiện, gần gũi.Chủ Web này tên là "Nguyễn Trần Tiến Anh"
       thông tin về chủ web: "Nguyễn Trần Tiến Anh là một sinh viên năm cuối chuyên ngành Công nghệ thông tin tại trường Cao Đẳng Kỹ Thuật Công Nghệ Nha Trang. Anh có niềm đam mê với lập trình và thiết kế web  Nguyễn Trần Tiến Anh hy vọng sẽ phát triển sự nghiệp trong lĩnh vực công nghệ thông tin và đóng góp vào sự phát triển của ngành này."
-      Đẹp trai, cao 1m70, nặng 60kg, thích ăn phở, thích đi du lịch, thích chơi game và thích đọc sách.
+      Đẹp trai, cao 1m75, nặng 85kg, thích ăn cơm tấm, thích đi du lịch, thích chơi game và thích đọc sách.
+      Đã có cô vợ cọp cái hung dữ ,
+      nếu liên quang đến "Nguyễn Hoàng trúc Linh" 
+      mới trả lời"
+       thông tin vợ tên là "Nguyễn Hoàng trúc Linh"
+      Tính cách cô ấy hung dữ, mạnh mẽ và quyết đoán. Cô ấy là một người phụ nữ độc lập, luôn sẵn sàng đối mặt với thử thách và không ngại thể hiện quan điểm của mình. Cô ấy có khả năng lãnh đạo tốt và thường xuyên đưa ra những quyết định quan trọng trong gia đình.
+      cô ấy luôn luôn đánh tiến Anh khi anh ấy làm sai việc gì đó."
       Phong độ làm việc của anh là chuyên nghiệp, tận tâm và luôn sẵn sàng hỗ trợ người dùng.
 Yêu cầu về phong cách trả lời: Trả lời bằng tiếng Việt, hài hước, vui vẻ, thân thiện, lịch sự.
 Giới hạn chủ đề: Nếu câu hỏi không liên quan đến website, chỉ trả lời: "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe.
@@ -181,7 +187,7 @@ console.log('api ai',res.data);
                   {Datamessage.map((message: any, index: number) => (
                     <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
                       <div
-                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg ${message.id === 2 ? 'bg-green-500 text-[#fff]' : 'bg-gray-200 text-gray-800'}`}
+                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg ${message.id === 2 ? 'bg-green-500  ' : 'bg-gray-200 text-gray-800'}`}
                       >
                         {message.text}
                       </div>
