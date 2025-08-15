@@ -145,7 +145,7 @@ console.log('api ai',res.data);
       <div
         className={`fixed    bottom-10 transition-all duration-300 z-[301] flex   justify-center  
             
-          ${scrolled ? 'right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : '    rounded-full right-5 '}`}
+          ${scrolled ? 'right-[-15px]  md:right-[-25px]   rounded-[10px]    cursor-pointer items-start ' : '    rounded-full right-5 '}`}
       >
         {open ? (
           <div
@@ -169,7 +169,7 @@ console.log('api ai',res.data);
               </div>
             )}
             {showMessage && (
-              <div className='absolute right-1 bottom-full mb-2   w-60 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-50'>
+              <div className='absolute right-1 bottom-full mb-2 w-1120/100 max-w-xs md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-50'>
                 <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
                   <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
                   <i
@@ -187,7 +187,7 @@ console.log('api ai',res.data);
                   {Datamessage.map((message: any, index: number) => (
                     <div key={index} className={`mb-2 ${message.id === 2 ? 'text-right' : ''}`}>
                       <div
-                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg ${message.id === 2 ? 'bg-green-500  ' : 'bg-gray-200 text-gray-800'}`}
+                        className={`inline-block text-[10px] md:text-[14px] px-3 py-2 rounded-lg t ${message.id === 2 ? 'bg-green-500  text-[#fff]  ' : 'bg-gray-200 text-gray-800'}`}
                       >
                         {message.text}
                       </div>
