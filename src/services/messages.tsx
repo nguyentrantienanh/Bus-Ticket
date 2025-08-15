@@ -169,7 +169,7 @@ console.log('api ai',res.data);
               </div>
             )}
             {showMessage && (
-              <div className='absolute right-1 bottom-full mb-2 w-11/12 max-w-xs md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-50'>
+              <div className='absolute right-1 bottom-full mb-2   w-70 md:w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
                 <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
                   <span className=' text-sm md:text-lg'> Hỗ trợ trực tuyến </span>
                   <i
