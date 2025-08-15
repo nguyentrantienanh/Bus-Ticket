@@ -288,7 +288,7 @@ function Home() {
         
               @keyframes busMove {
                 0% {
-                  right: -20px;
+                  right: 0px;
                   transform: translatey(0);
                 }
                 100% {
