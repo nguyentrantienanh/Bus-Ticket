@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Icon from '../icons/Icon'
 import axios from 'axios'
-
+import { ticket } from '../Data/Ticket'
 export default function Messages() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -37,29 +37,41 @@ export default function Messages() {
   const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
   async function callGeminiFlash(usermessage: string) {
     try {
-      const web = `Đây là website về Bus Ticket: ${import.meta.env.VITE_WEBSITE_URL} 
- 
-      Giới thiệu website: Xác định rõ đây là website bán vé xe Bus Ticket, chỉ trả lời các câu hỏi liên quan đến website này.
+      // Lấy dữ liệu vé
+    const tickets = ticket();
+    // Chuyển dữ liệu vé thành chuỗi mô tả ngắn gọn
+    const ticketInfo = tickets.map(
+      (t) =>
+        `Tuyến: ${t.diemdi.replace('Home_location.', '')} - ${t.diemden.replace('Home_location.', '')}, Giờ đi: ${t.starttime}, Giá ghế thấp nhất: ${Math.min(...t.seat.map(s => Number(s.price.replace(/[^0-9]/g, ''))))} VNĐ`
+    ).join('\n');
+    
+      const web = `Đây là website về Bus Ticket: ${import.meta.env.VITE_WEBSITE_URL}
 
-      Chủ đề hỗ trợ: Chỉ trả lời về vé xe, lịch trình, giá vé, địa điểm, thời gian khởi hành và các thông tin liên quan.
-Hỗ trợ liên hệ: Nếu cần hỗ trợ thêm, hướng dẫn liên hệ số điện thoại hoặc email, hoặc truy cập link hỗ trợ. hỗ trợ nếu cần giúp đề yêu cầu liện hệ với 0972364028 hoặc email:nttanh0412gamil.com để được hỗ trợ.
-    và hoặt với trang theo đừng link ${supportUrl}
-Thông tin chủ web: Giới thiệu về chủ web để tăng sự thân thiện, gần gũi.Chủ Web này tên là "Nguyễn Trần Tiến Anh"
-      thông tin về chủ web: "Nguyễn Trần Tiến Anh là một sinh viên năm cuối chuyên ngành Công nghệ thông tin tại trường Cao Đẳng Kỹ Thuật Công Nghệ Nha Trang. Anh có niềm đam mê với lập trình và thiết kế web  Nguyễn Trần Tiến Anh hy vọng sẽ phát triển sự nghiệp trong lĩnh vực công nghệ thông tin và đóng góp vào sự phát triển của ngành này."
-      Đẹp trai, cao 1m75, nặng 85kg, thích ăn cơm tấm, thích đi du lịch, thích chơi game và thích đọc sách.
-      Đã có cô vợ cọp cái hung dữ ,
-      nếu liên quang đến "Nguyễn Hoàng trúc Linh" 
-      mới trả lời"
-       thông tin vợ tên là "Nguyễn Hoàng trúc Linh"
-      Tính cách cô ấy hung dữ, mạnh mẽ và quyết đoán. Cô ấy là một người phụ nữ độc lập, luôn sẵn sàng đối mặt với thử thách và không ngại thể hiện quan điểm của mình. Cô ấy có khả năng lãnh đạo tốt và thường xuyên đưa ra những quyết định quan trọng trong gia đình.
-      cô ấy luôn luôn đánh tiến Anh khi anh ấy làm sai việc gì đó."
-      Phong độ làm việc của anh là chuyên nghiệp, tận tâm và luôn sẵn sàng hỗ trợ người dùng.
+Danh sách tuyến xe hiện có:
+${ticketInfo}
+
+Giới thiệu website: Đây là website bán vé xe Bus Ticket, chỉ trả lời các câu hỏi liên quan đến website này.
+
+Chủ đề hỗ trợ: Chỉ trả lời về vé xe, lịch trình, giá vé, địa điểm đi và đến, thời gian khởi hành và các thông tin liên quan.
+- Nếu người dùng hỏi về kiểm tra vé: Hướng dẫn cách kiểm tra vé đã đặt trên website (đăng nhập tài khoản, vào mục "Vé của tôi" hoặc nhập mã vé).
+- Nếu người dùng hỏi về các địa điểm: Liệt kê các địa điểm đi và đến mà website đang hỗ trợ (dựa trên danh sách vé ở trên).
+- Nếu người dùng hỏi về lịch trình: Hướng dẫn cách tra cứu lịch trình trên website.
+
+Hỗ trợ liên hệ: Nếu cần hỗ trợ thêm, hướng dẫn liên hệ số điện thoại 0972364028 hoặc email: nttanh0412gamil.com, hoặc truy cập link hỗ trợ: ${supportUrl}
+
+ những thứ nếu hỏi sâu mới trả lời gồm (Thông tin chủ web: Chủ Web tên là "Nguyễn Trần Tiến Anh", sinh viên năm cuối chuyên ngành Công nghệ thông tin tại trường Cao Đẳng Kỹ Thuật Công Nghệ Nha Trang. Anh có niềm đam mê với lập trình và thiết kế web, hy vọng sẽ phát triển sự nghiệp trong lĩnh vực công nghệ thông tin và đóng góp vào sự phát triển của ngành này. Đẹp trai, cao 1m75, nặng 85kg, thích ăn cơm tấm, thích đi du lịch, thích chơi game và thích đọc sách.
+
+Thông tin về vợ: Nếu liên quan đến "Nguyễn Hoàng Trúc Linh" mới trả lời. Vợ tên là "Nguyễn Hoàng Trúc Linh", tính cách hung dữ, mạnh mẽ, quyết đoán, độc lập, có khả năng lãnh đạo tốt, thường xuyên đưa ra quyết định quan trọng trong gia đình và luôn "xử đẹp" Tiến Anh khi anh ấy làm sai.
+
+Phong độ làm việc: Chuyên nghiệp, tận tâm và luôn sẵn sàng hỗ trợ người dùng.
+ nếu ko đề cập đến những thứ trên thì không trả lời.)
 Yêu cầu về phong cách trả lời: Trả lời bằng tiếng Việt, hài hước, vui vẻ, thân thiện, lịch sự.
-Giới hạn chủ đề: Nếu câu hỏi không liên quan đến website, chỉ trả lời: "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe.
+
+Giới hạn chủ đề: Nếu câu hỏi không liên quan đến website, chỉ trả lời: "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe."
 Bạn chỉ trả lời bằng tiếng Việt thôi nhé.
-      bạn trả lời hài huớc, vui vẻ, thân thiện và lịch sự.
-      không liên quan tới website này. thì rep là "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe."
-      `
+Bạn trả lời hài hước, vui vẻ, thân thiện và lịch sự.
+Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe."
+`
       const res = await axios.post(
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
         {
@@ -76,8 +88,6 @@ Bạn chỉ trả lời bằng tiếng Việt thôi nhé.
           }
         }
       )
-      // In toàn bộ JSON trả về
-console.log('api ai',res.data);
       const botReply = res.data.candidates[0].content.parts[0].text
 
       setDatamessage((prev) => [
@@ -113,9 +123,11 @@ console.log('api ai',res.data);
           timestamp: new Date().toLocaleString()
         }
       ])
+      setistext('')
       await callGeminiFlash(istext)
+       
     }
-    setistext('')
+ 
   }
 
   const handleClick = () => {
@@ -212,6 +224,7 @@ console.log('api ai',res.data);
 
                   <button
                     type='submit'
+                 
                     className='px-4 max-[350px]:text-[13px] text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
                   >
                     Gửi
