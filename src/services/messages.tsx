@@ -16,35 +16,39 @@ export default function Messages() {
     }
   ])
   const [istext, setistext] = useState('')
-  const [manualOpen, setManualOpen] = useState(false);
+  const [manualOpen, setManualOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-       if (manualOpen) return;
-      if (window.scrollY > 50 && !open) { // Kiểm tra nếu cuộn xuống dưới 50px và không mở
+      if (manualOpen) return
+      if (window.scrollY > 50 && !open) {
+        // Kiểm tra nếu cuộn xuống dưới 50px và không mở
         setScrolled(true)
         setOpen(true)
-      } else if (window.scrollY <= 50) { // Kiểm tra nếu cuộn lên trên 50px
+      } else if (window.scrollY <= 50) {
+        // Kiểm tra nếu cuộn lên trên 50px
         setOpen(false)
         setScrolled(false)
       }
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [open, manualOpen] )
+  }, [open, manualOpen])
   console.log('scrolled', scrolled)
   console.log('open', open)
   const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
   async function callGeminiFlash(usermessage: string) {
     try {
       // Lấy dữ liệu vé
-    const tickets = ticket();
-    // Chuyển dữ liệu vé thành chuỗi mô tả ngắn gọn
-    const ticketInfo = tickets.map(
-      (t) =>
-        `Tuyến: ${t.diemdi.replace('Home_location.', '')} - ${t.diemden.replace('Home_location.', '')}, Giờ đi: ${t.starttime}, Giá ghế thấp nhất: ${Math.min(...t.seat.map(s => Number(s.price.replace(/[^0-9]/g, ''))))} VNĐ`
-    ).join('\n');
-    
+      const tickets = ticket()
+      // Chuyển dữ liệu vé thành chuỗi mô tả ngắn gọn
+      const ticketInfo = tickets
+        .map(
+          (t) =>
+            `Tuyến: ${t.diemdi.replace('Home_location.', '')} - ${t.diemden.replace('Home_location.', '')}, Giờ đi: ${t.starttime}, Giá ghế thấp nhất: ${Math.min(...t.seat.map((s) => Number(s.price.replace(/[^0-9]/g, ''))))} VNĐ`
+        )
+        .join('\n')
+
       const web = `Đây là website về Bus Ticket: ${import.meta.env.VITE_WEBSITE_URL}
 
 Danh sách tuyến xe hiện có:
@@ -125,9 +129,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
       ])
       setistext('')
       await callGeminiFlash(istext)
-       
     }
- 
   }
 
   const handleClick = () => {
@@ -144,7 +146,6 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
       return () => clearTimeout(timer)
     }
   }, [show])
-
 
   // Hàm cuộn xuống cuối cùng của tin nhắn
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -165,7 +166,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
         {open ? (
           <div
             onClick={() => {
-              // setManualOpen(true); 
+              // setManualOpen(true);
               setOpen(false)
               setScrolled(false)
             }}
@@ -175,7 +176,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
               <Icon name='arrowleft' />
             </div>
           </div>
-        ) : ( 
+        ) : (
           <div className='flex flex-col  '>
             {show && !showMessage && (
               <div className='absolute w-40  right-1 bottom-full mb-2  px-2 py-2 bg-green-500 text-[#fff] rounded-xl shadow-lg text-sm '>
@@ -183,7 +184,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
                 <span className='absolute right-4 top-full w-0 h-0 border-t-8 border-t-green-500 border-x-8 border-x-transparent'></span>
               </div>
             )}
-            {showMessage   && (
+            {showMessage && (
               <div className='absolute right-1 bottom-full mb-2  max-[350px]:w-60 w-80 bg-[#fff] rounded-xl shadow-lg border border-green-500 z-500'>
                 <div className='px-2 py-2 bg-green-500 rounded-t-xl text-[#fff] text-sm font-semibold justify-between flex items-center'>
                   <span className=' max-[350px]:text-[14px] text-[16px] md:text-[14PX]'> Hỗ trợ trực tuyến </span>
@@ -224,7 +225,6 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
 
                   <button
                     type='submit'
-                 
                     className='px-4 max-[350px]:text-[13px] text-[16px] md:text-[14px]   py-2 border-y-1 border-green-500 bg-green-500 text-[#fff] rounded-br-xl hover:bg-green-600 transition'
                   >
                     Gửi
@@ -246,10 +246,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
                 <Icon name='messages' />
               </i>
             </div>
-            
- 
-            </div> 
-         
+          </div>
         )}
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { ticket } from '../../Data/Ticket'
 import { useTranslation } from 'react-i18next'
-
 import backgroundBuyticket from '../../assets/background.jpg'
 import { useState, useEffect, useRef } from 'react'
 import Icon from '../../icons/Icon'
@@ -9,21 +8,37 @@ import { Calendar } from 'react-date-range'
 import { format } from 'date-fns'
 
 import Alert from '@mui/material/Alert'
+// api
+import { createBooking, getUserList } from '../../api/userApi'
+import { createGuestUser, getGuestUserList } from '../../api/guestUserApi'
 
 export default function Buyticket() {
   const { id } = useParams<{ id: string }>()
   const { t } = useTranslation(['Home', 'Buyticket'])
 
-  // dữ liệu vé đã đặt trong localStorage
+  // dữ liệu vé
+  const [GuestUserTicket, setGuestUserTicket] = useState<any[]>([])
+  const [GuestUserList, setGuestUserList] = useState<any[]>([])
+  useEffect(() => {
+    getGuestUserList()
+      .then((res) => {
+        const users = res.data || []
+        const tickets = users.map((user: any) => user.ticket || []).flat()
+        setGuestUserTicket(tickets)
+      })
+      .catch(() => setGuestUserTicket([]))
 
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const veData = UserList.map((user: any) => user.ticket).flat()
-
-  const GuestUser = JSON.parse(localStorage.getItem('guestUserInfo') || '[]')
-  const GuestUserTicket = GuestUser.map((user: any) => user.ticket).flat()
-
+    getUserList()
+      .then((res) => {
+        const users = res.data || []
+        const tickets = users.map((user: any) => user.ticket || []).flat()
+        setGuestUserList(tickets)
+      })
+      .catch(() => setGuestUserList([]))
+  }, [])
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
-  const ve = [...veData, ...GuestUserTicket]
+  const ve = [...GuestUserList, ...GuestUserTicket]
+  console.log('Dữ liệu vé đã đặt:', ve)
 
   // State để lưu trữ các ghế đã chọn
   const [selectedSeats, setSelectedSeats] = useState<number[]>([])
@@ -42,6 +57,7 @@ export default function Buyticket() {
       setOpen(false)
     }
   }
+  // localStorage
   const refCalendar = useRef<HTMLDivElement | null>(null)
   // Ẩn calendar khi click ra ngoài
   const anKhiNhanbenNgoai = (event: any) => {
@@ -68,35 +84,25 @@ export default function Buyticket() {
 
   // kiểm tra đã đăng nhập hay chưa
   const isAuthenticated = localStorage.getItem('userInfo') !== null
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (selectedSeats.length === 0) {
       setSuccessMessage(true)
-
-      setTimeout(() => {
-        setSuccessMessage(false)
-      }, 3000)
+      setTimeout(() => setSuccessMessage(false), 3000)
       return
     }
 
-    // Tạo danh sách ghế
     const seats = selectedSeats.map((seatId) => {
       const seat = ticket()
         .find((item: any) => item.id === ticketId)
         ?.seat?.find((s) => s.id === seatId)
-
-      return {
-        id: seatId,
-        name: seat?.name,
-        price: Number(seat?.price) || 0
-      }
+      return { id: seatId, name: seat?.name, price: Number(seat?.price) || 0 }
     })
 
     // Tạo vé
     const newId = Date.now()
-
     const bookingDetails = {
       id: newId,
-      ticketId: ticketId,
+      ticketId,
       type: ticket().find((item: any) => item.id === ticketId)?.type,
       dateStart: calendar,
       diemDi: ticket().find((item: any) => item.id === ticketId)?.diemdi,
@@ -107,7 +113,7 @@ export default function Buyticket() {
       seatLayout: ticket().find((item: any) => item.id === ticketId)?.seatLayout,
       offday: ticket().find((item: any) => item.id === ticketId)?.offday,
       facilities: [...(ticket().find((item: any) => item.id === ticketId)?.facilities || [])],
-      seats: seats,
+      seats,
       price: tongtien,
       status: 3,
       timestamp: new Date().toISOString()
@@ -117,76 +123,57 @@ export default function Buyticket() {
 
     // XỬ LÝ KHI USER ĐÃ ĐĂNG NHẬP
     const userInfoRaw = localStorage.getItem('userInfo')
-    const userListRaw = localStorage.getItem('userList')
-
-    if (userInfoRaw && userListRaw) {
-      try {
-        const userInfo = JSON.parse(userInfoRaw)
-        const userList: any[] = JSON.parse(userListRaw)
-
-        // Kiểm tra tồn tại user theo tên
-        const userIndex = userList.findIndex((user) => user.name?.toLowerCase() === userInfo.name?.toLowerCase())
-
-        if (userIndex !== -1) {
-          if (!Array.isArray(userList[userIndex].ticket)) {
-            userList[userIndex].ticket = []
+    if (userInfoRaw) {
+      if (userInfoRaw) {
+        try {
+          // userInfoRaw là chuỗi JSON, cần parse để lấy id
+          const userInfo = JSON.parse(userInfoRaw)
+          const res = await createBooking(userInfo.id, bookingDetails)
+          if (res.data && res.data.message) {
+            alert(res.data.message)
           }
+          // Điều hướng sang trang thanh toán
 
-          userList[userIndex].ticket.push(bookingDetails)
-
-          // Lưu lại localStorage
-          localStorage.setItem('userList', JSON.stringify(userList))
-
-          // Điều hướng đến trang thanh toán
-          window.location.href = `/user/information-user/${newId}/${userList[userIndex].id}`
-          return
-        } else {
-          console.warn('🔍 Không tìm thấy người dùng tương ứng trong userList.')
+          window.location.href = `/user/information-user/${newId}/${userInfo.id}`
+        } catch (err) {
+          console.error('Lỗi booking:', err)
         }
-      } catch (error) {
-        console.error('❌ Lỗi xử lý userList/userInfo:', error)
+      } else {
+        console.warn('❌ userInfo hoặc userList không tồn tại trong localStorage.')
       }
     } else {
-      console.warn('❌ userInfo hoặc userList không tồn tại trong localStorage.')
+      // NẾU KHÔNG ĐĂNG NHẬP (GUEST USER)
+
+      // Tạo khách mới với vé hiện tại
+      const newGuest = {
+        fullName: '',
+        phone: '',
+        email: '',
+        cccd: '',
+        birthday: '',
+        ticket: [bookingDetails]
+      }
+
+      try {
+        const res = await createGuestUser(newGuest)
+        const guestId = res.data?.guest?._id
+
+        if (!guestId) {
+          console.error('Không lấy được guestId từ response')
+          return
+        }
+
+        if (res.data?.message) {
+          alert(res.data.message)
+        }
+
+        window.location.href = `/user/information-guest-user/${newId}/${guestId}`
+      } catch (err) {
+        console.error('Lỗi gửi guest:', err)
+        alert('Đặt vé thất bại, vui lòng thử lại!')
+      }
     }
-    // NẾU KHÔNG ĐĂNG NHẬP (GUEST USER)
-
-    const guestRaw = localStorage.getItem('guestUserInfo')
-    let guestList = []
-
-    if (guestRaw) {
-      guestList = JSON.parse(guestRaw)
-    }
-    // Tạo ID tự động: id lớn nhất + 1, nếu chưa có ai thì là 1
-    const guestListnewId = guestList.length > 0 ? Math.max(...guestList.map((guest: any) => guest.id || 0)) + 1 : 1
-
-    // Tạo khách mới với vé hiện tại
-    const newGuest = {
-      id: guestListnewId,
-      fullName: '',
-      phone: '',
-      email: '',
-      cccd: '',
-      birthday: '',
-      ticket: [bookingDetails], // mỗi người chỉ có 1 vé riêng biệt
-      type: 2
-    }
-
-    // Thêm vào danh sách
-    guestList.push(newGuest)
-
-    // Cập nhật lại vào localStorage
-    localStorage.setItem('guestUserInfo', JSON.stringify(guestList))
-
-    // Điều hướng đến trang nhập thông tin của người vừa tạo
-    window.location.href = `/user/information-guest-user/${newId}/${guestListnewId}`
   }
-
-  // Tính toán giá vé dựa trên id
-  // const tien = ticket.find((item) => item.id === parseInt(id || ''))?.price || 0
-  // const tongtien = Number(tien)
-  // const totalPrice = selectedSeats.length * tongtien
-  // Tính tổng tiền vé dựa trên số ghế đã chọn lấy price từng ghế + lại
   const tongtien = selectedSeats.reduce((sum, seatId) => {
     const seat = ticket()
       .find((item) => item.id === parseInt(id || '0'))

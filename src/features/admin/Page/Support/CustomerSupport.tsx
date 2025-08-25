@@ -1,11 +1,21 @@
 // import { useState } from 'react'
 import Icon from '../../../../icons/Icon'
-
+import { useEffect, useState } from 'react'
+import { getUserList } from '../../../../api/userApi'
 import { Link } from 'react-router-dom'
-const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+ 
 
-const chats = UserList.flatMap((user: any) => user.chats || [])
+ 
 function AccountSupport() {
+const [UserList, setUserList] = useState<any[]>([])
+  
+   useEffect(() => {
+    getUserList().then((res) => {
+      setUserList(res.data)
+    })
+  }, [])
+  console.log('UserLists:', UserList)
+const chats = UserList.flatMap((user: any) => user.chats || [])
   return (
     <>
       <div className='bg-[#fff]  md:px-10 py-6'>
@@ -23,11 +33,11 @@ function AccountSupport() {
               {chats.length > 0 ? (
                 chats.map((item: any, index: number) => (
                   <tr key={index} className='bg-[#fff] text-xs text-gray-800  text-nowrap space-nowrap border-b'>
-                    <td className='py-2 px-2 text-gray-500'>{item.id}</td>
+                    <td className='py-2 px-2 text-gray-500'>{item._id}</td>
                     <td className='py-2 px-2 text-gray-500'>{item.description}</td>
                     <td className='py-2 px-2 text-gray-500'>{item.lastMessage}</td>
                     <td className='py-2 px-2 text-gray-500'>{item.timestamp}</td>
-                    <Link to={`/admin/support/chat/${item.id}/${item.description}`} className='py-2 px-2 text-gray-500'>
+                    <Link to={`/admin/support/chat/${item._id}/${item.description}`} className='py-2 px-2 text-gray-500'>
                       <td className='py-2   text-center   '>
                         <i className='cursor-pointer border-[#1ba000] bg-[#1ba0008e] border text-[15px] py-1 px-2 rounded-[10px] text-[#fff]'>
                           <Icon name='computer' />
@@ -52,7 +62,16 @@ function AccountSupport() {
 }
 
 export default function CustomerSupport() {
-  const countchat = chats.length
+  const [UserList, setUserList] = useState<any[]>([])
+  
+   useEffect(() => {
+    getUserList().then((res) => {
+      setUserList(res.data)
+    })
+  }, [])
+  console.log('UserLists:', UserList)
+const chats = UserList.flatMap((user: any) => user.chats || [])
+  const countchat =  chats.length
   return (
     <>
       <div className='flex flex-col  md:px-2 w-full py-4  pt-2 '>

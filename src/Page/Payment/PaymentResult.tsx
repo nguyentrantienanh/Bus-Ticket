@@ -2,20 +2,18 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import backgroundPayment from '../../assets/background.jpg'
+import { deleteTicketById } from '../../api/ticketsApi' // đường dẫn tùy dự án
 // import { useTranslation } from 'react-i18next'
 export default function PaymentResult() {
   const navigate = useNavigate()
   const location = useLocation()
   const { ticketid } = useParams<{ ticketid: string }>()
   const [countdown, setCountdown] = useState(10)
-  const userinfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const GuestUserInfo = JSON.parse(localStorage.getItem('guestUserInfo') || '[]')
-  const isUserLoggedIn = userinfo.name || userinfo.email
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const status = params.get('status')
+
     if (status === '-49') {
       if (countdown > 0) {
         const interval = setInterval(() => {
@@ -23,36 +21,34 @@ export default function PaymentResult() {
         }, 1000)
         return () => clearInterval(interval)
       }
-      if (countdown === 0) {
-        // Xử lý khi đếm ngược kết thúc: xóa vé và chuyển trang
-        if (ticketid) {
-          const updatedList = (isUserLoggedIn ? UserList : GuestUserInfo).map((user: any) => {
-            const Delete = user.ticket?.filter((t: any) => t.id !== parseInt(ticketid || '0'))
-            return { ...user, ticket: Delete }
-          })
-          localStorage.setItem(isUserLoggedIn ? 'userList' : 'guestUserInfo', JSON.stringify(updatedList))
 
-          navigate('/buytickets')
-        }
-      } else {
-        navigate('/buytickets', { replace: true })
+      if (countdown === 0 && ticketid) {
+        // Xóa vé bằng API
+        deleteTicketById(Number(ticketid))
+          .then(() => {
+            console.log('Xóa vé thành công trên server')
+            navigate('/buytickets')
+          })
+          .catch((err) => {
+            console.error('Xóa vé thất bại:', err)
+            navigate('/buytickets')
+          })
       }
     } else {
-      // Nếu không có ticketid, chuyển về trang mua vé
       navigate('/buytickets', { replace: true })
     }
-  }, [location.search, countdown, ticketid, isUserLoggedIn, UserList, GuestUserInfo, navigate])
+  }, [location.search, countdown, ticketid, navigate])
 
-  // Xử lý thoát khỏi trang thanh toán
+  // Xóa vé khi người dùng đóng tab hoặc thoát trang
   useEffect(() => {
-    const handleUnload = () => {
-      // Xóa vé khỏi localStorage khi thoát trang hoặc đổi URL
+    const handleUnload = async () => {
       if (ticketid) {
-        const updatedList = (isUserLoggedIn ? UserList : GuestUserInfo).map((user: any) => {
-          const Delete = user.ticket?.filter((t: any) => t.id !== parseInt(ticketid || '0'))
-          return { ...user, ticket: Delete }
-        })
-        localStorage.setItem(isUserLoggedIn ? 'userList' : 'guestUserInfo', JSON.stringify(updatedList))
+        try {
+          deleteTicketById(Number(ticketid)) // Xóa vé trên server
+          console.log('Vé đã được xóa khi thoát trang')
+        } catch (err) {
+          console.error('Xóa vé thất bại khi thoát trang:', err)
+        }
       }
     }
 
@@ -60,7 +56,8 @@ export default function PaymentResult() {
     return () => {
       window.removeEventListener('beforeunload', handleUnload)
     }
-  }, [ticketid, isUserLoggedIn, UserList, GuestUserInfo])
+  }, [ticketid])
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-900 relative'>
       {/* Background */}
@@ -119,17 +116,18 @@ export default function PaymentResult() {
           {/* Nút quay lại */}
           <div className='mt-6'>
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (ticketid) {
-                  const updatedList = (isUserLoggedIn ? UserList : GuestUserInfo).map((user: any) => {
-                    const Delete = user.ticket.filter((t: any) => t.id !== parseInt(ticketid || '0'))
-                    return { ...user, ticket: Delete }
-                  })
-                  localStorage.setItem(isUserLoggedIn ? 'userList' : 'guestUserInfo', JSON.stringify(updatedList))
+                  try {
+                    await deleteTicketById(Number(ticketid))
+                    console.log('Vé đã xóa')
+                  } catch (err) {
+                    console.error(err)
+                  }
                 }
                 navigate('/')
               }}
-              className=' cursor-pointer bg-red-500 hover:bg-red-600 text-[#fff] font-medium py-2 px-6 rounded-lg shadow transition duration-200'
+              className='cursor-pointer bg-red-500 hover:bg-red-600 text-[#fff] font-medium py-2 px-6 rounded-lg shadow transition duration-200'
             >
               Quay lại trang chủ
             </button>

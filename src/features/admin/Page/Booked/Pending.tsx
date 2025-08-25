@@ -174,9 +174,8 @@ function TicketPending() {
         support_phone: import.meta.env.VITE_SUPPORT_PHONE,
 
         website_url: import.meta.env.VITE_WEBSITE_URL,
-       email: USERID.email,   
-support_email: import.meta.env.VITE_SUPPORT_EMAIL,  
-
+        email: USERID.email,
+        support_email: import.meta.env.VITE_SUPPORT_EMAIL
       }
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,

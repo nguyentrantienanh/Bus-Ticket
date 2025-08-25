@@ -2,13 +2,30 @@ import backgruond from '../../../../assets/background.jpg'
 import Icon from '../../../../icons/Icon'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import {getUserChats} from '../../../../api/chatUserApi'
+import { useEffect, useState } from 'react'
 
 export default function SupportTicket() {
+
   const { t } = useTranslation('SupportTicket')
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+  const [chats, setChats] = useState<any[]>([])
+ // lấy user từ localStorage
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  const user = UserList.find((item: any) => item.id === UserInfo.id)
-  const chats = user.chats
+  console.log('UserInfo:', UserInfo.id)
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        if (UserInfo.id) {
+          const res = await getUserChats(UserInfo.id)
+          console.log('Chats fetched:', res.data)
+          setChats(res.data) // API trả về mảng chats
+        }
+      } catch (err) {
+        console.error('Lỗi khi lấy chats:', err)
+      }
+    }
+    fetchChats()
+  }, [UserInfo.id])
   return (
     <>
       <div
@@ -36,13 +53,14 @@ export default function SupportTicket() {
               {chats.length > 0 ? (
                 chats.map((item: any, index: number) => {
                   function formatTimeAgo(ts: any) {
-                    const diff = Math.floor((Date.now() - new Date(ts).getTime()) / 1000 / 60)
-                    if (isNaN(diff)) return t('timeAgo.undefined')
+  if (!ts) return t('timeAgo.undefined') // nếu không có timestamp thì trả về undefined
+  const diff = Math.floor((Date.now() - new Date(ts).getTime()) / 1000 / 60)
+  if (isNaN(diff)) return t('timeAgo.undefined')
+  if (diff < 60) return `${diff} ${t('timeAgo.minutesAgo')}`
+  if (diff < 1440) return `${Math.floor(diff / 60)} ${t('timeAgo.hoursAgo')}`
+  return `${Math.floor(diff / 1440)} ${t('timeAgo.daysAgo')}`
+}
 
-                    if (diff < 60) return `${diff} ${t('timeAgo.minutesAgo')}`
-                    if (diff < 1440) return `${Math.floor(diff / 60)} ${t('timeAgo.hoursAgo')}`
-                    return `${Math.floor(diff / 1440)} ${t('timeAgo.daysAgo')}`
-                  }
 
                   const timeAgo = formatTimeAgo(item.timestamp)
 
@@ -77,7 +95,7 @@ export default function SupportTicket() {
                       </td>
                       <td className='py-2 px-4 text-center font-medium text-gray-500'>{timeAgo}</td>
                       <td className='py-2 px-5 text-end cursor-pointer'>
-                        <Link to={`/user/support/chat/${item.id}/${item.description}`}>
+                        <Link to={`/user/support/chat/${item._id}/${item.description}`}>
                           <i className='bg-[#1ba000] text-[15px] py-2 px-3 rounded-[10px] text-[#fff]'>
                             <Icon name='computer' />
                           </i>

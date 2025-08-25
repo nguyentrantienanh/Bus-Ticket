@@ -12,7 +12,7 @@ function BlogLayout() {
   return (
     <>
       <div
-        className='w-full h-50 flex items-center justify-center'
+        className='w-full h-50 flex items-center justify-center '
         style={{ backgroundImage: `url(${backgroundBlog})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className='w-full h-full flex items-center justify-center bg-[#00000068]'>

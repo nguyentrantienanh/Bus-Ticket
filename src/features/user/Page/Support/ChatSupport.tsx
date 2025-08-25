@@ -3,15 +3,31 @@ import Icon from '../../../../icons/Icon'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
+import { getUserChats, sendMessage } from '../../../../api/chatUserApi'
 export default function ChatSupport() {
   const { t } = useTranslation('ChatSupport')
   const { id } = useParams<{ id: string }>()
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  const user = UserList.find((item: any) => item.id === UserInfo.id)
-  const chats = user?.chats || []
-  const chat = chats.filter((item: any) => item.id === parseInt(id || '0'))
+  const [chats, setChats] = useState<any[]>([])
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        if (UserInfo.id) {
+          const res = await getUserChats(UserInfo.id)
+          console.log('Chats fetched:', res.data)
+          setChats(res.data) // API trả về mảng chats
+        }
+      } catch (err) {
+        console.error('Lỗi khi lấy chats:', err)
+      }
+    }
+    fetchChats()
+  }, [UserInfo.id])
+
+   
+  const chat = chats.filter((item: any) => item._id === id )
+  console.log('Selected chat:', chat)
   const messages = chat.length > 0 ? chat[0].messages : []
 
   const [message, setMessage] = useState('')
@@ -21,29 +37,19 @@ export default function ChatSupport() {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSendMessage = () => {
-    if (!message.trim()) return alert(t('input.emptyMessage'))
-    const newMessage = {
-      id: 2,
-      sender: 'user',
-      text: message,
-      timestamp: new Date().toLocaleString()
-    }
-
-    const updatedChat = {
-      ...chat[0],
-      messages: [...chat[0].messages, newMessage],
-      lastMessage: message
-    }
-
-    const updatedChats = chats.map((item: any) => (item.id === chat[0].id ? updatedChat : item))
-
-    localStorage.setItem(
-      'userList',
-      JSON.stringify(UserList.map((u: any) => (u.id === UserInfo.id ? { ...u, chats: updatedChats } : u)))
-    )
-    setMessage('')
+  const handleSendMessage = async () => {
+  if (!message.trim()) return alert(t('input.emptyMessage'));
+  try {
+    await sendMessage(UserInfo.id, id!, "user", message);
+    setMessage('');
+    
+    // fetch lại chats để cập nhật message mới
+    const res = await getUserChats(UserInfo.id);
+    setChats(res.data);
+  } catch (err: any) {
+    alert('Lỗi : ' + (err.response?.data?.message || err.message));
   }
+};
 
   return (
     <div className='flex flex-col w-full    bg-[#fff]  h-screen'>
@@ -94,11 +100,11 @@ export default function ChatSupport() {
       {/* Chat messages */}
       <div className='flex-1 overflow-y-auto px-4 py-4 bg-gray-100  '>
         {messages.map((item: any, index: number) => (
-          <div key={index} className={`flex mb-4 ${item.id === 2 ? 'justify-end' : 'justify-start'}`}>
+          <div key={index} className={`flex mb-4 ${item.id === 1 ? 'justify-end' : 'justify-start'}`}>
             <div className='max-w-[70%]'>
               <div
                 className={`px-4 py-2 rounded-2xl text-sm shadow-md ${
-                  item.id === 2
+                  item.id === 1
                     ? 'bg-green-500 text-[#fff] rounded-br-none'
                     : 'bg-[#fff] text-gray-800 rounded-bl-none border'
                 }`}

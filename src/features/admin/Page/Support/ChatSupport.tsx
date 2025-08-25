@@ -1,13 +1,21 @@
 import { useParams } from 'react-router-dom'
 import Icon from '../../../../icons/Icon'
 import { useState, useRef, useEffect } from 'react'
-
+import { getUserList } from '../../../../api/userApi'
+import { sendMessageAdmin } from '../../../../api/chatUserApi'
 export default function ChatSupport() {
   const { id } = useParams<{ id: string }>()
 
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+const [UserList, setUserList] = useState<any[]>([])
+  
+   useEffect(() => {
+    getUserList().then((res) => {
+      setUserList(res.data)
+    })
+  }, [])
+  console.log('UserLists:', UserList)
   const chats = UserList.flatMap((user: any) => user.chats)
-  const chat = chats.filter((item: any) => item.id === parseInt(id || '0'))
+  const chat = chats.filter((item: any) => item._id === id)
   const messages = chat.length > 0 ? chat[0].messages : []
 
   const [message, setMessage] = useState('')
@@ -17,30 +25,18 @@ export default function ChatSupport() {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!message.trim()) return alert('Vui lòng nhập tin nhắn')
-    const newMessage = {
-      id: 1,
-      sender: 'admin',
-      text: message,
-      timestamp: new Date().toLocaleString()
-    }
-    const updatedChat = {
-      ...chat[0],
-      messages: [...chat[0].messages, newMessage],
-      lastMessage: message,
-      status: 1
-    }
-    const updatedChats = chats.map((item: any) => (item.id === chat[0].id ? updatedChat : item))
-    const updatedUserList = UserList.map((user: any) => {
-      const hasChat = user.chats?.some((c: any) => c.id === chat[0].id)
-      if (hasChat) {
-        return { ...user, chats: updatedChats }
-      }
-      return user
-    })
-    localStorage.setItem('userList', JSON.stringify(updatedUserList))
-    setMessage('')
+   try {
+    await sendMessageAdmin(id!, "admin", message); // id = chatId từ useParams
+     // fetch lại
+      const res = await getUserList();
+      setUserList(res.data);
+    setMessage("");
+  } catch (err) {
+    console.error(err);
+    alert("Gửi tin nhắn thất bại");
+  }
   }
 
   return (
@@ -54,11 +50,11 @@ export default function ChatSupport() {
       <div className='flex-1 overflow-y-auto bg-gray-100 rounded-lg p-4 shadow-inner'>
         {messages.length > 0 ? (
           messages.map((item: any, index: number) => (
-            <div key={index} className={`flex mb-3 ${item.id === 1 ? 'justify-end' : 'justify-start'}`}>
+            <div key={index} className={`flex mb-3 ${item.id === 2 ? 'justify-end' : 'justify-start'}`}>
               <div className='max-w-[70%]'>
                 <div
                   className={`px-4 py-2 rounded-2xl text-sm shadow-sm ${
-                    item.id === 1
+                    item.id === 2
                       ? 'bg-green-500 text-[#fff] rounded-br-none'
                       : 'bg-[#dadada] text-gray-800 rounded-bl-none  '
                   }`}

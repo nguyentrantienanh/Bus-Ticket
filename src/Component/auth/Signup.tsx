@@ -1,7 +1,7 @@
 import logo from '../../assets/logo/Bus_Ticket_Header.png'
 import background from '../../assets/auth/background-login.jpg'
 import { useTranslation } from 'react-i18next'
-
+import { createUsersignup } from '../../api/userApi'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import Icon from '../../icons/Icon'
@@ -22,8 +22,6 @@ export default function Signin() {
   }
   const [confirmpassword, setconfirmpassword] = useState('')
 
-  const Userlist = JSON.parse(localStorage.getItem('userList') || '[]')
-
   const [fromData, setFromData] = useState({
     firstname: '',
     lastname: '',
@@ -31,50 +29,75 @@ export default function Signin() {
     password: ''
   })
 
-  const ktremail = Userlist.find((u: any) => u.email === fromData.email)
+  // const ktremail = Userlist.find((u: any) => u.email === fromData.email)
   const [isSignup, setisSignup] = useState(false)
-  const handleSignup = () => {
+
+  // Hàm xử lý đăng ký localStorage
+  // const handleSignup = () => {
+  //   if (fromData.password.length < 10) {
+  //     alert(t('messages.passwordTooShort'))
+  //     return
+  //   }
+
+  //   if (ktremail) {
+  //     alert(t('messages.emailExists'))
+  //     return
+  //   }
+
+  //   if (fromData.lastname && fromData.firstname && fromData.email && fromData.password && confirmpassword) {
+  //     if (fromData.password !== confirmpassword) {
+  //       alert(t('messages.passwordMismatch'))
+  //       return
+  //     }
+  //   } else {
+  //     alert(t('messages.fillAllFields'))
+  //     return
+  //   }
+  //   setisSignup(true)
+  //   setTimeout(() => {
+  //     // Lưu thông tin người dùng mới vào localStorage
+  //     const newUser = {
+  //       ...fromData,
+  //       id: Date.now(),
+  //       status: 1,
+  //       type: 1,
+  //       name: `${fromData.firstname} ${fromData.lastname}`,
+  //       imageUrl: '',
+  //       chats: [],
+  //       ticket: []
+  //     }
+  //     Userlist.push(newUser)
+  //     localStorage.setItem('userList', JSON.stringify(Userlist))
+  //     alert(t('messages.accountCreated'))
+  //     window.location.href = '/signin'
+  //     setisSignup(false)
+  //   }, 3000)
+  // }
+  // hàm kiểm tra confirmpassword
+
+  //  ham xử lý đăng ký với server data mongodb
+  const handleSignup = async () => {
     if (fromData.password.length < 10) {
       alert(t('messages.passwordTooShort'))
       return
     }
-
-    if (ktremail) {
-      alert(t('messages.emailExists'))
-      return
-    }
-
-    if (fromData.lastname && fromData.firstname && fromData.email && fromData.password && confirmpassword) {
-      if (fromData.password !== confirmpassword) {
-        alert(t('messages.passwordMismatch'))
-        return
-      }
-    } else {
-      alert(t('messages.fillAllFields'))
+    if (fromData.password !== confirmpassword) {
+      alert(t('messages.passwordMismatch'))
       return
     }
     setisSignup(true)
-    setTimeout(() => {
-      // Lưu thông tin người dùng mới vào localStorage
-      const newUser = {
-        ...fromData,
-        id: Date.now(),
-        status: 1,
-        type: 1,
-        name: `${fromData.firstname} ${fromData.lastname}`,
-        imageUrl: '',
-        chats: [],
-        ticket: []
+    setTimeout(async () => {
+      try {
+        const res = await createUsersignup(fromData)
+        alert(res.data.message)
+        setisSignup(false)
+        navigate('/signin')
+      } catch (err: any) {
+        alert(err.response?.data?.message || 'Lỗi kết nối server')
+        setisSignup(false)
       }
-      Userlist.push(newUser)
-      localStorage.setItem('userList', JSON.stringify(Userlist))
-      alert(t('messages.accountCreated'))
-      window.location.href = '/signin'
-      setisSignup(false)
     }, 3000)
   }
-  // hàm kiểm tra confirmpassword
-
   return (
     <div className='flex flex-col md:flex-row  min-h-screen  bg-gray-100'>
       <div className='w-full md:w-2/4  '>

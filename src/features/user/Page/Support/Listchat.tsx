@@ -1,15 +1,29 @@
 import Icon from '../../../../icons/Icon'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
+import {getUserChats} from '../../../../api/chatUserApi'
+import { useEffect, useState } from 'react'
 export default function Listchat() {
   const { t } = useTranslation('ListSupport')
   const { id } = useParams<{ id: string }>()
-
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  const user = UserList.find((item: any) => item.id === UserInfo.id)
-  const chats = user?.chats || []
+    const [chats, setChats] = useState<any[]>([])
+    const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
+    console.log('UserInfo:', UserInfo.id)
+    useEffect(() => {
+      const fetchChats = async () => {
+        try {
+          if (UserInfo.id) {
+            const res = await getUserChats(UserInfo.id)
+            console.log('Chats fetched:', res.data)
+            setChats(res.data) // API trả về mảng chats
+          }
+        } catch (err) {
+          console.error('Lỗi khi lấy chats:', err)
+        }
+      }
+      fetchChats()
+    }, [UserInfo.id])
+ 
 
   return (
     <nav className='flex flex-col w-full bg-[#fff] h-full '>
@@ -58,7 +72,7 @@ export default function Listchat() {
             return (
               <li key={item.id} className='mb-1'>
                 <Link
-                  to={`/user/support/chat/${item.id}/${item.description}`}
+                  to={`/user/support/chat/${item._id}/${item.description}`}
                   className={`flex items-center gap-3 p-3 rounded-xl transition ${
                     isSelected ? 'bg-green-100 border border-green-400' : 'hover:bg-gray-100'
                   }`}

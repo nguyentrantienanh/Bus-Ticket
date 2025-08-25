@@ -6,32 +6,58 @@ import TextField from '@mui/material/TextField'
 import { useMediaQuery } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import Icon from '../../../icons/Icon'
+import { getUserList } from '../../../api/userApi'
+import { updateUserInfo } from '../../../api/userApi'
+import { deleteTicketById } from '../../../api/ticketsApi'
 
 export default function InformationUser() {
   const { t } = useTranslation('Information')
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const user = UserList.find((user: any) => user.id === parseInt(name || '0'))
+  const [UserList, setUserList] = useState<any[]>([])
+  useEffect(() => {
+    getUserList()
+      .then((response) => {
+        setUserList(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching user list:', error)
+      })
+  }, [])
+
+  const user = UserList.find((user: any) => user._id === name)
+
   const navigate = useNavigate()
   // LẤY NĂM HIỆN TẠI
   const currentYear = new Date().getFullYear() - 18
 
   const [formData, setFormData] = useState({
-    fullName: user?.name || '',
-    phone: user?.phone || '',
-    email: user?.email || '',
-    cccd: user?.cccd || '',
-    birthday: user?.birthday || `${currentYear}-01-01`
+    fullName: '',
+    phone: '',
+    email: '',
+    cccd: '',
+    birthday: `${currentYear}-01-01`
   })
+  // Khi user thay đổi, cập nhật lại formData
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        fullName: user.name || '',
+        phone: user.phone || '',
+        email: user.email,
+        cccd: user.cccd || '',
+        birthday: user.birthday || `${currentYear}-01-01`
+      })
+    }
+  }, [user])
   const [message, setMessage] = useState('')
   const [ishandlesumit, setishandlesubmit] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   // Hàm xử lý submit form lưu thông tin người dùng mới up vào push thêm userList
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     setishandlesubmit(true)
-    setTimeout(() => {
+    setTimeout(async () => {
       setishandlesubmit(false)
       if (
         (formData.phone.length < 10 && formData.cccd.length < 12) ||
@@ -51,41 +77,45 @@ export default function InformationUser() {
       if (formData.cccd.length > 12) {
         setMessage(t('validation.cccdMaxLength'))
       }
-      const raw = localStorage.getItem('userList')
-      if (!raw) return alert(t('errors.noData'))
-
-      // Tìm index người dùng có id khớp
-      const index = UserList.findIndex((user: any) => user.id === parseInt(name || '0'))
+      const index = UserList.findIndex((user: any) => user._id === name)
       if (index === -1) return alert(t('errors.userNotFound'))
-      // Cập nhật thông tin người dùng
-      UserList[index] = {
-        ...UserList[index], // giữ nguyên thông tin cũ
-        ...formData, // cập nhật thông tin mới
-        ticket: UserList[index].ticket, // giữ nguyên vé
-        id: UserList[index].id // giữ nguyên id
-      }
+      try {
+        await updateUserInfo(UserList[index]._id, {
+          ...UserList[index],
+          ...formData,
+          ticket: UserList[index].ticket
+        })
 
-      // Lưu lại vào localStorage dạng mảng []
-      setIsSubmitted(true)
-      localStorage.setItem('userList', JSON.stringify(UserList))
-      // Điều hướng đến trang thanh toán
-      navigate(`/user/payment/${id}`)
+        // Cập nhật state UserList
+        setUserList((prevList) => prevList.map((u) => (u._id === UserList[index]._id ? { ...u, ...formData } : u)))
+
+        setIsSubmitted(true)
+        navigate(`/user/payment/${id}`)
+      } catch (err: any) {
+        setMessage('Cập nhật thông tin thất bại')
+        console.error('Lỗi cập nhật:', err?.response?.data || err)
+      }
     }, 3000)
   }
   // Kiểm tra xem người dùng đã submit form hay chưa
+  // Xóa vé khi người dùng đóng tab hoặc thoát trang
   useEffect(() => {
     const handleUnload = () => {
       if (!isSubmitted) {
-        const updatedList = UserList.map((user: any) => {
-          const filteredTickets = user.ticket?.filter((t: any) => t.id !== parseInt(id || '0'))
-          return { ...user, ticket: filteredTickets }
-        })
-        localStorage.setItem('userList', JSON.stringify(updatedList))
+        try {
+          deleteTicketById(Number(id)) // Xóa vé trên server
+          console.log('Vé đã được xóa khi thoát trang')
+        } catch (err) {
+          console.error('Xóa vé thất bại khi thoát trang:', err)
+        }
       }
     }
+
     window.addEventListener('beforeunload', handleUnload)
-    return () => window.removeEventListener('beforeunload', handleUnload)
-  }, [isSubmitted, id, UserList])
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload)
+    }
+  }, [isSubmitted, id])
   // repository
   const isMobile = useMediaQuery('(max-width: 768px)')
   // chặn ngày tương lai
@@ -158,8 +188,10 @@ export default function InformationUser() {
             value={formData.email}
             onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
             required
-            className='w-full border rounded px-3 py-2'
+            // tô sám
+            className='w-full border rounded px-3 py-2 bg-gray-200'
             placeholder={t('form.email.placeholder')}
+            disabled
           />
         </div>
 

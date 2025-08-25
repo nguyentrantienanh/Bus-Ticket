@@ -3,6 +3,7 @@ import background from '../../../../assets/background.jpg'
 import Icon from '../../../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { createChat, sendMessage} from '../../../../api/chatUserApi'
 
 export default function Createnew() {
   const { t } = useTranslation('SupportTicketCreateNew')
@@ -11,47 +12,51 @@ export default function Createnew() {
   const [priority, setPriority] = useState(1)
   const [chat, setChat] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!chat || !description || !priority) {
       return alert(t('validation.fillAllFields'))
     }
-
-    const newMessage = {
-      id: 2,
-      sender: 'user',
-      text: chat,
-      timestamp: new Date().toLocaleString()
-    }
-    const newchats = {
-      id: Date.now(),
-      description,
-      lastMessage: '',
-      status: 2,
-      priority,
-      timestamp: new Date().toLocaleString(),
-      messages: [newMessage]
-    }
-
+    // ⚡ lấy userId từ localStorage chỉ 1 lần (sau login đã có)
     const userInfoRaw = localStorage.getItem('userInfo')
-    const userListRaw = localStorage.getItem('userList')
-    if (!userInfoRaw || !userListRaw) {
+    if (!userInfoRaw) {
       return alert(t('validation.userInfoNotFound'))
     }
     const userInfo = JSON.parse(userInfoRaw)
-    const userList = JSON.parse(userListRaw)
-    const user = userList.find((item: any) => item.id === userInfo.id)
-    if (!user) {
-      return alert(t('validation.userNotFound'))
-    }
-    user.chats.push(newchats)
-    localStorage.setItem('userList', JSON.stringify(userList))
 
-    alert(t('success.chatCreated'))
-    setDescription('')
-    setPriority(1)
-    setChat('')
-    navigate('/user/support-ticket')
+    // const newMessage = {
+    //   id: 2,
+    //   sender: 'user',
+    //   text: chat,
+    //   timestamp: new Date().toLocaleString()
+    // }
+    // const newchats = {
+    //   id: Date.now(),
+    //   description,
+    //   lastMessage: '',
+    //   status: 2,
+    //   priority,
+    //   timestamp: new Date().toLocaleString(),
+    //   messages: [newMessage]
+    // }
+ try {
+      // 1. Tạo chat mới
+      const res = await createChat(userInfo.id, description, priority)
+      const newChat = res.data.chat
+
+      // 2. Gửi tin nhắn đầu tiên
+      await sendMessage(userInfo.id, newChat._id, "user", chat);
+      
+
+      alert(t('success.chatCreated'))
+      setDescription('')
+      setPriority(1)
+      setChat('')
+      navigate('/user/support-ticket')
+    } catch (err: any) {
+      alert('Lỗi khi tạo chat: ' + (err.response?.data?.message || err.message))
+    }
+    
   }
 
   return (

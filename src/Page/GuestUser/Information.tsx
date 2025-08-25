@@ -7,13 +7,14 @@ import { useMediaQuery } from '@mui/material'
 import Icon from '../../icons/Icon'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { deleteTicketById } from '../../api/ticketsApi'
+import { updateGuestUserInfo } from '../../api/guestUserApi'
 
 export default function InformationGuestUser() {
   const { t } = useTranslation('InformationGuestUser')
   const { id } = useParams<{ id: string }>()
   const { name } = useParams<{ name: string }>()
   const navigate = useNavigate()
-  const GuestUserInfo = JSON.parse(localStorage.getItem('guestUserInfo') || '{}')
 
   // LẤY NĂM HIỆN TẠI - 18
   const currentYear = new Date().getFullYear() - 18
@@ -25,77 +26,64 @@ export default function InformationGuestUser() {
     cccd: '',
     birthday: `${currentYear}-01-01`
   })
+
   const [message, setMessage] = useState('')
   const [ishandlesumit, setishandlesubmit] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
-
     setishandlesubmit(true)
-    setTimeout(() => {
-      setishandlesubmit(false)
-      if (
-        (formData.phone.length < 10 && formData.cccd.length < 12) ||
-        (formData.phone.length > 10 && formData.cccd.length > 12)
-      ) {
-        return setMessage(t('messages.invalid'))
-      }
-      if (formData.phone.length < 10) {
-        return setMessage(t('messages.phoneMin'))
-      }
-      if (formData.cccd.length < 12) {
-        return setMessage(t('messages.cccdMin'))
-      }
-      if (formData.phone.length > 10) {
-        setMessage(t('messages.phoneMax'))
-      }
-      if (formData.cccd.length > 12) {
-        setMessage(t('messages.cccdMax'))
-      }
 
-      const raw = localStorage.getItem('guestUserInfo')
-      if (!raw) return alert(t('messages.notFound'))
-
-      let guestList: any[] = []
+    setTimeout(async () => {
+      // validate form
+      if (formData.phone.length < 10) return setMessage(t('messages.phoneMin'))
+      if (formData.cccd.length < 12) return setMessage(t('messages.cccdMin'))
+      if (formData.phone.length > 10) setMessage(t('messages.phoneMax'))
+      if (formData.cccd.length > 12) setMessage(t('messages.cccdMax'))
 
       try {
-        const parsed = JSON.parse(raw)
-        guestList = Array.isArray(parsed) ? parsed : []
-      } catch (err) {
-        console.error('Lỗi parse guestUserInfo:', err)
-        return alert(t('messages.parseError'))
-      }
+        // Tìm user trong guestUsers theo _id
+        const guest = name
 
-      const index = guestList.findIndex((guest) => String(guest.id) === String(name))
-      if (index === -1) return alert(t('messages.guestNotFound'))
-
-      guestList[index] = {
-        ...guestList[index],
-        ...formData,
-        ticket: guestList[index].ticket,
-        id: guestList[index].id
+        if (guest) {
+          // Update guest thông tin (không đổi ticket)
+          const response = await updateGuestUserInfo(guest, { ...formData })
+          if (response?.data?.guest) {
+            setishandlesubmit(false)
+            setIsSubmitted(true) // Đánh dấu form đã được submit thành công
+            navigate(`/user/payment/${id}`)
+          } else {
+            setishandlesubmit(false)
+            setMessage(response?.data?.message || 'Có lỗi xảy ra khi cập nhật')
+          }
+        }
+      } catch (err: any) {
+        setMessage(err.response?.data?.message || 'Lỗi kết nối server')
+        setishandlesubmit(false)
+      } finally {
+        setishandlesubmit(false)
       }
-      setIsSubmitted(true)
-      localStorage.setItem('guestUserInfo', JSON.stringify(guestList))
-      navigate(`/user/payment/${id}`)
-    }, 3000)
+      setishandlesubmit(false)
+    }, 500)
   }
 
-  // Kiểm tra xem người dùng đã submit form hay chưa
   useEffect(() => {
     const handleUnload = () => {
       if (!isSubmitted) {
-        const updatedGuestList = GuestUserInfo.map((u: any) => {
-          const filteredTickets = u.ticket?.filter((t: any) => t.id !== parseInt(id || '0'))
-          return { ...u, ticket: filteredTickets }
-        })
-        localStorage.setItem('guestUserInfo', JSON.stringify(updatedGuestList))
+        try {
+          deleteTicketById(Number(id)) // Xóa vé trên server
+          console.log('Vé đã được xóa khi thoát trang')
+        } catch (err) {
+          console.error('Xóa vé thất bại khi thoát trang:', err)
+        }
       }
     }
 
     window.addEventListener('beforeunload', handleUnload)
-    return () => window.removeEventListener('beforeunload', handleUnload)
-  }, [isSubmitted, name])
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload)
+    }
+  }, [isSubmitted, id])
   // repository
   const isMobile = useMediaQuery('(max-width: 768px)')
   // chặn ngày tương lai

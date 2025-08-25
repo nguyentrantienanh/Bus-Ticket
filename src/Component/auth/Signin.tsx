@@ -3,7 +3,7 @@ import background from '@assets/auth/background-login.jpg'
 import Icon from '../../icons/Icon'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useTranslation } from 'react-i18next'
-
+import { loginUsergoogle, loginUsersignin } from '../../api/userApi'
 import { useState, useEffect } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 // import FacebookLoginButton from '../../services/FacebookLoginButton'
@@ -16,55 +16,91 @@ export default function Signin() {
   const { t } = useTranslation('Signin')
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const navigate = useNavigate()
+  // hàm xử lý đăng nhập với Google lưu thông tin người dùng vào localStorage
+  // const handleGoogleLogin = async (response: any) => {
+  //   try {
+  //     if (AdminInfo) {
+  //       localStorage.removeItem('adminInfo')
+  //     }
+  //     const { data } = await axios.get(
+  //       `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`
+  //     )
+
+  //     // Lấy danh sách user đã lưu
+  //     const userList: UserInfo[] = JSON.parse(localStorage.getItem('userList') || '[]')
+
+  //     // Kiểm tra xem người dùng đã tồn tại chưa (dựa vào googleId)
+  //     const existingUser = userList.find((u) => u.email === data.email)
+
+  //     let user: UserInfo
+
+  //     if (existingUser) {
+  //       // Nếu đã có, dùng lại thông tin cũ
+  //       user = existingUser
+  //     } else {
+  //       // Nếu chưa có, tạo user mới và thêm vào danh sách
+  //       user = {
+  //         id: Date.now(), // Gán ID mới
+  //         email: data.email,
+  //         firstname: data.given_name,
+  //         lastname: data.family_name,
+  //         googleId: data.sub,
+  //         imageUrl: data.picture,
+  //         name: data.name,
+  //         status: 1,
+  //         type: 1,
+  //         ticket: [],
+  //         chats: []
+  //       }
+
+  //       userList.push(user)
+  //       localStorage.setItem('userList', JSON.stringify(userList))
+  //     }
+
+  //     // Lưu thông tin user đang đăng nhập
+  //     localStorage.setItem('userInfo', JSON.stringify(user))
+
+  //     // Chuyển hướng sang dashboard
+  //     navigate('/user/dashboard') // React Router
+  //   } catch (error) {
+  //     console.error('Lỗi đăng nhập Google:', error)
+  //   }
+  // }
+  // Hàm xử lý đăng nhập với Google lưu thông tin người dùng vào  mongoDB
   const handleGoogleLogin = async (response: any) => {
     try {
       if (AdminInfo) {
         localStorage.removeItem('adminInfo')
       }
+
+      // Lấy info từ Google API
       const { data } = await axios.get(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`
       )
 
-      // Lấy danh sách user đã lưu
-      const userList: UserInfo[] = JSON.parse(localStorage.getItem('userList') || '[]')
+      // Gửi thông tin user Google về backend để lưu vào Mongo
+      const res = await loginUsergoogle({
+        email: data.email,
+        firstname: data.given_name,
+        lastname: data.family_name,
+        googleId: data.sub,
+        imageUrl: data.picture,
+        name: data.name
+      })
 
-      // Kiểm tra xem người dùng đã tồn tại chưa (dựa vào googleId)
-      const existingUser = userList.find((u) => u.email === data.email)
+      // Nhận token + user từ backend
+      const { token, user } = res.data
 
-      let user: UserInfo
-
-      if (existingUser) {
-        // Nếu đã có, dùng lại thông tin cũ
-        user = existingUser
-      } else {
-        // Nếu chưa có, tạo user mới và thêm vào danh sách
-        user = {
-          id: Date.now(), // Gán ID mới
-          email: data.email,
-          firstname: data.given_name,
-          lastname: data.family_name,
-          googleId: data.sub,
-          imageUrl: data.picture,
-          name: data.name,
-          status: 1,
-          type: 1,
-          ticket: [],
-          chats: []
-        }
-
-        userList.push(user)
-        localStorage.setItem('userList', JSON.stringify(userList))
-      }
-
-      // Lưu thông tin user đang đăng nhập
+      // Lưu token và user vào localStorage
       localStorage.setItem('userInfo', JSON.stringify(user))
+      localStorage.setItem('token', token)
 
-      // Chuyển hướng sang dashboard
-      navigate('/user/dashboard') // React Router
+      navigate('/user/dashboard')
     } catch (error) {
       console.error('Lỗi đăng nhập Google:', error)
     }
   }
+
   // Hàm xử lý đăng nhập thất bại với Google
   const handleGoogleLoginError = () => {}
   // Sử dụng hook useGoogleLogin để đăng nhập với Google
@@ -110,11 +146,56 @@ export default function Signin() {
   }, [])
 
   const [islogin, setlogin] = useState(false)
-  const handleLogin = (e: any) => {
+
+  // Hàm xử lý đăng nhập localStorage
+  // const handleLogin = (e: any) => {
+  //   e.preventDefault()
+  //   if (AdminInfo) {
+  //     localStorage.removeItem('adminInfo')
+  //   }
+  //   if (!captchaValue) {
+  //     setMessage(t('messages.captchaRequired'))
+  //     return
+  //   }
+  //   if (!useremail || !password) {
+  //     setMessage(t('messages.fieldsRequired'))
+  //     return
+  //   }
+
+  //   setlogin(true)
+  //   setTimeout(() => {
+  //     try {
+  //       // Lấy danh sách user đã lưu
+  //       const userList: UserInfo[] = JSON.parse(localStorage.getItem('userList') || '[]')
+
+  //       // Tìm người dùng có email và mật khẩu khớp
+  //       const user = userList.find((u) => u.email === useremail && u.password === password)
+  //       if (user) {
+  //         if (user.status === 0) { //status 0 là tài khoản bị khóa
+  //           setMessage(t('messages.accountLocked'))
+  //           setlogin(false)
+  //           return
+  //         }
+  //         // Lưu thông tin người dùng vào localStorage
+  //         localStorage.setItem('userInfo', JSON.stringify(user))
+  //         alert(t('messages.loginSuccess'))
+  //         // Sử dụng navigate thay vì window.location.href
+  //         navigate('/user/dashboard')
+  //       } else {
+  //         setMessage(t('messages.invalidCredentials'))
+  //       }
+  //     } catch (error) {
+  //       console.error('Lỗi đăng nhập:', error)
+  //       alert(t('messages.loginError'))
+  //     }
+  //     setlogin(false)
+  //   }, 3000)
+  // }
+
+  // Hàm xử lý đăng nhập với server data mongodb
+  const handleLogin = async (e: any) => {
     e.preventDefault()
-    if (AdminInfo) {
-      localStorage.removeItem('adminInfo')
-    }
+
     if (!captchaValue) {
       setMessage(t('messages.captchaRequired'))
       return
@@ -125,33 +206,21 @@ export default function Signin() {
     }
 
     setlogin(true)
-    setTimeout(() => {
-      try {
-        // Lấy danh sách user đã lưu
-        const userList: UserInfo[] = JSON.parse(localStorage.getItem('userList') || '[]')
+    try {
+      const res = await loginUsersignin({ email: useremail, password })
 
-        // Tìm người dùng có email và mật khẩu khớp
-        const user = userList.find((u) => u.email === useremail && u.password === password)
-        if (user) {
-          if (user.status === 0) {
-            setMessage(t('messages.accountLocked'))
-            setlogin(false)
-            return
-          }
-          // Lưu thông tin người dùng vào localStorage
-          localStorage.setItem('userInfo', JSON.stringify(user))
-          alert(t('messages.loginSuccess'))
-          // Sử dụng navigate thay vì window.location.href
-          navigate('/user/dashboard')
-        } else {
-          setMessage(t('messages.invalidCredentials'))
-        }
-      } catch (error) {
-        console.error('Lỗi đăng nhập:', error)
-        alert(t('messages.loginError'))
-      }
+      // Lưu user + token vào localStorage
+      localStorage.setItem('userInfo', JSON.stringify(res.data.user))
+      localStorage.setItem('token', res.data.token)
+
+      alert(t('messages.loginSuccess'))
+      navigate('/user/dashboard')
+    } catch (error: any) {
+      console.error('Lỗi đăng nhập:', error)
+      setMessage(error.response?.data?.message || t('messages.loginError'))
+    } finally {
       setlogin(false)
-    }, 3000)
+    }
   }
 
   return (

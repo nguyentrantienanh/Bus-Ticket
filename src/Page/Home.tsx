@@ -120,10 +120,21 @@ function Home() {
                       )}
                     </div>
                   </div>
-                      <div className='items-center  max-md:hidden flex   text-[#49ef27]'>
-                    <svg _ngcontent-ng-c827709370="" xmlns="http://www.w3.org/2000/svg" width="18" height="23" viewBox="0 0 18 23" fill="none"  >
-                                        <path _ngcontent-ng-c827709370="" d="M18 18.4L13.2 13.8L13.2 17.25L4.8 17.25C3.48 17.25 2.4 16.215 2.4 14.95C2.4 13.685 3.48 12.65 4.8 12.65L13.2 12.65C15.852 12.65 18 10.5915 18 8.05C18 5.5085 15.852 3.45 13.2 3.45L4.8 3.45L4.8 -5.7699e-07L1.70628e-06 4.6L4.8 9.2L4.8 5.75L13.2 5.75C14.52 5.75 15.6 6.785 15.6 8.05C15.6 9.315 14.52 10.35 13.2 10.35L4.8 10.35C2.148 10.35 1.36496e-06 12.4085 1.25386e-06 14.95C1.14277e-06 17.4915 2.148 19.55 4.8 19.55L13.2 19.55L13.2 23L18 18.4Z" fill="currentColor"></path>
-                                    </svg>
+                  <div className='items-center  max-md:hidden flex   text-[#49ef27]'>
+                    <svg
+                      _ngcontent-ng-c827709370=''
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='18'
+                      height='23'
+                      viewBox='0 0 18 23'
+                      fill='none'
+                    >
+                      <path
+                        _ngcontent-ng-c827709370=''
+                        d='M18 18.4L13.2 13.8L13.2 17.25L4.8 17.25C3.48 17.25 2.4 16.215 2.4 14.95C2.4 13.685 3.48 12.65 4.8 12.65L13.2 12.65C15.852 12.65 18 10.5915 18 8.05C18 5.5085 15.852 3.45 13.2 3.45L4.8 3.45L4.8 -5.7699e-07L1.70628e-06 4.6L4.8 9.2L4.8 5.75L13.2 5.75C14.52 5.75 15.6 6.785 15.6 8.05C15.6 9.315 14.52 10.35 13.2 10.35L4.8 10.35C2.148 10.35 1.36496e-06 12.4085 1.25386e-06 14.95C1.14277e-06 17.4915 2.148 19.55 4.8 19.55L13.2 19.55L13.2 23L18 18.4Z'
+                        fill='currentColor'
+                      ></path>
+                    </svg>
                   </div>
                   <div className='border-1 border-[#8aff73] rounded-[10px] px-2 py-1 flex items-center gap-2 relative'>
                     <i className='text-[#66ff47]'>

@@ -26,6 +26,8 @@ export default defineConfig({
   preview: {
     port: 4173,
     host: true,
-    allowedHosts: ['bus-ticket-79by.onrender.com']
+    allowedHosts: ['bus-ticket-79by.onrender.com',
+      'bus-ticket.nguyentrantienanh.me'
+    ]
   }
 })
