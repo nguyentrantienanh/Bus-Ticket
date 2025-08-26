@@ -11,18 +11,19 @@ export default function ChatSupport() {
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const [chats, setChats] = useState<any[]>([])
   useEffect(() => {
-    const fetchChats = async () => {
+    const fetchChats =  setInterval(async () => {
+    if (UserInfo.id) {
       try {
-        if (UserInfo.id) {
-          const res = await getUserChats(UserInfo.id)
-        
-          setChats(res.data) // API trả về mảng chats
-        }
+        const res = await getUserChats(UserInfo.id);
+        setChats(res.data);
       } catch (err) {
-       
+        console.error('Lỗi khi fetch chats:', err);
       }
     }
-    fetchChats()
+  }, 3000); 
+
+  return () => clearInterval(fetchChats); // clear khi unmount
+ 
   }, [UserInfo.id])
 
    
