@@ -24,7 +24,6 @@ export function Booking() {
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
   const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
-  console.log('Current User:', currentUser) // Kiểm tra thông tin người dùng hiện tại
 
   const ve = currentUser.ticket || []
   const { t } = useTranslation('Home')

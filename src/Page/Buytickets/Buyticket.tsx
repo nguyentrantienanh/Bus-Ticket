@@ -38,7 +38,7 @@ export default function Buyticket() {
   }, [])
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
   const ve = [...UserTicket, ...GuestUserTicket]
-  console.log('Dữ liệu vé đã đặt:', ve)
+
 
   // State để lưu trữ các ghế đã chọn
   const [selectedSeats, setSelectedSeats] = useState<number[]>([])

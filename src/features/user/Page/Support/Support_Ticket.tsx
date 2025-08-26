@@ -11,13 +11,13 @@ export default function SupportTicket() {
   const [chats, setChats] = useState<any[]>([])
  // lấy user từ localStorage
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  console.log('UserInfo:', UserInfo.id)
+
   useEffect(() => {
     const fetchChats = async () => {
       try {
         if (UserInfo.id) {
           const res = await getUserChats(UserInfo.id)
-          console.log('Chats fetched:', res.data)
+         
           setChats(res.data) // API trả về mảng chats
         }
       } catch (err) {

@@ -15,11 +15,11 @@ export default function ChatSupport() {
       try {
         if (UserInfo.id) {
           const res = await getUserChats(UserInfo.id)
-          console.log('Chats fetched:', res.data)
+        
           setChats(res.data) // API trả về mảng chats
         }
       } catch (err) {
-        console.error('Lỗi khi lấy chats:', err)
+       
       }
     }
     fetchChats()
@@ -27,7 +27,7 @@ export default function ChatSupport() {
 
    
   const chat = chats.filter((item: any) => item._id === id )
-  console.log('Selected chat:', chat)
+
   const messages = chat.length > 0 ? chat[0].messages : []
 
   const [message, setMessage] = useState('')

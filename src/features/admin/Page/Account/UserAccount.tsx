@@ -174,7 +174,7 @@ function Account() {
       setUsers(res.data)
     })
   }, [])
-  console.log('Users:', users)
+
 
   const handShowPassword = (userId: string) => {
     setVisiblePasswords((item) => ({

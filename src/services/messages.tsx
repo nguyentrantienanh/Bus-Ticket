@@ -34,8 +34,7 @@ export default function Messages() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [open, manualOpen])
-  console.log('scrolled', scrolled)
-  console.log('open', open)
+
   const supportUrl = `${import.meta.env.VITE_WEBSITE_URL}/user/support/chat`
   async function callGeminiFlash(usermessage: string) {
     try {

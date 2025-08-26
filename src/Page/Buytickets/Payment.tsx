@@ -53,9 +53,7 @@ export default function Payment() {
   const guestUserticketList = GuestUserInfo.map((user: any) => user.ticket).flat()
   const guestUserTicket = guestUserticketList.filter((item: any) => item.id === parseInt(id || '0'))
   // const isUserLoggedIn = userinfo.name || userinfo.email
-  console.log('userinfo', userinfo)
-  console.log('ticket', ticket)
-  console.log('guestUserTicket', guestUserTicket)
+  
 
   // const seats = (userinfo.name ? ticketList : guestUserticketList)
   //   .map((item: any) => item.seats)
@@ -140,9 +138,9 @@ export default function Payment() {
       if (!isConfirmed && !isPayingZalo) {
         try {
           await deleteTicketById(Number(id))
-          console.log('Vé đã được xóa khi thoát trang')
+    
         } catch (err) {
-          console.error('Xóa vé thất bại khi thoát trang:', err)
+        
         }
       }
     }

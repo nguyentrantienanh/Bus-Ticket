@@ -13,7 +13,7 @@ const [UserList, setUserList] = useState<any[]>([])
       setUserList(res.data)
     })
   }, [])
-  console.log('UserLists:', UserList)
+
   const chats = UserList.flatMap((user: any) => user.chats)
   const chat = chats.filter((item: any) => item._id === id)
   const messages = chat.length > 0 ? chat[0].messages : []

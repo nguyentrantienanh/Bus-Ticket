@@ -14,7 +14,7 @@ const [UserList, setUserList] = useState<any[]>([])
       setUserList(res.data)
     })
   }, [])
-  console.log('UserLists:', UserList)
+
 const chats = UserList.flatMap((user: any) => user.chats || [])
   return (
     <>
@@ -69,7 +69,7 @@ export default function CustomerSupport() {
       setUserList(res.data)
     })
   }, [])
-  console.log('UserLists:', UserList)
+
 const chats = UserList.flatMap((user: any) => user.chats || [])
   const countchat =  chats.length
   return (

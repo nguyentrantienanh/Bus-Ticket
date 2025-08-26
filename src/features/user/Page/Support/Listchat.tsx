@@ -8,13 +8,13 @@ export default function Listchat() {
   const { id } = useParams<{ id: string }>()
     const [chats, setChats] = useState<any[]>([])
     const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-    console.log('UserInfo:', UserInfo.id)
+
     useEffect(() => {
       const fetchChats = async () => {
         try {
           if (UserInfo.id) {
             const res = await getUserChats(UserInfo.id)
-            console.log('Chats fetched:', res.data)
+   
             setChats(res.data) // API trả về mảng chats
           }
         } catch (err) {
