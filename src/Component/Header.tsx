@@ -375,10 +375,7 @@ function Header() {
 
       {isMenuOpen && (
         <div>
-          <div
-            className='fixed bg-black opacity-30 z-79 top-0 w-full h-full '
-            onClick={() => setIsMenuOpen(false)}
-          ></div>
+           
           <div className=' min-[900px]:hidden  fixed  top-17 items-start  w-full z-90 flex mt-1  '>
             <div
               className='relative   bg-[#ffffff] flex flex-col shadow-lg  w-full   justify-between p-6 animate-slideDown'

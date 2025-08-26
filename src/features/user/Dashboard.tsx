@@ -3,12 +3,24 @@ import background from '../../assets/background.jpg'
 import { useState, useEffect } from 'react'
 import { Booking } from './Page/Bookinghistory'
 import { useTranslation } from 'react-i18next'
-
+import { getUserList } from '../../api/userApi'
 export default function Dashboard() {
   const { t } = useTranslation('Dashboard')
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const currentUser = UserList.find((user: any) => user.id === UserInfo.id) || {}
+  const [UserList, setUserList] = useState<any[]>([])
+  useEffect(   () => {
+      const callApi = async () => {
+         try{
+          const res = await getUserList()
+          setUserList(res.data)
+         } catch (error) {
+        console.error('Error fetching user list:', error)
+         }
+      }
+      callApi()
+  }, [])
+  // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+  const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
   const ve = currentUser.ticket || []
 
   const [countBooked, setCountBooked] = useState(0)

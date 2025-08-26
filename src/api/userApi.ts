@@ -1,34 +1,35 @@
 import axios from 'axios'
+const API_URL =  import.meta.env.VITE_USER_API_KEY ; // đổi thành URL backend của bạn
 
 export const getUserList = () => {
-  return axios.get('http://localhost:5000/api/auth/users')
+  return axios.get(`${API_URL}/auth/users`)
 }
 
 export const createUsersignup = (userData: any) => {
-  return axios.post('http://localhost:5000/api/auth/signup', userData)
+  return axios.post(`${API_URL}/auth/signup`, userData)
 }
 
 export const loginUsergoogle = (userData: any) => {
-  return axios.post('http://localhost:5000/api/auth/google-signin', userData)
+  return axios.post(`${API_URL}/auth/google-signin`, userData)
 }
 // hàm signin
 export const loginUsersignin = (userData: any) => {
-  return axios.post('http://localhost:5000/api/auth/signin', userData)
+  return axios.post(`${API_URL}/auth/signin`, userData)
 }
 
 export const createBooking = (userId: string, bookingDetails: any) => {
-  return axios.post(`http://localhost:5000/api/booktickets/${userId}`, bookingDetails)
+  return axios.post(`${API_URL}/booktickets/${userId}`, bookingDetails)
 }
 // hàm update status user
 export const updateUserStatus = (userId: string, status: number) => {
-  return axios.put(`http://localhost:5000/api/auth/users/${userId}`, { status })
+  return axios.put(`${API_URL}/auth/users/${userId}`, { status })
 }
 
 export const updateUserInfo = (userId: string, userData: any) => {
-  return axios.put(`http://localhost:5000/api/auth/users/${userId}`, userData)
+  return axios.put(`${API_URL}/auth/users/${userId}`, userData)
 }
 export const deleteUser = (userId: string) => {
-  return axios.delete(`http://localhost:5000/api/auth/users/${userId}`)
+  return axios.delete(`${API_URL}/auth/users/${userId}`)
 }
 
 // Thêm các hàm API khác cho user nếu cần

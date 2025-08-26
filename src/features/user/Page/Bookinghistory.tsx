@@ -1,12 +1,30 @@
 import Icon from '../../../icons/Icon'
 import backgruond from '../../../assets/background.jpg'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getUserList } from '../../../api/userApi'
 export function Booking() {
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+  // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+  const [UserList, setUserList] = useState<any[]>([])
+  useEffect(() => {
+    const fetchUserList = async () => {
+      try {
+        const res = await getUserList()
+       
+        setUserList(res.data)
+      } catch (error) {
+        console.error('Error fetching user list:', error)
+
+      }
+    }
+    fetchUserList()
+  }, [])
+ 
+
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
-  const currentUser = UserList.find((user: any) => user.id === UserInfo.id) || {}
+  const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
+  console.log('Current User:', currentUser) // Kiểm tra thông tin người dùng hiện tại
 
   const ve = currentUser.ticket || []
   const { t } = useTranslation('Home')
@@ -54,8 +72,8 @@ export function Booking() {
                   <tr key={index} className='bg-[#fff] text-gray-800 border-b text-nowrap'>
                     <td className='py-2 px-2 text-gray-500   '>{item.id}</td>
                     <td className='py-2 px-2 text-[#a7a7a7] hidden md:table-cell'>{item.type}</td>
-                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDen}`, { defaultValue: item.diemdi })}</td>
-                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDi}`, { defaultValue: item.diemden })}</td>
+                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDi}`, { defaultValue: item.diemdi })}</td>
+                    <td className='py-2 px-2 text-[#04b925]'>{t(`${item.diemDen}`, { defaultValue: item.diemden })}</td>
                     <td className='py-2 px-2 text-[#4c4c4c] font-medium'>{item.dateStart}</td>
                     <td className='py-2 px-2 text-[#7337ff] font-mono'>{item.starttime}</td>
                     <td className='py-2 px-2 text-[#04b925]  '>{seats[index].join(', ')} </td>

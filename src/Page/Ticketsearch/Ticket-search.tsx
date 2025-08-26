@@ -3,7 +3,8 @@ import { Box, TextField } from '@mui/material'
 import Background from '../../assets/background.jpg'
 import Icon from '../../icons/Icon'
 import { useTranslation } from 'react-i18next'
-
+import { getUserList } from '../../api/userApi'
+import { getGuestUserList} from '../../api/guestUserApi'
 export default function Ticketsearch() {
   const [searchTerm, setSearchTerm] = useState('')
   const [ticketseach, setTicketsearch] = useState<any>(null)
@@ -12,12 +13,38 @@ export default function Ticketsearch() {
   const handleticketDetail = () => {
     setTicketDetail(!ticketDetail)
   }
+  // callAPI
+  // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
+  //  const GuestUser = JSON.parse(localStorage.getItem('guestUserInfo') || '[]')
+  const  [GuestUserList, setGuestUserList] = useState<any[]>([])
+  const [Userlist, setUserlist] = useState<any[]>([])
+  useEffect(() => {
+    const callApiGuestUser = async () => {
+      try{
+        const res = await getGuestUserList()
+        setGuestUserList(res.data)
+      } catch (error){
+        console.error('Error fetching user list:', error)
+      }
+    }
+    callApiGuestUser()
+  }, [])
+  useEffect(() => {
+    const callApiUersList = async () => {
+      try{
+        const res = await getUserList()
+        setUserlist(res.data)
+      } catch (error){
+        console.error('Error fetching user list:', error)
+      }
+    }
+    callApiUersList()
+  }, [])
 
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const veData = UserList.map((user: any) => user.ticket).flat()
+  const veData = Userlist.map((user: any) => user.ticket).flat()
   const userinfo = JSON.parse(localStorage.getItem('userinfo') || '{}')
-  const GuestUser = JSON.parse(localStorage.getItem('guestUserInfo') || '[]')
-  const GuestUserTicket = GuestUser.map((user: any) => user.ticket).flat()
+ 
+  const GuestUserTicket = GuestUserList.map((user: any) => user.ticket).flat()
 
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
   const ve = [...veData, ...GuestUserTicket]
@@ -58,7 +85,7 @@ export default function Ticketsearch() {
   const diemdi = t(`Home:${ticketseach?.diemDi}`, { defaultValue: ticketseach?.diemDi })
   const diemden = t(`Home:${ticketseach?.diemDen}`, { defaultValue: ticketseach?.diemDen })
   const name = `${ticketseach?.type} -  ${diemdi} - ${diemden}`
-  const USERID = (userinfo.name ? UserList : GuestUser).find((user: any) =>
+  const USERID = (userinfo.name ? Userlist : GuestUserList).find((user: any) =>
     user.ticket?.some((t: any) => t.id === Number(searchTerm))
   )
 

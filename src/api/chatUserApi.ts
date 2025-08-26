@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth"; // đổi thành URL backend của bạn
+const API_URL =  import.meta.env.VITE_CHAT_USER_API_KEY ; // đổi thành URL backend của bạn
 
 // Tạo chat mới cho user
 export const createChat = async (userId: string, description: string, priority: number) => {

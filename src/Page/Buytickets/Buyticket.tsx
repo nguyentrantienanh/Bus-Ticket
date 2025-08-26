@@ -18,7 +18,7 @@ export default function Buyticket() {
 
   // dữ liệu vé
   const [GuestUserTicket, setGuestUserTicket] = useState<any[]>([])
-  const [GuestUserList, setGuestUserList] = useState<any[]>([])
+  const [UserTicket, setUserTicket] = useState<any[]>([])
   useEffect(() => {
     getGuestUserList()
       .then((res) => {
@@ -32,12 +32,12 @@ export default function Buyticket() {
       .then((res) => {
         const users = res.data || []
         const tickets = users.map((user: any) => user.ticket || []).flat()
-        setGuestUserList(tickets)
+        setUserTicket(tickets)
       })
-      .catch(() => setGuestUserList([]))
+      .catch(() => setUserTicket([]))
   }, [])
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
-  const ve = [...GuestUserList, ...GuestUserTicket]
+  const ve = [...UserTicket, ...GuestUserTicket]
   console.log('Dữ liệu vé đã đặt:', ve)
 
   // State để lưu trữ các ghế đã chọn

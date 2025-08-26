@@ -52,9 +52,7 @@ export default function Changepassword() {
       const updatedList = userList.map((user) => (user.id === userInfo.id ? { ...user, password } : user))
       localStorage.setItem('userList', JSON.stringify(updatedList))
 
-      // Cập nhật userInfo
-      const updatedUser = { ...userInfo, password }
-      localStorage.setItem('userInfo', JSON.stringify(updatedUser))
+       
 
       setError('')
       setSuccess(t('messages.changePasswordSuccess'))
