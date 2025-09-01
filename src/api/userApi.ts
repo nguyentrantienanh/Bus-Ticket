@@ -32,4 +32,19 @@ export const deleteUser = (userId: string) => {
   return axios.delete(`${API_URL}/auth/users/${userId}`)
 }
 
+// lay thong tin user theo id
+export const getUserById = (userId: string) => {
+  return axios.get(`${API_URL}/auth/users/${userId}`)
+}
+// đổi mật khẩu /users/:id/change-password
+// api/userApi.ts
+ 
+export const changeUserPassword = async (userId: string, currentPassword: string, newPassword: string) => {
+  return axios.put(`${API_URL}/auth/users/${userId}/change-password`, {
+    currentPassword,
+    newPassword,
+  });
+};
+
+
 // Thêm các hàm API khác cho user nếu cần

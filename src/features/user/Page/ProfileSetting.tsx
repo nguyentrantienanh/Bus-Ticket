@@ -1,32 +1,51 @@
 import background from '../../../assets/background.jpg'
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { googleLogout } from '@react-oauth/google'
 import Icon from '../../../icons/Icon'
 import { useTranslation } from 'react-i18next'
-
+import { getUserById } from '../../../api/userApi'
+import { updateUserInfo } from '../../../api/userApi'
 export default function ProfileSetting() {
   const { t } = useTranslation('ProfileSetting')
   const handleGoogleLogout = () => {
     googleLogout()
     localStorage.removeItem('userInfo')
-    localStorage.removeItem('userthongtin')
     window.location.href = '/'
   }
-
-  const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
-  const { id } = useParams<{ id: string }>()
-  const userlist = UserList.find((user: any) => user.id === parseInt(id || '0'))
+  const [userId, setUserId] = useState<any>(null)
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('userInfo') || 'null')
+    if (user && user.id) {
+      getUserById(user.id)
+        .then((response) => {
+          setUserId(response.data)
+          // Update các input state khi fetch xong
+        setnameValue(response.data.name || `${UserInfo.firstname} ${UserInfo.lastname}`)
+        setCountryValue(response.data.country || 'vietnam')
+        setCountryCode(response.data.countryCode || '84 +')
+        setPhoneValue(response.data.phone || UserInfo.phone || '')
+        setaddressValue(response.data.address || UserInfo.address || '')
+        setemailValue(response.data.email || UserInfo.email || '')
+        setzipcodeValue(response.data.zipcode || UserInfo.zipcode || '')
+        setcityValue(response.data.city || UserInfo.city || '')
+        })
+        .catch((error) => {
+          console.error('Error fetching user by ID:', error)
+        })
+    }
+  }, [])
+ console.log(userId?.zipcode)
+ 
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
-  const [nameValue, setnameValue] = useState(userlist?.name || `${UserInfo.firstname} ${UserInfo.lastname}`)
-  const [countryValue, setCountryValue] = useState(userlist?.country || UserInfo.country || 'vietnam')
-  const [countryCode, setCountryCode] = useState(userlist?.countryCode || UserInfo.countryCode || '84 +')
-  const [phoneValue, setPhoneValue] = useState(userlist?.phone || UserInfo.phone || '')
-  const [addressValue, setaddressValue] = useState(userlist?.address || UserInfo.address || '')
-  const [emailValue, setemailValue] = useState(userlist?.state || UserInfo.email || `${UserInfo.email}`)
-  const [zipcodeValue, setzipcodeValue] = useState(userlist?.zipcode || UserInfo.zipcode || '')
-  const [cityValue, setcityValue] = useState(userlist?.city || UserInfo.city || '')
+  const [nameValue, setnameValue] = useState ('')
+  const [countryValue, setCountryValue] = useState('vietnam')
+  const [countryCode, setCountryCode] = useState('84 +')
+  const [phoneValue, setPhoneValue] = useState( '')
+  const [addressValue, setaddressValue] = useState( '')
+  const [emailValue, setemailValue] = useState( `${UserInfo.email}`)
+  const [zipcodeValue, setzipcodeValue] = useState( '')
+  const [cityValue, setcityValue] = useState( '')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -70,10 +89,8 @@ export default function ProfileSetting() {
       return
     }
     const updatedUser = {
-      id: UserInfo.id,
       email: emailValue,
-      firstname: nameValue,
-      lastname: nameValue,
+      fullname: nameValue,
       googleId: UserInfo.googleId,
       imageUrl: UserInfo.imageUrl,
       name: nameValue,
@@ -84,26 +101,18 @@ export default function ProfileSetting() {
       zipcode: zipcodeValue,
       city: cityValue
     }
-
-    localStorage.setItem('userInfo', JSON.stringify(updatedUser))
-    const updatedUserList = UserList.map((user: any) => {
-      if (user.id === parseInt(id || '0')) {
-        return {
-          ...user,
-          name: nameValue,
-          country: countryValue,
-          countryCode,
-          phone: phoneValue,
-          address: addressValue,
-          email: emailValue,
-          zipcode: zipcodeValue,
-          city: cityValue
-        }
+    updateUserInfo(UserInfo.id, updatedUser)
+      .then((response) => {
+        const newUserInfo = { ...UserInfo, ...updatedUser }
+        localStorage.setItem('userInfo', JSON.stringify(newUserInfo))
+        setError('')
+        setUserId(response.data)
       }
-      return user
-    })
-    localStorage.setItem('userList', JSON.stringify(updatedUserList))
-
+      )
+      .catch((error) => {
+        console.error('Error updating user info:', error)
+        setError("looix rồi")
+      })
     setSuccess(t('messages.successUpdate'))
   }
 
@@ -114,16 +123,16 @@ export default function ProfileSetting() {
       reader.onload = (event) => {
         const imageUrl = event.target?.result as string
         const updatedUser = { ...UserInfo, imageUrl }
-        localStorage.setItem('userInfo', JSON.stringify(updatedUser))
-        const updatedUserList = UserList.map((user: any) => {
-          if (user.id === parseInt(id || '0')) {
-            return { ...user, imageUrl }
-          }
-
-          return user
-        })
-        localStorage.setItem('userList', JSON.stringify(updatedUserList))
-        setSuccess(t('messages.successImage'))
+        updateUserInfo(UserInfo.id, updatedUser)
+          .then((response) => {
+            localStorage.setItem('userInfo', JSON.stringify(updatedUser))
+            setUserId(response.data)
+            setError('')
+          })
+          .catch((error) => {
+            console.error('Error updating user image:', error)
+            setError('Error updating user image')
+          })
       }
       reader.readAsDataURL(file) // để đọc file ảnh
     }
@@ -174,7 +183,7 @@ export default function ProfileSetting() {
           <div className='   flex flex-col items-center md:w-1/3 gap-4 justify-center '>
             <img
               src={
-                userlist?.imageUrl ||
+                userId?.imageUrl ||
                 `https://ui-avatars.com/api/?name=${encodeURIComponent(nameValue)}&background=30fd4f&color=fff`
               }
               className='w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 object-cover rounded-xl border-4 border-green-500 shadow-md'

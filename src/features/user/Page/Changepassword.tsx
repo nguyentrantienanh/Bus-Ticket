@@ -1,68 +1,79 @@
-import Background from '../../../assets/background.jpg'
-import { useState, useEffect } from 'react'
-import Icon from '../../../icons/Icon'
-import { useTranslation } from 'react-i18next'
+import Background from '../../../assets/background.jpg';
+import { useState, useEffect } from 'react';
+import Icon from '../../../icons/Icon';
+import { useTranslation } from 'react-i18next';
+import { getUserById } from '../../../api/userApi';
+import { changeUserPassword } from '../../../api/userApi';
 
 export default function Changepassword() {
-  const { t } = useTranslation('Changepassword')
-  const [password, setPassword] = useState('')
-  const [confirmpassword, setConfirmPassword] = useState('')
-  const [currentPassword, setCurrentPassword] = useState('')
-  const [userInfo, setUserInfo] = useState<any>(null)
-  const [userList, setUserList] = useState<any[]>([])
-  const [error, setError] = useState('') // error và success message
-  const [success, setSuccess] = useState('')
+  const { t } = useTranslation('Changepassword');
 
+  const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [userId, setUserId] = useState<any>(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [delay, setDelay] = useState(false);
+
+  const [isPasswordHashed, setIsPasswordHashed] = useState(false);
+
+  // Lấy thông tin user từ localStorage / API
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userInfo') || 'null')
-    const list = JSON.parse(localStorage.getItem('userList') || '[]')
-    setUserInfo(user)
-    setUserList(list)
-  }, [])
+    const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
+    if (user && user.id) {
+      getUserById(user.id)
+        .then((response) => {
+          setUserId(response.data);
+          console.log('Fetched user data:', response.data);
 
+          // Kiểm tra password đã hash chưa (bcrypt hash thường bắt đầu bằng $2)
+          setIsPasswordHashed(response.data.password?.startsWith('$2'));
+        })
+        .catch((err) => console.error('Error fetching user:', err));
+    }
+  }, []);
+
+  // Validate form trước khi submit
   const validateForm = () => {
-    if (!userInfo) return t('messages.userNotFound')
-    if (!password || !confirmpassword) {
-      return t('messages.fillAllFields')
-    }
-    if (userInfo.password && currentPassword !== userInfo.password) {
-      return t('messages.currentPasswordIncorrect')
-    }
-    if (password.length < 10) {
-      return t('messages.passwordMinLength')
-    }
-    if (password !== confirmpassword) {
-      return t('messages.passwordMismatch')
-    }
+    if (!password || !confirmpassword) return t('messages.fillAllFields');
+    if (isPasswordHashed && !currentPassword) return t('messages.fillAllFields');
+    if (password.length < 10) return t('messages.passwordMinLength');
+    if (password !== confirmpassword) return t('messages.passwordMismatch');
+    return '';
+  };
 
-    return ''
-  }
-  // hàm delay 3s
-  const [delay, setDelay] = useState(false)
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    const errorMsg = validateForm()
+  // Xử lý submit form
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    const errorMsg = validateForm();
     if (errorMsg) {
-      setError(errorMsg)
-      return
+      setError(errorMsg);
+      return;
     }
-    setDelay(true)
-    setTimeout(() => {
-      // Cập nhật userList
-      const updatedList = userList.map((user) => (user.id === userInfo.id ? { ...user, password } : user))
-      localStorage.setItem('userList', JSON.stringify(updatedList))
 
-       
+    setDelay(true);
+    try {
+      await changeUserPassword(userId._id, currentPassword, password);
+      setSuccess(t('messages.changePasswordSuccess'));
+      setCurrentPassword('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Đổi mật khẩu thất bại');
+    } finally {
+      setDelay(false);
+    }
+  };
+  console.log({
+  userId: userId?._id,
+  currentPassword,
+  newPassword: password
+});
 
-      setError('')
-      setSuccess(t('messages.changePasswordSuccess'))
-
-      setPassword('')
-      setConfirmPassword('')
-      setCurrentPassword('')
-      setDelay(false)
-    }, 3000)
-  }
 
   return (
     <>
@@ -78,6 +89,7 @@ export default function Changepassword() {
       {/* Form */}
       <div className='sm:px-[5%] lg:px-[30%] xl:px-[40%] my-6'>
         <form onSubmit={handleSubmit} className='rounded-2xl md:shadow-lg p-6 flex flex-col gap-6 bg-[#fff]'>
+          {/* Hiển thị lỗi / thành công */}
           {error && (
             <div className='bg-red-100 text-red-600 p-3 rounded-lg text-sm'>
               {error}
@@ -92,7 +104,6 @@ export default function Changepassword() {
           {success && (
             <div className='bg-green-100 text-green-600 p-3 rounded-lg text-sm'>
               {success}
-
               <i
                 onClick={() => setSuccess('')}
                 className='ml-2 cursor-pointer hover:text-green-800 transition duration-200'
@@ -102,7 +113,8 @@ export default function Changepassword() {
             </div>
           )}
 
-          {userInfo?.password && (
+          {/* Current Password */}
+          {isPasswordHashed && (
             <div className='flex flex-col'>
               <label className='font-medium'>
                 {t('form.currentPassword.label')}{' '}
@@ -118,6 +130,7 @@ export default function Changepassword() {
             </div>
           )}
 
+          {/* New Password */}
           <div className='flex flex-col'>
             <label className='font-medium'>
               {t('form.newPassword.label')} <sup className='text-red-500'>{t('form.newPassword.required')}</sup>
@@ -131,6 +144,7 @@ export default function Changepassword() {
             />
           </div>
 
+          {/* Confirm Password */}
           <div className='flex flex-col'>
             <label className='font-medium'>
               {t('form.confirmPassword.label')} <sup className='text-red-500'>{t('form.confirmPassword.required')}</sup>
@@ -144,6 +158,7 @@ export default function Changepassword() {
             />
           </div>
 
+          {/* Submit Button */}
           <button
             type='submit'
             disabled={delay}
@@ -155,7 +170,7 @@ export default function Changepassword() {
           >
             {delay ? (
               <>
-                <i className=' mr-2'>
+                <i className='mr-2'>
                   <Icon name='loading' />
                 </i>
                 {t('button.processing')}
@@ -167,5 +182,5 @@ export default function Changepassword() {
         </form>
       </div>
     </>
-  )
+  );
 }
