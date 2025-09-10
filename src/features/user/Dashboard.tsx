@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Booking } from './Page/Bookinghistory'
 import { useTranslation } from 'react-i18next'
 import { getUserList } from '../../api/userApi'
+
 export default function Dashboard() {
   const { t } = useTranslation('Dashboard')
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
@@ -19,21 +20,21 @@ export default function Dashboard() {
     }
     callApi()
   }, [])
-  const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
-  const ve = currentUser.ticket || []
 
   const [countBooked, setCountBooked] = useState(0)
   const [countRejected, setCountRejected] = useState(0)
   const [countPending, setCountPending] = useState(0)
 
   useEffect(() => {
+    const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
+    const ve = currentUser.ticket || []
     const Booked = ve.filter((item: any) => item.status === 1).length
     const Rejected = ve.filter((item: any) => item.status === 2).length
     const Pending = ve.filter((item: any) => item.status === 3).length
     setCountBooked(Booked)
     setCountRejected(Rejected)
     setCountPending(Pending)
-  }, [ve])
+  }, [UserList, UserInfo.id])
 
   return (
     <div className='flex flex-col w-full h-full bg-gray-100'>
