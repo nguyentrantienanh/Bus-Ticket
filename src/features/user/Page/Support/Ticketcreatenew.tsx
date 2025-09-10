@@ -66,9 +66,11 @@ export default function Createnew() {
       <div className='max-w-4xl mx-auto my-8 px-4 relative'>
         {/* Overlay loading toàn form (tùy chọn) */}
         {submitting && (
-          <div className='absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-[1px]'>
+          <div className='absolute inset-0 z-10 flex items-center justify-center  bg-[#ffffff9e] rounded-xl'>
             <div className='flex items-center gap-2 text-green-700 font-semibold'>
-              <i className='animate-spin'><Icon name='loading' /></i>
+              <i className='animate-spin'>
+                <Icon name='loading' />
+              </i>
               <span>Đang gửi...</span>
             </div>
           </div>
@@ -136,7 +138,10 @@ export default function Createnew() {
             >
               {submitting ? (
                 <>
-                  <i className='animate-spin'> <Icon name='loading' /></i>
+                  <i className='animate-spin'>
+                    {' '}
+                    <Icon name='loading' />
+                  </i>
                   <span>Đang gửi...</span>
                 </>
               ) : (
