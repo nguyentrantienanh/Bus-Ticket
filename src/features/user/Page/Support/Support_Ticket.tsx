@@ -51,14 +51,15 @@ export default function SupportTicket() {
             <tbody>
               {chats.length > 0 ? (
                 chats.map((item: any, index: number) => {
-                  function formatTimeAgo(ts: string | number | Date | null | undefined, t: any) {
-                    if (!ts) return t('timeAgo.undefined') // không có timestamp
-                    const date = new Date(ts)
-                    if (isNaN(date.getTime())) return t('timeAgo.undefined') // timestamp không hợp lệ
+                  function formatTimeAgo(ts: string | number | null | undefined, t: any) {
+                    if (!ts) return t('timeAgo.undefined')
 
-                    const diffMinutes = Math.floor((Date.now() - date.getTime()) / 1000 / 60)
+                    const ms = typeof ts === 'string' ? parseInt(ts, 10) : ts
+                    if (isNaN(ms)) return t('timeAgo.undefined')
 
-                    if (diffMinutes < 1) return t('timeAgo.justNow') // mới đây
+                    const diffMinutes = Math.floor((Date.now() - ms) / 1000 / 60)
+
+                    if (diffMinutes < 1) return t('timeAgo.justNow')
                     if (diffMinutes < 60) return `${diffMinutes} ${t('timeAgo.minutesAgo')}`
                     if (diffMinutes < 1440) return `${Math.floor(diffMinutes / 60)} ${t('timeAgo.hoursAgo')}`
                     return `${Math.floor(diffMinutes / 1440)} ${t('timeAgo.daysAgo')}`
