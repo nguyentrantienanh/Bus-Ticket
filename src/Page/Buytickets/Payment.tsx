@@ -255,7 +255,7 @@ export default function Payment() {
                         <div key={item.id} className='bg-[#fff] border rounded-xl p-4 shadow space-y-2'>
                           <div className='flex max-md:flex-col justify-between items-center'>
                             <span className='  text-[11px] md:text-sm text-gray-500'>
-                              {tPayment('ticket.code')}: {item.id} 12312312312
+                              {tPayment('ticket.code')}: {item.id}
                             </span>
                             <div>
                               <span className='bg-green-100 text-green-800 px-2 py-1 rounded-full text-[11px] text-xs text-nowrap font-semibold  '>

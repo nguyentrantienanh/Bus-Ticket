@@ -51,16 +51,21 @@ export default function SupportTicket() {
             <tbody>
               {chats.length > 0 ? (
                 chats.map((item: any, index: number) => {
-                  function formatTimeAgo(ts: any) {
-                    if (!ts) return t('timeAgo.undefined') // nếu không có timestamp thì trả về undefined
-                    const diff = Math.floor((Date.now() - new Date(ts).getTime()) / 1000 / 60)
-                    if (isNaN(diff)) return t('timeAgo.undefined')
-                    if (diff < 60) return `${diff} ${t('timeAgo.minutesAgo')}`
-                    if (diff < 1440) return `${Math.floor(diff / 60)} ${t('timeAgo.hoursAgo')}`
-                    return `${Math.floor(diff / 1440)} ${t('timeAgo.daysAgo')}`
-                  }
+                 function formatTimeAgo(ts: string | number | Date | null | undefined, t: any) {
+  if (!ts) return t('timeAgo.undefined'); // không có timestamp
+  const date = new Date(ts);
+  if (isNaN(date.getTime())) return t('timeAgo.undefined'); // timestamp không hợp lệ
 
-                  const timeAgo = formatTimeAgo(item.timestamp)
+  const diffMinutes = Math.floor((Date.now() - date.getTime()) / 1000 / 60);
+
+  if (diffMinutes < 1) return t('timeAgo.justNow'); // mới đây
+  if (diffMinutes < 60) return `${diffMinutes} ${t('timeAgo.minutesAgo')}`;
+  if (diffMinutes < 1440) return `${Math.floor(diffMinutes / 60)} ${t('timeAgo.hoursAgo')}`;
+  return `${Math.floor(diffMinutes / 1440)} ${t('timeAgo.daysAgo')}`;
+}
+
+
+                const timeAgo = formatTimeAgo(item.timestamp, t);
 
                   return (
                     <tr key={index} className='text-[#000] bg-[#fff] text-nowrap '>

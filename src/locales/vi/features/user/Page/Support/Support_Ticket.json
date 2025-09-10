@@ -19,10 +19,12 @@
     },
     "noTickets": "Không có yêu cầu hỗ trợ nào"
   },
-  "timeAgo": {
-    "undefined": "Không xác định",
-    "minutesAgo": "phút trước",
-    "hoursAgo": "giờ trước",
-    "daysAgo": "ngày trước"
-  }
+"timeAgo": {
+  "undefined": "Không xác định",
+  "justNow": "vừa xong",
+  "minutesAgo": "phút trước",
+  "hoursAgo": "giờ trước",
+  "daysAgo": "ngày trước"
+}
+
 }

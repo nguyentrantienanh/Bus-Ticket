@@ -19,10 +19,11 @@
     },
     "noTickets": "No tickets found"
   },
-  "timeAgo": {
-    "undefined": "Undefined",
-    "minutesAgo": "minutes ago",
-    "hoursAgo": "hours ago", 
-    "daysAgo": "days ago"
-  }
+"timeAgo": {
+  "undefined": "N/A",
+  "justNow": "just now",
+  "minutesAgo": "minutes ago",
+  "hoursAgo": "hours ago",
+  "daysAgo": "days ago"
+}
 }
