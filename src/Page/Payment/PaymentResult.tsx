@@ -26,11 +26,9 @@ export default function PaymentResult() {
         // Xóa vé bằng API
         deleteTicketById(Number(ticketid))
           .then(() => {
-         
             navigate('/buytickets')
           })
           .catch(() => {
-           
             navigate('/buytickets')
           })
       }
@@ -45,9 +43,8 @@ export default function PaymentResult() {
       if (ticketid) {
         try {
           deleteTicketById(Number(ticketid)) // Xóa vé trên server
- 
-        } catch (err) {
-         
+        } catch {
+          console.error('Lỗi khi xóa vé')
         }
       }
     }
@@ -120,9 +117,8 @@ export default function PaymentResult() {
                 if (ticketid) {
                   try {
                     await deleteTicketById(Number(ticketid))
-                 
-                  } catch (err) {
-                   
+                  } catch {
+                    console.error('Lỗi khi xóa vé')
                   }
                 }
                 navigate('/')

@@ -14,7 +14,7 @@ export default function TicketPaymentAPI() {
         // const response = await axios.get('http://localhost:4001/api/tickets/1') === {}
         const response = await axios.get('http://localhost:4001/api/tickets') // === []
         setTicket(response.data.data)
-      } catch (error) {
+      } catch {
         console.error('lỗi không lấy đc dữ liệu')
       } finally {
         setLoading(false)

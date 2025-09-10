@@ -76,7 +76,7 @@ Bạn trả lời hài hước, vui vẻ, thân thiện và lịch sự.
 Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ hỗ trợ về các vấn đề liên quan đến website bán vé xe."
 `
       const res = await axios.post(
-        import.meta.env.VITE_GEMINI_API_URL ,
+        import.meta.env.VITE_GEMINI_API_URL,
         {
           contents: [
             {
@@ -102,7 +102,7 @@ Nếu không liên quan tới website này thì rep là "Xin lỗi, tôi chỉ h
           timestamp: new Date().toLocaleString()
         }
       ])
-    } catch (err) {
+    } catch {
       setDatamessage((prev) => [
         ...prev,
         {

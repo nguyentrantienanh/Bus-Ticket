@@ -4,7 +4,7 @@ import Background from '../../assets/background.jpg'
 import Icon from '../../icons/Icon'
 import { useTranslation } from 'react-i18next'
 import { getUserList } from '../../api/userApi'
-import { getGuestUserList} from '../../api/guestUserApi'
+import { getGuestUserList } from '../../api/guestUserApi'
 export default function Ticketsearch() {
   const [searchTerm, setSearchTerm] = useState('')
   const [ticketseach, setTicketsearch] = useState<any>(null)
@@ -16,14 +16,14 @@ export default function Ticketsearch() {
   // callAPI
   // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
   //  const GuestUser = JSON.parse(localStorage.getItem('guestUserInfo') || '[]')
-  const  [GuestUserList, setGuestUserList] = useState<any[]>([])
+  const [GuestUserList, setGuestUserList] = useState<any[]>([])
   const [Userlist, setUserlist] = useState<any[]>([])
   useEffect(() => {
     const callApiGuestUser = async () => {
-      try{
+      try {
         const res = await getGuestUserList()
         setGuestUserList(res.data)
-      } catch (error){
+      } catch (error) {
         console.error('Error fetching user list:', error)
       }
     }
@@ -31,10 +31,10 @@ export default function Ticketsearch() {
   }, [])
   useEffect(() => {
     const callApiUersList = async () => {
-      try{
+      try {
         const res = await getUserList()
         setUserlist(res.data)
-      } catch (error){
+      } catch (error) {
         console.error('Error fetching user list:', error)
       }
     }
@@ -43,7 +43,7 @@ export default function Ticketsearch() {
 
   const veData = Userlist.map((user: any) => user.ticket).flat()
   const userinfo = JSON.parse(localStorage.getItem('userinfo') || '{}')
- 
+
   const GuestUserTicket = GuestUserList.map((user: any) => user.ticket).flat()
 
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách

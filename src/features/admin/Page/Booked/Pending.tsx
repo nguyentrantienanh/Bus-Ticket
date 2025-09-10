@@ -72,32 +72,51 @@ function TicketPending() {
     )
 
     try {
-      const currentTicket = ticket[0] || guestUserTicket[0]
+      // Tìm vé tương ứng
+      const currentTicket = ticket[0] ?? guestUserTicket[0]
+      if (!currentTicket) {
+        alert('Không tìm thấy thông tin vé.')
+        return
+      }
 
+      // Ghế an toàn
+      const seatArray = currentTicket.seats ?? [] // [] nếu null/undefined
+      const seat_names = seatArray.map((s: any) => s.name).join(', ')
+      const seat_count = seatArray.length
+
+      // Giá an toàn
+      const total_amount = Number(currentTicket.price ?? 0).toLocaleString('vi-VN') + ' VNĐ'
+
+      // Điểm đi/điểm đến an toàn (khi dùng i18n)
+      const departure_location = currentTicket.diemDi ? (t(currentTicket.diemDi) ?? currentTicket.diemDi) : ''
+      const destination_location = currentTicket.diemDen ? (t(currentTicket.diemDen) ?? currentTicket.diemDen) : ''
+
+      // Template params (ví dụ cho xác nhận)
       const templateParams = {
-        order_id: ticket[0]?.id || guestUserTicket[0]?.id,
-        start_time: ticket[0]?.starttime || guestUserTicket[0]?.starttime,
-        departure_location: t(currentTicket?.diemDi) || currentTicket?.diemDi,
-        travel_time: ticket[0]?.timetogo || guestUserTicket[0]?.timetogo,
-        end_time: ticket[0]?.endtime || guestUserTicket[0]?.endtime,
-        destination_location: t(currentTicket?.diemDen) || guestUserTicket[0]?.diemDen,
-        ticket_id: ticket[0]?.id || guestUserTicket[0]?.id,
-        departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
-        bus_type: ticket[0]?.type || guestUserTicket[0]?.type,
-        seat_layout: ticket[0]?.seatLayout || guestUserTicket[0]?.seatLayout,
-        seat_numbers: (ticket[0]?.seats || guestUserTicket[0]?.seats).map((s: any) => s.name).join(', '),
-        ticket_quantity: (ticket[0]?.seats || guestUserTicket[0]?.seats).length,
-        passenger_name: USERID.fullName,
-        passenger_email: USERID.email,
-        passenger_phone: USERID.phone,
-        passenger_id: USERID.cccd,
-        total_amount: (ticket[0]?.price || guestUserTicket[0]?.price).toLocaleString() + ' VNĐ',
+        order_id: currentTicket.id,
+        start_time: currentTicket.starttime,
+        departure_location,
+        travel_time: currentTicket.timetogo,
+        end_time: currentTicket.endtime,
+        destination_location,
+        ticket_id: currentTicket.id,
+        departure_date: currentTicket.dateStart,
+        bus_type: currentTicket.type,
+        seat_layout: currentTicket.seatLayout,
+        seat_numbers: seat_names,
+        ticket_quantity: seat_count,
+        passenger_name: USERID?.fullName ?? '',
+        passenger_email: USERID?.email ?? '',
+        passenger_phone: USERID?.phone ?? '',
+        passenger_id: USERID?.cccd ?? '',
+        total_amount,
         payment_status: 'Đã thanh toán',
         support_phone: import.meta.env.VITE_SUPPORT_PHONE,
         support_email: import.meta.env.VITE_SUPPORT_EMAIL,
         website_url: import.meta.env.VITE_WEBSITE_URL,
-        email: `${USERID.email}` || `${import.meta.env.VITE_SUPPORT_EMAIL}`
+        email: USERID?.email ?? import.meta.env.VITE_SUPPORT_EMAIL
       }
+
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_TICKET_ID,
@@ -154,7 +173,7 @@ function TicketPending() {
     )
     try {
       const currentTicket = ticket[0] || guestUserTicket[0]
-
+      const seatsSafe = ticket[0]?.seats ?? guestUserTicket[0]?.seats ?? []
       const templateParams = {
         diemDi: t(currentTicket?.diemDi) || currentTicket?.diemDi,
 
@@ -164,12 +183,12 @@ function TicketPending() {
         departure_date: ticket[0]?.dateStart || guestUserTicket[0]?.dateStart,
         bus_type: ticket[0]?.type || guestUserTicket[0]?.type,
         seat_layout: ticket[0]?.seatLayout || guestUserTicket[0]?.seatLayout,
-        seat_numbers: (ticket[0]?.seats || guestUserTicket[0]?.seats).map((s: any) => s.name).join(', '),
+        seat_numbers: seatsSafe.map((s: any) => s.name).join(', '),
         passenger_name: USERID.fullName,
 
         passenger_phone: USERID.phone,
 
-        total_amount: (ticket[0]?.price || guestUserTicket[0]?.price).toLocaleString() + ' VNĐ',
+        total_amount: Number(currentTicket?.price || 0).toLocaleString('vi-VN') + ' VNĐ',
 
         support_phone: import.meta.env.VITE_SUPPORT_PHONE,
 
@@ -184,7 +203,7 @@ function TicketPending() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       alert('Hủy vé thành công! Vé của bạn đã được gửi qua email.')
-    } catch (error) {
+    } catch {
       alert('Lỗi khi gửi vé qua email. Vui lòng thử lại sau.')
     }
 

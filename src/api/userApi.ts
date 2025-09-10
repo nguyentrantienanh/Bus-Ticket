@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL =  import.meta.env.VITE_USER_API_KEY ; // đổi thành URL backend của bạn
+const API_URL = import.meta.env.VITE_USER_API_KEY // đổi thành URL backend của bạn
 
 export const getUserList = () => {
   return axios.get(`${API_URL}/auth/users`)
@@ -38,13 +38,12 @@ export const getUserById = (userId: string) => {
 }
 // đổi mật khẩu /users/:id/change-password
 // api/userApi.ts
- 
+
 export const changeUserPassword = async (userId: string, currentPassword: string, newPassword: string) => {
   return axios.put(`${API_URL}/auth/users/${userId}/change-password`, {
     currentPassword,
-    newPassword,
-  });
-};
-
+    newPassword
+  })
+}
 
 // Thêm các hàm API khác cho user nếu cần

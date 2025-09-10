@@ -8,20 +8,20 @@ export default function Dashboard() {
   const { t } = useTranslation('Dashboard')
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const [UserList, setUserList] = useState<any[]>([])
-  useEffect(   () => {
-      const callApi = async () => {
-         try{
-          const res = await getUserList()
-          setUserList(res.data)
-         } catch (error) {
+  useEffect(() => {
+    const callApi = async () => {
+      try {
+        const res = await getUserList()
+        setUserList(res.data)
+      } catch (error) {
         console.error('Error fetching user list:', error)
-         }
       }
-      callApi()
+    }
+    callApi()
   }, [])
   // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
   const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
-  const ve = currentUser.ticket || []
+  const ve = currentUser.ve || []
 
   const [countBooked, setCountBooked] = useState(0)
   const [countRejected, setCountRejected] = useState(0)

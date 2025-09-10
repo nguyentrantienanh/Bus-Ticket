@@ -6,19 +6,19 @@ import { sendMessageAdmin } from '../../../../api/chatUserApi'
 export default function ChatSupport() {
   const { id } = useParams<{ id: string }>()
 
-const [UserList, setUserList] = useState<any[]>([])
+  const [UserList, setUserList] = useState<any[]>([])
   // fetch lại 3s một lần
-   useEffect(() => {
-    const fetchChats =  setInterval(async () => {
-    try {
-      const res = await getUserList();
-      setUserList(res.data);
-    } catch (err) {
-      console.error('Lỗi khi fetch user list:', err);
-    }
-  }, 3000);
-  return () => clearInterval(fetchChats); // clear khi unmount
-  }, []);
+  useEffect(() => {
+    const fetchChats = setInterval(async () => {
+      try {
+        const res = await getUserList()
+        setUserList(res.data)
+      } catch (err) {
+        console.error('Lỗi khi fetch user list:', err)
+      }
+    }, 3000)
+    return () => clearInterval(fetchChats) // clear khi unmount
+  }, [])
 
   const chats = UserList.flatMap((user: any) => user.chats)
   const chat = chats.filter((item: any) => item._id === id)
@@ -33,17 +33,17 @@ const [UserList, setUserList] = useState<any[]>([])
 
   const handleSendMessage = async () => {
     if (!message.trim()) return alert('Vui lòng nhập tin nhắn')
-   try {
-    await sendMessageAdmin(id!, "admin", message); // id = chatId từ useParams
-     // fetch lại 
-    const res = await getUserList();
-     
-      setUserList(res.data);
-    setMessage("");
-  } catch (err) {
-    console.error(err);
-    alert("Gửi tin nhắn thất bại");
-  }
+    try {
+      await sendMessageAdmin(id!, 'admin', message) // id = chatId từ useParams
+      // fetch lại
+      const res = await getUserList()
+
+      setUserList(res.data)
+      setMessage('')
+    } catch (err) {
+      console.error(err)
+      alert('Gửi tin nhắn thất bại')
+    }
   }
 
   return (

@@ -1,29 +1,28 @@
 import Icon from '../../../../icons/Icon'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import {getUserChats} from '../../../../api/chatUserApi'
+import { getUserChats } from '../../../../api/chatUserApi'
 import { useEffect, useState } from 'react'
 export default function Listchat() {
   const { t } = useTranslation('ListSupport')
   const { id } = useParams<{ id: string }>()
-    const [chats, setChats] = useState<any[]>([])
-    const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
+  const [chats, setChats] = useState<any[]>([])
+  const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
-    useEffect(() => {
-      const fetchChats = async () => {
-        try {
-          if (UserInfo.id) {
-            const res = await getUserChats(UserInfo.id)
-   
-            setChats(res.data) // API trả về mảng chats
-          }
-        } catch (err) {
-          console.error('Lỗi khi lấy chats:', err)
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        if (UserInfo.id) {
+          const res = await getUserChats(UserInfo.id)
+
+          setChats(res.data) // API trả về mảng chats
         }
+      } catch (err) {
+        console.error('Lỗi khi lấy chats:', err)
       }
-      fetchChats()
-    }, [UserInfo.id])
- 
+    }
+    fetchChats()
+  }, [UserInfo.id])
 
   return (
     <nav className='flex flex-col w-full bg-[#fff] h-full '>

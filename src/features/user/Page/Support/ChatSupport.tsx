@@ -11,23 +11,21 @@ export default function ChatSupport() {
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
   const [chats, setChats] = useState<any[]>([])
   useEffect(() => {
-    const fetchChats =  setInterval(async () => {
-    if (UserInfo.id) {
-      try {
-        const res = await getUserChats(UserInfo.id);
-        setChats(res.data);
-      } catch (err) {
-        console.error('Lỗi khi fetch chats:', err);
+    const fetchChats = setInterval(async () => {
+      if (UserInfo.id) {
+        try {
+          const res = await getUserChats(UserInfo.id)
+          setChats(res.data)
+        } catch (err) {
+          console.error('Lỗi khi fetch chats:', err)
+        }
       }
-    }
-  }, 3000); 
+    }, 3000)
 
-  return () => clearInterval(fetchChats); // clear khi unmount
- 
+    return () => clearInterval(fetchChats) // clear khi unmount
   }, [UserInfo.id])
 
-   
-  const chat = chats.filter((item: any) => item._id === id )
+  const chat = chats.filter((item: any) => item._id === id)
 
   const messages = chat.length > 0 ? chat[0].messages : []
 
@@ -39,18 +37,18 @@ export default function ChatSupport() {
   }, [messages])
 
   const handleSendMessage = async () => {
-  if (!message.trim()) return alert(t('input.emptyMessage'));
-  try {
-    await sendMessage(UserInfo.id, id!, "user", message);
-    setMessage('');
-    
-    // fetch lại chats để cập nhật message mới
-    const res = await getUserChats(UserInfo.id);
-    setChats(res.data);
-  } catch (err: any) {
-    alert('Lỗi : ' + (err.response?.data?.message || err.message));
+    if (!message.trim()) return alert(t('input.emptyMessage'))
+    try {
+      await sendMessage(UserInfo.id, id!, 'user', message)
+      setMessage('')
+
+      // fetch lại chats để cập nhật message mới
+      const res = await getUserChats(UserInfo.id)
+      setChats(res.data)
+    } catch (err: any) {
+      alert('Lỗi : ' + (err.response?.data?.message || err.message))
+    }
   }
-};
 
   return (
     <div className='flex flex-col w-full    bg-[#fff]  h-screen'>

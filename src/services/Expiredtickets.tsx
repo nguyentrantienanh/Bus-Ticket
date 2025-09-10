@@ -34,7 +34,6 @@ export const ExpiredTickets = () => {
     // Lưu CẢ HAI
     localStorage.setItem('userList', JSON.stringify(updatedUserList))
     localStorage.setItem('guestUserInfo', JSON.stringify(updatedGuestList))
-  } else {
   }
 
   return expiredTickets

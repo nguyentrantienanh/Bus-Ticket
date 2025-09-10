@@ -3,7 +3,7 @@ import background from '../../../../assets/background.jpg'
 import Icon from '../../../../icons/Icon'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { createChat, sendMessage} from '../../../../api/chatUserApi'
+import { createChat, sendMessage } from '../../../../api/chatUserApi'
 
 export default function Createnew() {
   const { t } = useTranslation('SupportTicketCreateNew')
@@ -39,14 +39,13 @@ export default function Createnew() {
     //   timestamp: new Date().toLocaleString(),
     //   messages: [newMessage]
     // }
- try {
+    try {
       // 1. Tạo chat mới
       const res = await createChat(userInfo.id, description, priority)
       const newChat = res.data.chat
 
       // 2. Gửi tin nhắn đầu tiên
-      await sendMessage(userInfo.id, newChat._id, "user", chat);
-      
+      await sendMessage(userInfo.id, newChat._id, 'user', chat)
 
       alert(t('success.chatCreated'))
       setDescription('')
@@ -56,7 +55,6 @@ export default function Createnew() {
     } catch (err: any) {
       alert('Lỗi khi tạo chat: ' + (err.response?.data?.message || err.message))
     }
-    
   }
 
   return (

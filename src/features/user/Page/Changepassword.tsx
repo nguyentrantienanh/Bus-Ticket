@@ -1,79 +1,78 @@
-import Background from '../../../assets/background.jpg';
-import { useState, useEffect } from 'react';
-import Icon from '../../../icons/Icon';
-import { useTranslation } from 'react-i18next';
-import { getUserById } from '../../../api/userApi';
-import { changeUserPassword } from '../../../api/userApi';
+import Background from '../../../assets/background.jpg'
+import { useState, useEffect } from 'react'
+import Icon from '../../../icons/Icon'
+import { useTranslation } from 'react-i18next'
+import { getUserById } from '../../../api/userApi'
+import { changeUserPassword } from '../../../api/userApi'
 
 export default function Changepassword() {
-  const { t } = useTranslation('Changepassword');
+  const { t } = useTranslation('Changepassword')
 
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setConfirmPassword] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [userId, setUserId] = useState<any>(null);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [delay, setDelay] = useState(false);
+  const [password, setPassword] = useState('')
+  const [confirmpassword, setConfirmPassword] = useState('')
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [userId, setUserId] = useState<any>(null)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [delay, setDelay] = useState(false)
 
-  const [isPasswordHashed, setIsPasswordHashed] = useState(false);
+  const [isPasswordHashed, setIsPasswordHashed] = useState(false)
 
   // Lấy thông tin user từ localStorage / API
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
+    const user = JSON.parse(localStorage.getItem('userInfo') || 'null')
     if (user && user.id) {
       getUserById(user.id)
         .then((response) => {
-          setUserId(response.data);
-          console.log('Fetched user data:', response.data);
+          setUserId(response.data)
+          console.log('Fetched user data:', response.data)
 
           // Kiểm tra password đã hash chưa (bcrypt hash thường bắt đầu bằng $2)
-          setIsPasswordHashed(response.data.password?.startsWith('$2'));
+          setIsPasswordHashed(response.data.password?.startsWith('$2'))
         })
-        .catch((err) => console.error('Error fetching user:', err));
+        .catch((err) => console.error('Error fetching user:', err))
     }
-  }, []);
+  }, [])
 
   // Validate form trước khi submit
   const validateForm = () => {
-    if (!password || !confirmpassword) return t('messages.fillAllFields');
-    if (isPasswordHashed && !currentPassword) return t('messages.fillAllFields');
-    if (password.length < 10) return t('messages.passwordMinLength');
-    if (password !== confirmpassword) return t('messages.passwordMismatch');
-    return '';
-  };
+    if (!password || !confirmpassword) return t('messages.fillAllFields')
+    if (isPasswordHashed && !currentPassword) return t('messages.fillAllFields')
+    if (password.length < 10) return t('messages.passwordMinLength')
+    if (password !== confirmpassword) return t('messages.passwordMismatch')
+    return ''
+  }
 
   // Xử lý submit form
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
+    e.preventDefault()
+    setError('')
+    setSuccess('')
 
-    const errorMsg = validateForm();
+    const errorMsg = validateForm()
     if (errorMsg) {
-      setError(errorMsg);
-      return;
+      setError(errorMsg)
+      return
     }
 
-    setDelay(true);
+    setDelay(true)
     try {
-      await changeUserPassword(userId._id, currentPassword, password);
-      setSuccess(t('messages.changePasswordSuccess'));
-      setCurrentPassword('');
-      setPassword('');
-      setConfirmPassword('');
+      await changeUserPassword(userId._id, currentPassword, password)
+      setSuccess(t('messages.changePasswordSuccess'))
+      setCurrentPassword('')
+      setPassword('')
+      setConfirmPassword('')
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Đổi mật khẩu thất bại');
+      setError(err.response?.data?.message || 'Đổi mật khẩu thất bại')
     } finally {
-      setDelay(false);
+      setDelay(false)
     }
-  };
+  }
   console.log({
-  userId: userId?._id,
-  currentPassword,
-  newPassword: password
-});
-
+    userId: userId?._id,
+    currentPassword,
+    newPassword: password
+  })
 
   return (
     <>
@@ -182,5 +181,5 @@ export default function Changepassword() {
         </form>
       </div>
     </>
-  );
+  )
 }

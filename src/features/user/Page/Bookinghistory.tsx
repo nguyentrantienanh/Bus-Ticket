@@ -10,16 +10,14 @@ export function Booking() {
     const fetchUserList = async () => {
       try {
         const res = await getUserList()
-       
+
         setUserList(res.data)
       } catch (error) {
         console.error('Error fetching user list:', error)
-
       }
     }
     fetchUserList()
   }, [])
- 
 
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 

@@ -20,32 +20,32 @@ export default function ProfileSetting() {
         .then((response) => {
           setUserId(response.data)
           // Update các input state khi fetch xong
-        setnameValue(response.data.name || `${UserInfo.firstname} ${UserInfo.lastname}`)
-        setCountryValue(response.data.country || 'vietnam')
-        setCountryCode(response.data.countryCode || '84 +')
-        setPhoneValue(response.data.phone || UserInfo.phone || '')
-        setaddressValue(response.data.address || UserInfo.address || '')
-        setemailValue(response.data.email || UserInfo.email || '')
-        setzipcodeValue(response.data.zipcode || UserInfo.zipcode || '')
-        setcityValue(response.data.city || UserInfo.city || '')
+          setnameValue(response.data.name || `${UserInfo.firstname} ${UserInfo.lastname}`)
+          setCountryValue(response.data.country || 'vietnam')
+          setCountryCode(response.data.countryCode || '84 +')
+          setPhoneValue(response.data.phone || UserInfo.phone || '')
+          setaddressValue(response.data.address || UserInfo.address || '')
+          setemailValue(response.data.email || UserInfo.email || '')
+          setzipcodeValue(response.data.zipcode || UserInfo.zipcode || '')
+          setcityValue(response.data.city || UserInfo.city || '')
         })
         .catch((error) => {
           console.error('Error fetching user by ID:', error)
         })
     }
   }, [])
- console.log(userId?.zipcode)
- 
+  console.log(userId?.zipcode)
+
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
-  const [nameValue, setnameValue] = useState ('')
+  const [nameValue, setnameValue] = useState('')
   const [countryValue, setCountryValue] = useState('vietnam')
   const [countryCode, setCountryCode] = useState('84 +')
-  const [phoneValue, setPhoneValue] = useState( '')
-  const [addressValue, setaddressValue] = useState( '')
-  const [emailValue, setemailValue] = useState( `${UserInfo.email}`)
-  const [zipcodeValue, setzipcodeValue] = useState( '')
-  const [cityValue, setcityValue] = useState( '')
+  const [phoneValue, setPhoneValue] = useState('')
+  const [addressValue, setaddressValue] = useState('')
+  const [emailValue, setemailValue] = useState(`${UserInfo.email}`)
+  const [zipcodeValue, setzipcodeValue] = useState('')
+  const [cityValue, setcityValue] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -107,11 +107,10 @@ export default function ProfileSetting() {
         localStorage.setItem('userInfo', JSON.stringify(newUserInfo))
         setError('')
         setUserId(response.data)
-      }
-      )
+      })
       .catch((error) => {
         console.error('Error updating user info:', error)
-        setError("looix rồi")
+        setError('lỗi rồi')
       })
     setSuccess(t('messages.successUpdate'))
   }

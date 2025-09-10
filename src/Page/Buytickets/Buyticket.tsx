@@ -39,7 +39,6 @@ export default function Buyticket() {
   // hàm để gộp dữ liệu vé đã đặt của người dùng đã đăng nhập và khách
   const ve = [...UserTicket, ...GuestUserTicket]
 
-
   // State để lưu trữ các ghế đã chọn
   const [selectedSeats, setSelectedSeats] = useState<number[]>([])
   // lưu vào localStorage
@@ -128,18 +127,14 @@ export default function Buyticket() {
         try {
           // userInfoRaw là chuỗi JSON, cần parse để lấy id
           const userInfo = JSON.parse(userInfoRaw)
-          const res = await createBooking(userInfo.id, bookingDetails)
-          if (res.data && res.data.message) {
-            alert(res.data.message)
-          }
-          // Điều hướng sang trang thanh toán
+          await createBooking(userInfo.id, bookingDetails) // Gọi API tạo booking
 
           window.location.href = `/user/information-user/${newId}/${userInfo.id}`
-        } catch (err) {
-          console.error('Lỗi booking:', err)
+        } catch {
+          alert('Đặt vé thất bại, vui lòng thử lại!')
         }
       } else {
-        console.warn('❌ userInfo hoặc userList không tồn tại trong localStorage.')
+        alert('Đặt vé thất bại, vui lòng thử lại!')
       }
     } else {
       // NẾU KHÔNG ĐĂNG NHẬP (GUEST USER)
@@ -159,17 +154,12 @@ export default function Buyticket() {
         const guestId = res.data?.guest?._id
 
         if (!guestId) {
-          console.error('Không lấy được guestId từ response')
+          alert('Đặt vé thất bại, vui lòng thử lại!')
           return
         }
 
-        if (res.data?.message) {
-          alert(res.data.message)
-        }
-
         window.location.href = `/user/information-guest-user/${newId}/${guestId}`
-      } catch (err) {
-        console.error('Lỗi gửi guest:', err)
+      } catch {
         alert('Đặt vé thất bại, vui lòng thử lại!')
       }
     }

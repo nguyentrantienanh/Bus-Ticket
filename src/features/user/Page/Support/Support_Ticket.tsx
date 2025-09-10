@@ -2,14 +2,13 @@ import backgruond from '../../../../assets/background.jpg'
 import Icon from '../../../../icons/Icon'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import {getUserChats} from '../../../../api/chatUserApi'
+import { getUserChats } from '../../../../api/chatUserApi'
 import { useEffect, useState } from 'react'
 
 export default function SupportTicket() {
-
   const { t } = useTranslation('SupportTicket')
   const [chats, setChats] = useState<any[]>([])
- // lấy user từ localStorage
+  // lấy user từ localStorage
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function SupportTicket() {
       try {
         if (UserInfo.id) {
           const res = await getUserChats(UserInfo.id)
-         
+
           setChats(res.data) // API trả về mảng chats
         }
       } catch (err) {
@@ -53,14 +52,13 @@ export default function SupportTicket() {
               {chats.length > 0 ? (
                 chats.map((item: any, index: number) => {
                   function formatTimeAgo(ts: any) {
-  if (!ts) return t('timeAgo.undefined') // nếu không có timestamp thì trả về undefined
-  const diff = Math.floor((Date.now() - new Date(ts).getTime()) / 1000 / 60)
-  if (isNaN(diff)) return t('timeAgo.undefined')
-  if (diff < 60) return `${diff} ${t('timeAgo.minutesAgo')}`
-  if (diff < 1440) return `${Math.floor(diff / 60)} ${t('timeAgo.hoursAgo')}`
-  return `${Math.floor(diff / 1440)} ${t('timeAgo.daysAgo')}`
-}
-
+                    if (!ts) return t('timeAgo.undefined') // nếu không có timestamp thì trả về undefined
+                    const diff = Math.floor((Date.now() - new Date(ts).getTime()) / 1000 / 60)
+                    if (isNaN(diff)) return t('timeAgo.undefined')
+                    if (diff < 60) return `${diff} ${t('timeAgo.minutesAgo')}`
+                    if (diff < 1440) return `${Math.floor(diff / 60)} ${t('timeAgo.hoursAgo')}`
+                    return `${Math.floor(diff / 1440)} ${t('timeAgo.daysAgo')}`
+                  }
 
                   const timeAgo = formatTimeAgo(item.timestamp)
 

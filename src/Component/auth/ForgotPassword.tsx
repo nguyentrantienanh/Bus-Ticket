@@ -21,7 +21,7 @@ export default function ForgotPassword() {
         await new Promise((resolve) => setTimeout(resolve, 2000)) // Giả lập delay 2 giây
         setMessage('Đã gửi email hướng dẫn đặt lại mật khẩu. Vui lòng kiểm tra hộp thư của bạn.')
         setIsSearch(false)
-      } catch (error) {
+      } catch {
         setMessage('Đã xảy ra lỗi khi gửi email. Vui lòng thử lại sau.')
         setIsSearch(false)
       }

@@ -181,11 +181,6 @@ function Icon(props: { name: string }) {
   } else if (props.name == 'lock') {
     // Biểu tượng khóa
     return <i className='fa-solid fa-lock'></i>
-  } else if (props.name == 'support') {
-    return <i className='fa-solid fa-headset'></i>
-  } else if (props.name == 'send') {
-    // gửi tin nhắn
-    return <i className='fa-solid fa-paper-plane'></i>
   } else if (props.name == 'trash') {
     // Biểu tượng thùng rác
     return <i className='fa-solid fa-trash-can'></i>

@@ -72,9 +72,8 @@ export default function InformationGuestUser() {
       if (!isSubmitted) {
         try {
           deleteTicketById(Number(id)) // Xóa vé trên server
-      
-        } catch (err) {
-          
+        } catch {
+          console.error('Lỗi khi xóa vé')
         }
       }
     }

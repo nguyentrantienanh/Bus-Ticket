@@ -31,7 +31,9 @@ function FacebookLoginButton({ onLogin }: FacebookLoginButtonProps) {
       function (response: any) {
         if (response.authResponse) {
           window.FB.api('/me', { fields: 'name,email,picture' }, function (userInfo: any) {
-            onLogin && onLogin({ ...userInfo, ...response.authResponse })
+            if (onLogin) {
+              onLogin(userInfo)
+            }
           })
         } else {
           alert('Đăng nhập thất bại hoặc bị hủy.')

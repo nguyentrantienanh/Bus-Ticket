@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Calendar } from 'react-date-range'
 import { format, isBefore } from 'date-fns'
 import 'react-date-range/dist/styles.css' // main style file
 import 'react-date-range/dist/theme/default.css' // theme css file
 
-const calendarComponent = () => {
+const CalendarComponent = () => {
   // hiện ngày có trong local nếu không có thì thành ngày hiện tại
   const [calendar, setCalendar] = useState(() => {
     const savedDate = localStorage.getItem('DayData')
@@ -80,4 +80,4 @@ const calendarComponent = () => {
     </div>
   )
 }
-export default calendarComponent
+export default CalendarComponent

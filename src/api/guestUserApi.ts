@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL =  import.meta.env.VITE_GUEST_API_KEY ; // đổi thành URL backend của bạn
+const API_URL = import.meta.env.VITE_GUEST_API_KEY // đổi thành URL backend của bạn
 
 export const createGuestUser = (guestData: any) => {
   return axios.post(`${API_URL}/guestuserticket`, guestData)
