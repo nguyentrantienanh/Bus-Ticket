@@ -58,7 +58,7 @@ export function Booking() {
                 <th className='py-2 px-2 text-left w-[80px]'>{tBooking('table.headers.time')}</th>
                 <th className='py-2 px-2 text-left w-[120px]'>{tBooking('table.headers.seats')}</th>
                 <th className='py-2 px-2 text-left w-[100px]'>{tBooking('table.headers.status')}</th>
-                <th className='py-2 px-2 text-left w-[100px] hidden md:table-cell'>{tBooking('table.headers.fare')}</th>
+                <th className='py-2 px-2 text-left w-[100px] hidden md:table-cell'>{tBooking('table.headers.fare')}</th> 
                 <th className='py-2 px-2 text-center hidden md:table-cell'>{tBooking('table.headers.info')}</th>
               </tr>
             </thead>

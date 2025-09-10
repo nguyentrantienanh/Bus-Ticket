@@ -19,9 +19,8 @@ export default function Dashboard() {
     }
     callApi()
   }, [])
-  // const UserList = JSON.parse(localStorage.getItem('userList') || '[]')
   const currentUser = UserList.find((user: any) => user._id === UserInfo.id) || {}
-  const ve = currentUser.tickets
+  const ve = currentUser.ticket || []
 
   const [countBooked, setCountBooked] = useState(0)
   const [countRejected, setCountRejected] = useState(0)
