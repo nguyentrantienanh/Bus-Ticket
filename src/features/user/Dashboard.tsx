@@ -31,17 +31,9 @@ export default function Dashboard() {
   const tickets: any[] = useMemo(() => (currentUser?.tickets ? currentUser.tickets : EMPTY), [currentUser, EMPTY])
 
   // Tính số lượng theo trạng thái (không setState, không useEffect)
-  const { countBooked, countRejected, countPending } = useMemo(() => {
-    let booked = 0,
-      rejected = 0,
-      pending = 0
-    for (const it of tickets) {
-      if (it.status === 1) booked++
-      else if (it.status === 2) rejected++
-      else if (it.status === 3) pending++
-    }
-    return { countBooked: booked, countRejected: rejected, countPending: pending }
-  }, [tickets])
+  const countBooked = useMemo(() => tickets.filter((t) => t.status === 1).length, [tickets])
+  const countRejected = useMemo(() => tickets.filter((t) => t.status === 2).length, [tickets])
+  const countPending = useMemo(() => tickets.filter((t) => t.status === 3).length, [tickets])
 
   return (
     <div className='flex flex-col w-full h-full bg-gray-100'>

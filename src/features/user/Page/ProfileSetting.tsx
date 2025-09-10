@@ -33,7 +33,7 @@ export default function ProfileSetting() {
           console.error('Error fetching user by ID:', error)
         })
     }
-  }, [])
+  }, [ ]);
   console.log(userId?.zipcode)
 
   const UserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
